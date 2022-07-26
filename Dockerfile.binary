@@ -1,0 +1,4 @@
+FROM openjdk:8-jdk
+WORKDIR /ss
+COPY ./78_caloriecount ./
+COPY ./evosuite-ss.jar ./
