@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.LocalResourceRequest,120,34,202,2439,111111101011100000001,1111111111111111111111111111111111111111111111111111111111

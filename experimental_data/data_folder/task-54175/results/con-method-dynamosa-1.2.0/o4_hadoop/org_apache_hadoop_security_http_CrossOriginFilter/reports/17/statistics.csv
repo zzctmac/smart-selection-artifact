@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.security.http.CrossOriginFilter,120,13,42,852,111111111,1111110110000000000000001111111111111111111111111111111111111100000000

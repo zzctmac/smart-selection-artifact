@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.fs.sftp.SFTPConnectionPool,120,25,60,1062,1111111111111011110111110010001001111111111111111111011111111111111111111

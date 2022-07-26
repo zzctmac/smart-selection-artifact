@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.yarn.proto.CsiAdaptorProtocol,120,10,32,31,1110111111111001

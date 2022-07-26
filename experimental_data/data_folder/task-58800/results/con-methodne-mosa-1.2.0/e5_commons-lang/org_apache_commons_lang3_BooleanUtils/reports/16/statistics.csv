@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.commons.lang3.BooleanUtils,120,37,64,0,1111111111111111111111111111111111111111111

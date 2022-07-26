@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString
+org.apache.hadoop.thirdparty.com.google.common.util.concurrent.Uninterruptibles,120,19,166,2,111001110111000101000101010100000000010001010001000101010101010

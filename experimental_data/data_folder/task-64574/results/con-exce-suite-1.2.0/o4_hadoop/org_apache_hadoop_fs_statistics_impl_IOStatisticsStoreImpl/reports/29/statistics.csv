@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.fs.statistics.impl.IOStatisticsStoreImpl,120,37,147,221,1111111111111111111111111111111111111111111111111111111111111111111111111,111111111111111111

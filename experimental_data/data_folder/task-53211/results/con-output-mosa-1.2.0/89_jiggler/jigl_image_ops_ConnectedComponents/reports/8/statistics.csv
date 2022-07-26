@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+jigl.image.ops.ConnectedComponents,120,9,31,164,11111111111111111111111101001111111101000001110111011101011111110110111110,0110110110110110

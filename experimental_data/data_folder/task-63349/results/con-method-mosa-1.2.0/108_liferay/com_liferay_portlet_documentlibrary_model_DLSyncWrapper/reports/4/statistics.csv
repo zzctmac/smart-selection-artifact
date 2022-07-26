@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+com.liferay.portlet.documentlibrary.model.DLSyncWrapper,120,52,160,0,11111111111111111111111111111111111111111111111111111

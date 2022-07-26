@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+com.google.common.base.Splitter,120,14,29,2347,111111111111111110

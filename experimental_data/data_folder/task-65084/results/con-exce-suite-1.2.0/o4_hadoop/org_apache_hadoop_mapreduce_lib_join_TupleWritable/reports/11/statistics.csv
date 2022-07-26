@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.mapreduce.lib.join.TupleWritable,120,30,141,450,11111111111111110100011110001111111111111110000011111111111110111111,1111111111111111111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.ha.ActiveStandbyElector,120,6,27,6,1110000000000001000010110

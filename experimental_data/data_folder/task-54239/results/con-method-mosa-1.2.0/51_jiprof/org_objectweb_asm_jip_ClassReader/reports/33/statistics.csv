@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.objectweb.asm.jip.ClassReader,120,16,50,26,111111111111011011111

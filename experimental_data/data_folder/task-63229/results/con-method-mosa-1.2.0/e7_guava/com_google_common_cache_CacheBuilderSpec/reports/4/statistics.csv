@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+com.google.common.cache.CacheBuilderSpec,120,19,52,11,111111111111111111111111111111

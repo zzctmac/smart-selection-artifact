@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.mapreduce.lib.partition.InputSampler,120,9,11,81,11100110110110,111111111000000000000000000000000000000000000000000000000000000000000

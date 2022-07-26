@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.mapreduce.lib.input.LineRecordReader,120,5,9,645,11111100

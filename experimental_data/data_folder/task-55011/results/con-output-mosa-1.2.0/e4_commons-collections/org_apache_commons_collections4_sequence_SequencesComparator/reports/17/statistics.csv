@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.commons.collections4.sequence.SequencesComparator,120,6,54,1071,11111111111111111110111111111111111111111111111111111111111111111111111111011111111011111,0110110

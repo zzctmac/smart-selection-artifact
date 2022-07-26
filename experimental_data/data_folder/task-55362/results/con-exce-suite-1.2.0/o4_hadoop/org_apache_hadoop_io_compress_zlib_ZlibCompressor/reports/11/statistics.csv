@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.io.compress.zlib.ZlibCompressor,120,8,17,5716,0101000110111000000000000000000000000000000000000000000000000000000,1111111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.util.functional.RemoteIterators,120,13,69,737,111111111110000000000000000000000000000,011011111111111111011010110111111111111101001110011111111111011111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.hadoop.yarn.server.api.protocolrecords.impl.pb.RegisterNodeManagerResponsePBImpl,120,45,136,280,111111101101111111110101110111001011111011111111111111111111111111111111111,111111111111111111111111111111111111101111111111101

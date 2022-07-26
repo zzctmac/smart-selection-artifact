@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+com.google.common.util.concurrent.Monitor,120,19,62,2,1110110010101101001011111101111100000001

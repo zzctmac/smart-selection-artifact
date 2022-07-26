@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.thirdparty.com.google.common.io.ByteSource,120,18,70,883,111111111111111111111110000000000000000000000000

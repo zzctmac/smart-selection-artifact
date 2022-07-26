@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+org.apache.commons.math3.distribution.fitting.MultivariateNormalMixtureExpectationMaximization,120,13,68,3414,11000100,111101111111111111110101111111111111111111110011111111111111110000

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.thirdparty.protobuf.Struct,120,55,159,13,111111111111111111111111111111111111111111111111111111111111111111

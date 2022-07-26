@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
+corina.formats.TucsonSimple,120,7,34,2066,111111,1111111111110101110110101101110000100000000000000001101

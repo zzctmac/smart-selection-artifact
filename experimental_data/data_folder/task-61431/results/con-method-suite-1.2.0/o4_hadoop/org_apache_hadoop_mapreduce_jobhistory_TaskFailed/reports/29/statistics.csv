@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.mapreduce.jobhistory.TaskFailed,120,48,124,4,1111111111111111111111111111111111111111111111111111

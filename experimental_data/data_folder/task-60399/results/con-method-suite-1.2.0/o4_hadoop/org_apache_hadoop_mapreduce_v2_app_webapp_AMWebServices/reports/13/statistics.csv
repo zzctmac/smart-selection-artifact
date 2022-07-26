@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.mapreduce.v2.app.webapp.AMWebServices,120,18,63,37,11111110111011011111110

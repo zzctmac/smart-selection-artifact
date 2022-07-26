@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.service.AbstractService,120,35,408,6,11111111111111111111111111110101110101110111111111011001,11111

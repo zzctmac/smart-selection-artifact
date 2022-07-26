@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.mapreduce.jobhistory.EventReader,120,5,20,360,0110000000000000000000000000000000000000000000000000000000000000000000000111100

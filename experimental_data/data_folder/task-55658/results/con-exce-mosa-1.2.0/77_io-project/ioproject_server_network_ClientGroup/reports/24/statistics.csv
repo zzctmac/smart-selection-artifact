@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+ioproject.server.network.ClientGroup,120,15,84,47,001111111111111111111111111111111111111111111111111111111111111111,1111

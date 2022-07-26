@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+fr.unice.gfarce.dao.OracleIdentiteDao,120,5,14,3111,1100000010000010000000100000100000001000001011111111010000000000100000100000,00000000000010

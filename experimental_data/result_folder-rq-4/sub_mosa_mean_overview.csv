@@ -1,0 +1,3 @@
+approach,BC,WM,LC,TMC,NTMC,DBC,EC,OC
+smart selection,0.49,0.53,0.53,0.79,0.63,0.49,18.14,0.38
+smart selection without the subsumption strategy,0.49,0.53,0.54,0.78,0.63,0.49,18.36,0.39

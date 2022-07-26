@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.thirdparty.protobuf.AbstractMessage,120,9,30,54,0000000001111010110100000000000000000000000000010

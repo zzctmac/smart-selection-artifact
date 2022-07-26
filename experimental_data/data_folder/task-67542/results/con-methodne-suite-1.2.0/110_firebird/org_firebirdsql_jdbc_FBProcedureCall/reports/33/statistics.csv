@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.firebirdsql.jdbc.FBProcedureCall,120,13,29,17449,111111111111111110

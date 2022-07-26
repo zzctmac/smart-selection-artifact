@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.thirdparty.com.google.common.util.concurrent.Monitor,120,17,60,2,1110111001001001101011101100111100000001

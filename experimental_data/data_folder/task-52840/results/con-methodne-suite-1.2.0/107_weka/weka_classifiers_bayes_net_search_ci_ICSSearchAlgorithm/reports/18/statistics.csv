@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+weka.classifiers.bayes.net.search.ci.ICSSearchAlgorithm,120,17,63,4256,111101111111101111111

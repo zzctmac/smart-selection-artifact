@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+com.google.common.base.Utf8,120,25,78,2336,1011111111101111100000111111111111111111111111111111111111111000,111111

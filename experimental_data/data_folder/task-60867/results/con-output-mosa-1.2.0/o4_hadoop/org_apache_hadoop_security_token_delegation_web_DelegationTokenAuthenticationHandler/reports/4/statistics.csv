@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.hadoop.security.token.delegation.web.DelegationTokenAuthenticationHandler,120,13,44,461,11101111111111110010101010001010000000000000000000000000000000000000001001,00000000110010101001

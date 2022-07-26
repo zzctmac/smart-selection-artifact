@@ -1,10 +1,6 @@
 BSD 3-Clause License
 
-Copyright (c) 2022, ShanghaiTech University
-          
-          Zhichao Zhou <zhouzhch@shanghaitech.edu.cn>
-          Yutian Tang <csytang@ieee.org>
-All rights reserved.
+Copyright (c) 2022 ShanghaiTech University, All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

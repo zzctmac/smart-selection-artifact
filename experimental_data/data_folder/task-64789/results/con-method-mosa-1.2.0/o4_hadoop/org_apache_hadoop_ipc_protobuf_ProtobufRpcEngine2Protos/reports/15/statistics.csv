@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.ipc.protobuf.ProtobufRpcEngine2Protos,120,31,58,36,11101111110011011011111111111111111110

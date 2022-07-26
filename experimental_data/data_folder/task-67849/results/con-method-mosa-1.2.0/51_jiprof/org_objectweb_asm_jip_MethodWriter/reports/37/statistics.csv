@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.objectweb.asm.jip.MethodWriter,120,13,50,10,111001110100110011001000010000001

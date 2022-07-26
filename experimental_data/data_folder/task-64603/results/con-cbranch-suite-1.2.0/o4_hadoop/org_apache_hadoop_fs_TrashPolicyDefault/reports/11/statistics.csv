@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.fs.TrashPolicyDefault,120,16,52,1024,101111111111110111101100101000000010011111100000000000000000000

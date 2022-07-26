@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.mapreduce.v2.hs.CachedHistoryStorage,120,11,34,1,111111111111

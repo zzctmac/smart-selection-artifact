@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.yarn.server.resourcemanager.scheduler.distributed.NodeQueueLoadMonitor,120,20,64,11,11011111011111100100110010,11101011101101111100111100000000110000000000000000000011101111100010000000000001000000000000000000

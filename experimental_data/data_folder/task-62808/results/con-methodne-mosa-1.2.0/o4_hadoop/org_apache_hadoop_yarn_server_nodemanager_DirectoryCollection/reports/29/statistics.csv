@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection,120,2,5,716,000000010000000000000000000000001

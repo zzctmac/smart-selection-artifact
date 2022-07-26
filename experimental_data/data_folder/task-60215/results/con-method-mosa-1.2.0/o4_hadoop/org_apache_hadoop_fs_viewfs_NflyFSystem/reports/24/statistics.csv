@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.fs.viewfs.NflyFSystem,120,1,2,1973,00100000000000000000000000000000000000

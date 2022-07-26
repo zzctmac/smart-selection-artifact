@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.yarn.server.webproxy.ProxyCA,120,1,1,580,0000000000000000000001000000000000000000000000000000000000000,

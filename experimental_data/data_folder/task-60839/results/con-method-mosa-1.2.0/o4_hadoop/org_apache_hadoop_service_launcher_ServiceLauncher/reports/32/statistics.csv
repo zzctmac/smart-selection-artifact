@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.service.launcher.ServiceLauncher,120,37,107,3,110111111111111111111111111111111111111111

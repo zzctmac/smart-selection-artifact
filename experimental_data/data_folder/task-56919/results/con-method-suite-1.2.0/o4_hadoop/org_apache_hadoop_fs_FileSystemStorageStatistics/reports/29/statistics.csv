@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.fs.FileSystemStorageStatistics,120,5,15,18640,111111000

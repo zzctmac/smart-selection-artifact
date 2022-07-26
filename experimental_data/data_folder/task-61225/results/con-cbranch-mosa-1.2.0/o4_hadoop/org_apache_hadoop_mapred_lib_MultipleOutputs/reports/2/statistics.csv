@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.mapred.lib.MultipleOutputs,120,19,79,552,1001111001100101111111111111111111111111111111111111011111000011110111011001

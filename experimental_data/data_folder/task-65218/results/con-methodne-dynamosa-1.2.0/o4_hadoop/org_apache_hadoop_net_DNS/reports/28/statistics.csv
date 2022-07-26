@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.net.DNS,120,14,14,3180,11111001110,11110011110011100000110101000001000000000000001111111111010100

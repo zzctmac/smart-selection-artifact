@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+com.google.common.base.Predicates,120,18,49,2106,1111111111111111111000000000000000000000001000000

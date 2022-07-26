@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+ipac.WhoIS,120,11,59,924,1001111111111011010011000001110101001101110111111111111,11111

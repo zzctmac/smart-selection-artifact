@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.fs.shell.Delete,120,9,24,1434,111111111111100010000000000000000000000000000000100000000000

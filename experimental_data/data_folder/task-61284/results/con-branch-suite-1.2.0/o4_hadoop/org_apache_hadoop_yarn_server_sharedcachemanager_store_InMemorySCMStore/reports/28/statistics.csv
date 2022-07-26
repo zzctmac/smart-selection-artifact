@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString
+org.apache.hadoop.yarn.server.sharedcachemanager.store.InMemorySCMStore,120,16,49,28,1111111100000000000000000001101111000110111011011101110111000000001010000

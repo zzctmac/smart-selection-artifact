@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.yarn.server.resourcemanager.NodesListManager,120,18,60,401,11011111110011101111111111000000000

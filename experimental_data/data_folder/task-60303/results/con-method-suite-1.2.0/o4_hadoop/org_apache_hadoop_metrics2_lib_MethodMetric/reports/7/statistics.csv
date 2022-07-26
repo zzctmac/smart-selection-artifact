@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.metrics2.lib.MethodMetric,120,7,12,5337,11111110000

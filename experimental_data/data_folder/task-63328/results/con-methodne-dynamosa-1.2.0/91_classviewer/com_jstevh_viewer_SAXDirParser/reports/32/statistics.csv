@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+com.jstevh.viewer.SAXDirParser,120,22,71,2242,111111111101,111111111111111111111111111111111111111011111101111111101101

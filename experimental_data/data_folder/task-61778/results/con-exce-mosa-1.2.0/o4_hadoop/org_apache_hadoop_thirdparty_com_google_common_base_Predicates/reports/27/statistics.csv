@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.thirdparty.com.google.common.base.Predicates,120,37,91,258,001000000011111111111111111110001001001010010000010111011111111110011110011110000000000000000110000000000000011,11111101111111

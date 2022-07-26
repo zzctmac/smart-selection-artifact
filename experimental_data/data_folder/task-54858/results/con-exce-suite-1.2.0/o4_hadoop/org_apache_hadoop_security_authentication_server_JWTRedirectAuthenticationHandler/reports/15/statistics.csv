@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.security.authentication.server.JWTRedirectAuthenticationHandler,120,9,25,738,11000000000000000000000000000001101010000010000001000000001000,01111111

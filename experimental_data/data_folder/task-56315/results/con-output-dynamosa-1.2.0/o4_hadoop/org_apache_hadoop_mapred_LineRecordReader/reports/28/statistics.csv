@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.hadoop.mapred.LineRecordReader,120,13,49,201,1111111100000000000000101010001110000000111011111111011010,0010001011100111

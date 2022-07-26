@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.yarn.server.resourcemanager.RMAuditLogger,120,36,88,1322,11111111111111111110111111010101110010101010110101001111111101111111010010101011001011011

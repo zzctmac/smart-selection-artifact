@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.commons.math3.analysis.interpolation.TricubicSplineInterpolatingFunction,120,33,188,879,11111111111111111111111111111111111111111111111111111111111010111111111111111111,111

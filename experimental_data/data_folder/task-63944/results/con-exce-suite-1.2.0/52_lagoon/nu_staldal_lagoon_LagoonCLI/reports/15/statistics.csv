@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+nu.staldal.lagoon.LagoonCLI,120,11,32,5688,11111111111111111110100000000000000000000000000000000000000000000,111

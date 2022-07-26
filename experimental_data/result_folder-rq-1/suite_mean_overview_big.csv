@@ -1,0 +1,4 @@
+approach,BC,WM,LC,TMC,NTMC,DBC,EC,OC
+smart selection,0.45,0.48,0.5,0.79,0.66,0.45,25.7,0.39
+original combination,0.41,0.44,0.47,0.77,0.63,0.41,22.13,0.36
+constituent criterion,0.51,0.47,0.5,0.82,0.68,0.5,29.71,0.41

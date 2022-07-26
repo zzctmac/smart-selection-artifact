@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.fs.shell.FsUsage,120,13,30,1417,1111111111111111000000

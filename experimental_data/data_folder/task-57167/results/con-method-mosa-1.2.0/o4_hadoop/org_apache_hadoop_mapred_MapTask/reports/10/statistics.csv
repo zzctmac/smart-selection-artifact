@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.mapred.MapTask,120,7,15,11,110000000000010011010110000000000000000000000000

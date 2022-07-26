@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.yarn.server.resourcemanager.scheduler.placement.LocalityAppPlacementAllocator,120,29,114,626,01111101111100001000000000111000100010111111111100001111000000001000000000000000001111000000111111111010,111111111111

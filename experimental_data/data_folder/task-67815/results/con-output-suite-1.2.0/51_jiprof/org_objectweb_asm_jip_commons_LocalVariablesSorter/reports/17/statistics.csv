@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.objectweb.asm.jip.commons.LocalVariablesSorter,120,4,31,2839,011011110010101010101010110101111011011101110101111010110010101010111010101111011110101,010000

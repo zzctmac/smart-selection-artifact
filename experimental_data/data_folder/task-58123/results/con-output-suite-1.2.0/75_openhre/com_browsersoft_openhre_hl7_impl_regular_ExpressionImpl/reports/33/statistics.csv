@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+com.browsersoft.openhre.hl7.impl.regular.ExpressionImpl,120,30,101,6706,11111111111111111111111111111111111111111111111111,1111111111011110110

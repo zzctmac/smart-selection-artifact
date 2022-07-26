@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.mapred.JobQueueClient,120,30,565,397,111101111111111111100000000001101111100110100000000000000000011,111111111111111

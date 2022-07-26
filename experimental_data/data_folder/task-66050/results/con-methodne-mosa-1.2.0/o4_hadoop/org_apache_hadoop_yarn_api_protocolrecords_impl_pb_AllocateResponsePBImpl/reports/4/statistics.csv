@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.yarn.api.protocolrecords.impl.pb.AllocateResponsePBImpl,120,32,81,1,11111111111111111111111111111111011111

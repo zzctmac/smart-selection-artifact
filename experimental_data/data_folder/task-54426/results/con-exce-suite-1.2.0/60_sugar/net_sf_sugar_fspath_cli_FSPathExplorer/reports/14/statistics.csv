@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+net.sf.sugar.fspath.cli.FSPathExplorer,120,9,67,105,111111111111111111111111111110101100000000000000010,1111111

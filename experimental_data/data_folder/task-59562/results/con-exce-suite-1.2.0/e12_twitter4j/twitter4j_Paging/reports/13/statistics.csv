@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+twitter4j.Paging,120,34,80,104,111111111111111111111111111111111111111111111111111111,1111111111111111111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.yarn.proto.ApplicationClientProtocol,120,21,78,25,11101010010010100000110011101100111011110010100

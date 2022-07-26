@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+net.sf.javaml.core.DenseInstance,120,28,86,1715,11111111111111110111111,1111111111111111111111111111111111111111111111111

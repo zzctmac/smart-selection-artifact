@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.yarn.server.resourcemanager.resource.ResourceProfilesManagerImpl,120,6,13,1245,11110111010000000000000000000000000000000000000000100000

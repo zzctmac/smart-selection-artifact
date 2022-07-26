@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.io.EnumSetWritable,120,33,167,221,1111111110011111111111111011011001111101111111111111111,111111111111111

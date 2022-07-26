@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.crypto.CryptoInputStream,120,29,183,387,111111111111111111111111111111

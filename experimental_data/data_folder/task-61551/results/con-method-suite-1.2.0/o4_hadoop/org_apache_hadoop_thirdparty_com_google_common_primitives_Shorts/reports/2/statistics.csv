@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.thirdparty.com.google.common.primitives.Shorts,120,23,39,7258,11111111111111111111111110000000000000000

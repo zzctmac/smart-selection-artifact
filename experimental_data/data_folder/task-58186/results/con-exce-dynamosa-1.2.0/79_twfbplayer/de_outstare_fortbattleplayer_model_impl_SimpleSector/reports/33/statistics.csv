@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+de.outstare.fortbattleplayer.model.impl.SimpleSector,120,36,138,2481,11111111111111110110111111111111101110101110101111111000111111111111111111,111111

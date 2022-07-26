@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.yarn.server.metrics.AMRMClientRelayerMetrics,120,20,57,0,1111111111111111001110111

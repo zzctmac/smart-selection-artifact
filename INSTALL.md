@@ -3,6 +3,8 @@
 ## 0. Prerequisite
 To use the following artifact, you need to prepare a Unix-like (e.g., Ubuntu and Mac OS) computer with [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). A fast way to install these two applications is to install [docker-desktop](https://www.docker.com/products/docker-desktop/), since `docker-desktop` contains both of them.
 
+Note that our Python script to analyze the experimental results require lots of memory. If it is feasible, please increase the memory limit to at least 8 GB (more is better) in the Resources Tab of `docker-desktop` Preferences.
+
 ## 1. Artifact for Methodology
 
 ### Install and Go into the running environment
@@ -58,3 +60,29 @@ After experiencing, you can enter `exit` to logout from this docker image.
 
 ## 2. Artifact for Evaluation Results
 
+### Install the running environment
+
+First, use the following cmd to build the running environment for the experimental result analysis:
+```shell
+docker build  -f Dockerfile.analysis -t smart_selection_analysis ./
+```
+
+### Introduction
+
+The folder [experimental_data](./experimental_data) contains two types of data:
+1. [data_folder](./experimental_data/data_folder) : The original data of our experimental results.
+2. result folders (e.g., [result-folder-rq-1](./experimental_data/result_folder-rq-1)) : The data used in tables and figures in the paper. We have already run our script to analyze and transform the original data to the result data. You can go to [Run Script](#Run Script) to do the analysis again or directly go to [Result Details](#Result Details) to get more details.
+
+### Run Script
+
+To run script to do the analysis work, you only need to use the following command:
+```shell
+docker-compose up -d
+```
+This command deletes the existing result folders' content and runs four Docker services (with respect to four research questions), which is configured in [docker-compose.yml](./docker-compose.yml). Since the original data is huge, this process needs much time (nearly three hours and a half for a MacBook Pro with Core i7  Quad-core and 16 GB memory). Hence, the above command uses `-d` to let it run in the background.
+
+You can use `docker-compose logs` to view these services' logs and use `docker-compose ps` to check their states (`Up` means working and `Exit` means done).
+
+After it is done, the content of result folders will be shown again.
+
+### Result Details

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.ipc.Client,120,36,146,168,110000111111111111011111111111111000001001100110111110111010

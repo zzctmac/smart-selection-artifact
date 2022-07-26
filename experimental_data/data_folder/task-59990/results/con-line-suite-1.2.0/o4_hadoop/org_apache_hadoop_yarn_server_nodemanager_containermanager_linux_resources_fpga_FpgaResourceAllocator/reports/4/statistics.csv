@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,LineCoverageBitString
+org.apache.hadoop.yarn.server.nodemanager.containermanager.linux.resources.fpga.FpgaResourceAllocator,120,13,39,83,11111111111111111110000000000000000000000000000011000011111111111111111000000000000000000111111111111111111111111111

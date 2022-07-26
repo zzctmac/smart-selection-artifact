@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.quickserver.net.client.monitoring.HostMonitoringService,120,9,69,2175,11111111111111111111001111111111111111110110111111011001101111110011011011,

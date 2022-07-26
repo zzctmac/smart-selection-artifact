@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.net.unix.DomainSocket,120,3,3,4834,000010010100000000000000000000000

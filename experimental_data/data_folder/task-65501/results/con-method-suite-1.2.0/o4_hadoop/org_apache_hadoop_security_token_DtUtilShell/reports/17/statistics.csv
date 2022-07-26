@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.security.token.DtUtilShell,120,3,6,5195,111100000000000000000000

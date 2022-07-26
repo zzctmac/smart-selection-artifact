@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.hadoop.mapreduce.counters.FrameworkCounterGroup,120,8,24,48,11011111000000000100001010000000000000000000000000000000000,00000000000000000000000000000

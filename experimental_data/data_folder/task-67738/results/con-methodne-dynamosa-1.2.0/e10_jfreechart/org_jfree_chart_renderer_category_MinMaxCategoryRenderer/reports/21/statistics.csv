@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+org.jfree.chart.renderer.category.MinMaxCategoryRenderer,120,22,118,389,111111111111111,111110110111111101001011111111111111011111100011111111111110011001

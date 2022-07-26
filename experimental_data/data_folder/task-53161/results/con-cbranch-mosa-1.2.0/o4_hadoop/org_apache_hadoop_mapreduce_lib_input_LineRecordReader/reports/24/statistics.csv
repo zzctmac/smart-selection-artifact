@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.mapreduce.lib.input.LineRecordReader,120,6,11,1365,1111000000000101000000000000101000010100000010010010

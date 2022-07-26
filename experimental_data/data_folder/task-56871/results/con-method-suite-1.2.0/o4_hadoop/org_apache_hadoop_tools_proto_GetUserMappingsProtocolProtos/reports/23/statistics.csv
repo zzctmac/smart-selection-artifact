@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.tools.proto.GetUserMappingsProtocolProtos,120,49,110,6,11101111001100011011111111111110001111000001011111111111111111101100111111

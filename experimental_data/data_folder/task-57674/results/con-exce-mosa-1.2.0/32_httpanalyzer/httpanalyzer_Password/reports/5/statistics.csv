@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+httpanalyzer.Password,120,6,6,128,11111111111111101111111111111111101111111001000000001111,1111

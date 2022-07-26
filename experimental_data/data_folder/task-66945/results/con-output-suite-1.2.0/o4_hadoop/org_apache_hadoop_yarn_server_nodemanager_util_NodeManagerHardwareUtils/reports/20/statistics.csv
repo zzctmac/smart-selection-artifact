@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.hadoop.yarn.server.nodemanager.util.NodeManagerHardwareUtils,120,14,36,1095,11111011011010010000000000000100100100000000000110101100101011001,01001000010000010001010011111

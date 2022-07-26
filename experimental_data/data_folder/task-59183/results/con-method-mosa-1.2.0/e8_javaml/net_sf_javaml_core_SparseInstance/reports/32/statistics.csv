@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+net.sf.javaml.core.SparseInstance,120,25,73,0,111111111111111111111111111111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.quickserver.util.xmlreader.QuickServerConfig,120,1,1,770,10000000000000000

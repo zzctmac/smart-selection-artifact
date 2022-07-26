@@ -17,12 +17,6 @@ import shutil
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)  # Log等级总开关
 # 第二步，创建一个handler，用于写入日志文件
-rq = time.strftime('%Y%m%d%H', time.localtime(time.time()))
-if not os.path.isdir(os.getcwd() + "/Logs"):
-    os.mkdir(os.getcwd() + "/Logs")
-log_path = os.getcwd() + '/Logs/'
-log_name = log_path + rq + '.log'
-logfile = log_name
 fh = logging.StreamHandler(sys.stdout)
 fh.setLevel(logging.DEBUG)  # 输出到file的log等级的开关
 # 第三步，定义handler的输出格式

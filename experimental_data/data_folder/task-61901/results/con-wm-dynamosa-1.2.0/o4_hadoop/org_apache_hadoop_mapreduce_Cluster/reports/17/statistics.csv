@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,WeakMutationCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.mapreduce.Cluster,120,1,2,195,00000000000000000000000,0000000000000001100000000000000000000000000000000000000

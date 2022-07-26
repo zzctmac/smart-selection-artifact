@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.ha.SshFenceByTcpPort,120,7,14,55,110110110100000000001111110000101101001010000000000000

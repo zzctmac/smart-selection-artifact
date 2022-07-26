@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.mapreduce.v2.api.records.impl.pb.TaskReportPBImpl,120,32,75,169,11111111111111111111111111111111111

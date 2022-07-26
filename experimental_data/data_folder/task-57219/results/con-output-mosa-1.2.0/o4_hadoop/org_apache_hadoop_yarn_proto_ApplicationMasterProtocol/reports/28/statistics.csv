@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.hadoop.yarn.proto.ApplicationMasterProtocol,120,20,77,243,1111111011111000111100000000000000000000000000000000000111111111111111111111111111111,10

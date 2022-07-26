@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.yarn.proto.DistributedSchedulingAMProtocol,120,22,86,244,111111111111111,1011111110011110001000111000000000000000000000000000000111111111111111111111111111111

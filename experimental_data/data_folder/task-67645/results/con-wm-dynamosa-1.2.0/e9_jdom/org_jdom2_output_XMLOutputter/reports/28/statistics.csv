@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,WeakMutationCoverageBitString,BranchCoverageBitString
+org.jdom2.output.XMLOutputter,120,30,75,2886,11111111111111111,11111111111111111111111111111111111111111111111111011101011111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.apache.hadoop.ipc.ProtobufRpcEngine2,120,22,77,461,111111111111110100001010001110011000000000000000000000000000000000000000000000111111,111111111

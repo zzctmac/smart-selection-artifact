@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+com.google.common.base.Joiner,120,25,121,1790,11111111111111111110101110011,1111111111111111111111111111111111111111111111111111111111111

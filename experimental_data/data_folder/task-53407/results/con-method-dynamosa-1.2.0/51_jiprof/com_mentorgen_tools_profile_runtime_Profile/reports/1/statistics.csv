@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
+com.mentorgen.tools.profile.runtime.Profile,120,28,71,769,110111110111111111111,1011111111111111111111111110111111110111111111111111011010111011111111111111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+org.jfree.data.time.TimePeriodValues,120,38,147,1558,1111111111111111111111111111111111111111111111111111111111111111011111111,111111111111111111

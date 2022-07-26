@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.jdom2.transform.JDOMResult,120,18,100,4051,10001111100110011111111111111111111111111111111111,11111110110

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.io.compress.bzip2.Bzip2Compressor,120,0,0,4162,00000000000000000

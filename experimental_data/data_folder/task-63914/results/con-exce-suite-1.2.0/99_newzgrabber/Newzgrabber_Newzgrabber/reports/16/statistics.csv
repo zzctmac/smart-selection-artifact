@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
+Newzgrabber.Newzgrabber,120,8,25,3355,001000000000000000000000000000000000001000000011111111100000000011111111111011,111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
+org.apache.hadoop.yarn.server.resourcemanager.amlauncher.AMLauncher,120,1,4,656,0000000,001000000000000000000000000000000000000000000000000000000000000000000000

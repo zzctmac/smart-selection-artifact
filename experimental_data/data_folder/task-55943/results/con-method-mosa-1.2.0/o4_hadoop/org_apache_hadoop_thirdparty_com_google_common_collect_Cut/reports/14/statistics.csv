@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.thirdparty.com.google.common.collect.Cut,120,5,11,1467,111111110000000000000000000000000000000000000000000000

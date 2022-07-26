@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString
+org.apache.hadoop.security.token.delegation.AbstractDelegationTokenSecretManager,120,16,65,59,1110111010001101001011011101010111111110111011101100000001101101101100000000000000000000000000000000001011000000

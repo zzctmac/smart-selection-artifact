@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.hadoop.security.LdapGroupsMapping,120,18,45,4795,1110111110011110011111111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,LineCoverageBitString
+org.apache.hadoop.yarn.api.protocolrecords.impl.pb.GetContainerStatusesResponsePBImpl,120,12,43,453,11111111111111111111110111111111111011111110111111111111111111111111111111111100111111111111111111111111111

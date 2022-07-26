@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
+org.apache.hadoop.fs.ContentSummary,120,43,97,990,111111111111111111111111111111111111111111010000000000000000001111111111

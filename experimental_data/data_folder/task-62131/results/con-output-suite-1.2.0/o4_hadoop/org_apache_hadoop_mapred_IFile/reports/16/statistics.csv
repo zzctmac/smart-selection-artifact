@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.apache.hadoop.mapred.IFile,120,17,78,234,01100111111101000011000000001101000011100101011101100000000000000011110000,

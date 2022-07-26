@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.apache.commons.collections4.list.TreeList,120,24,63,1371,111111111111111000000000011111111111

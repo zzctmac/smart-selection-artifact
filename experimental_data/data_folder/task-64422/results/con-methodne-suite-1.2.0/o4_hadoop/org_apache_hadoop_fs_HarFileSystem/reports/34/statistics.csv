@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
+org.apache.hadoop.fs.HarFileSystem,120,19,64,2337,11000110000000000111100110101000100111101000000001000010000000000001

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
+org.jfree.chart.renderer.category.StatisticalBarRenderer,120,8,39,765,1011111111

@@ -1,0 +1,2 @@
+TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
+org.jcvi.jillion.assembly.consed.phd.DefaultPhdReadTag,120,35,126,2251,1111111111111111111111111111111111111111111111111111111111111,1111111111111111001
