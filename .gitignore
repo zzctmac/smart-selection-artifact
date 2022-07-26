@@ -3,3 +3,4 @@
 /scripts/build
 /scripts/dist
 /scripts/UNKNOWN.egg-info
+*/.DS_Store
