@@ -643,7 +643,7 @@ def get_constituent_mean(dgc, algorithm, class_list=None):
     for ck in criterion_map.keys():
         total_sum_dict[ck] = 0
     for class_name, data in dgc.items():
-        real_class_name = data["constituent-%s"%algorithm]['data'][class_name]['TARGET_CLASS'][0]
+        real_class_name = data["constituent-%s" % algorithm]['data'][class_name]['TARGET_CLASS'][0]
         if class_list is not None and real_class_name not in class_list:
             continue
         cd = data["constituent-%s" % algorithm]['data'][class_name]
@@ -833,7 +833,6 @@ def ana_rq123(data_group_by_class, result_folder, ags=None):
     for ag in ags:
         suite_os, suite_sc, suite_oc, suite_mean_overview = analysis_data_4_alg(data_group_by_class, ag)
         write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, ag, result_folder)
-    ana_select(data_group_by_class, result_folder)
 
 
 def ana_select(data_group_by_class, result_folder):
