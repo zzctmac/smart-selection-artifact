@@ -1,7 +1,7 @@
 # Artifact of Selectively Combining Multiple Coverage Goals in Search-Based Unit Test Generation
 
 ## 0. Prerequisite
-To use the following artifact, you need to prepare a Unix-like computer with [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). A fast way to install these two applications is to install [docker-desktop](https://www.docker.com/products/docker-desktop/), since `docker-desktop` contains both of them.
+To use the following artifact, you need to prepare a Unix-like (e.g., Ubuntu and Mac OS) computer with [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). A fast way to install these two applications is to install [docker-desktop](https://www.docker.com/products/docker-desktop/), since `docker-desktop` contains both of them.
 
 ## 1. Artifact for Methodology
 
