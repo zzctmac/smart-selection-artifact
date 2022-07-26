@@ -1,4 +1,7 @@
-# Selectively Combining Multiple Coverage Goals in Search-Based Unit Test Generation
+# Artifact of Selectively Combining Multiple Coverage Goals in Search-Based Unit Test Generation
+
+## 0. Prerequisite
+To use the following artifact, you need to prepare a Unix-like computer with [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). A fast way to install these two applications is to install [docker-desktop](https://www.docker.com/products/docker-desktop/), since `docker-desktop` contains both of them.
 
 ## 1. Artifact for Methodology
 
@@ -27,10 +30,11 @@ You can use the following command to experience smart selection with WS:
 ```shell
 java -jar ./evosuite-ss.jar -class com.lts.io.DirectoryScanner -Dsearch_budget=60 -Dsmart_combine=true -Dsmart_combine_remove_mutant_strategy=SUBSUMPTION -generateSuite -Dalgorithm=MONOTONIC_GA
 ```
-Similarly, you can use the following commands to experience smart selection with MOSA and DynaMOSA:
+Similarly, you can use the following commands to experience smart selection with MOSA and DynaMOSA one by one:
 ```shell
 java -jar ./evosuite-ss.jar -class com.lts.io.DirectoryScanner -Dsearch_budget=60 -Dsmart_combine=true -Dsmart_combine_remove_mutant_strategy=SUBSUMPTION -Dalgorithm=MOSA
-
+```
+```shell
 java -jar ./evosuite-ss.jar -class com.lts.io.DirectoryScanner -Dsearch_budget=60 -Dsmart_combine=true -Dsmart_combine_remove_mutant_strategy=SUBSUMPTION -Dalgorithm=DynaMOSA
 ```
 You can see the statistical data using `cat evosuite-report/statistics.csv` command.
@@ -51,3 +55,6 @@ java -jar ./evosuite-ss.jar -class com.lts.io.DirectoryScanner -Dsearch_budget=6
 
 ### End
 After experiencing, you can enter `exit` to logout from this docker image.
+
+## 2. Artifact for Evaluation Results
+
