@@ -1,0 +1,110 @@
+#!/usr/bin/env python
+import codecs
+import csv
+from os.path import join as pj
+
+import sc
+from sc.lib import *
+import os
+import argparse
+import logging
+import os.path
+import time
+import shutil
+
+# 第一步，创建一个logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)  # Log等级总开关
+# 第二步，创建一个handler，用于写入日志文件
+rq = time.strftime('%Y%m%d%H', time.localtime(time.time()))
+if not os.path.isdir(os.getcwd() + "/Logs"):
+    os.mkdir(os.getcwd() + "/Logs")
+log_path = os.getcwd() + '/Logs/'
+log_name = log_path + rq + '.log'
+logfile = log_name
+fh = logging.FileHandler(logfile, mode='a')
+fh.setLevel(logging.DEBUG)  # 输出到file的log等级的开关
+# 第三步，定义handler的输出格式
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+fh.setFormatter(formatter)
+# 第四步，将logger添加到handler里面
+logger.addHandler(fh)
+
+set_logger(logger)
+
+parser = argparse.ArgumentParser(description="smart selection analysis", prog="sa")
+parser.add_argument("-f", "--folder", help="data_folder", required=True)
+parser.add_argument("-r", "--result", help="result_folder")
+parser.add_argument("-s", "--suffix", help="suffix")
+parser.add_argument("-k", "--subkey")
+args = parser.parse_args()
+
+
+def get_artifact_path(filename):
+    packagedir = sc.__path__[0]
+    dirname = pj(os.path.dirname(packagedir), 'share', 'data')
+    fullname = os.path.join(dirname, filename)
+    return fullname
+
+
+def get_all_analysis_classes():
+    config_file = pkg_resources.resource_stream("sc", 'share/data/artifacts/analysis_classes.csv')
+    utf8_reader = codecs.getreader("utf-8")
+    c = csv.DictReader(utf8_reader(config_file))
+    l = []
+    for record in c:
+        l.append(record['classes'])
+    return l
+
+
+def choose_classes(acs, data_group_by_class):
+    acs = list(map(lambda x: x.replace(".", "_"), acs))
+    rm_keys = []
+    for dki in data_group_by_class:
+        if len(data_group_by_class[dki]) < 30:
+            rm_keys.append(dki)
+        if dki not in acs:
+            rm_keys.append(dki)
+    for rk in rm_keys:
+        if rk in data_group_by_class:
+            del data_group_by_class[rk]
+    return data_group_by_class
+
+
+def dir_check(f):
+    if not os.path.isdir(f):
+        logger.error("%s is not dir" % f)
+        exit(1)
+
+
+logger.info("begin analysis")
+
+f1 = args.folder
+dir_check(f1)
+
+suffix = args.suffix
+
+analysis_classes = get_all_analysis_classes()
+f1_data_group_by_class = choose_classes(analysis_classes, get_data_group(f1))
+f3_data_group_by_class = f1_data_group_by_class
+
+result_folder = args.result
+if result_folder is None or result_folder == "":
+    result_folder = "result_folder"
+
+if type(suffix) == str and suffix != "":
+    result_folder = result_folder + "-" + suffix
+
+result_folder = os.path.dirname(f1) + "/" + result_folder
+if os.path.exists(result_folder):
+    shutil.rmtree(result_folder)
+
+os.mkdir(result_folder)
+ana_rq123(f3_data_group_by_class, result_folder, ['suite'])
+logger.info("ana rq_1 success")
+ana_rq123(f3_data_group_by_class, result_folder, ['mosa'])
+logger.info("ana rq_2 success")
+ana_rq123(f3_data_group_by_class, result_folder, ['dynamosa'])
+logger.info("ana rq_3 success")
+ana_rq4(f3_data_group_by_class, f3_data_group_by_class, result_folder)
+logger.info("ana rq_4 success")

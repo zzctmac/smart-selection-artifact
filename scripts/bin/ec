@@ -1,0 +1,273 @@
+#!/usr/bin/env python
+
+import argparse
+import pandas as pd
+import requests
+import json
+import os
+
+parser = argparse.ArgumentParser(description="evosuite experiment creator", prog="ec")
+parser.add_argument("-n", "--name", help="experiment name", required=True)
+parser.add_argument("-p", "--project", required=True)
+parser.add_argument("-c", "--config", required=True)
+parser.add_argument("-s", "--split")
+parser.add_argument("-a", "--append", help="append to an existing experiment", required=False, action="store_true")
+args = parser.parse_args()
+support_criteria = ["BRANCH", "WEAKMUTATION", "LINE", "EXCEPTION", "OUTPUT", "METHOD", "METHODNOEXCEPTION", "CBRANCH"]
+default_variables = ["TARGET_CLASS", "search_budget", "Size", "Length", "Generations"]
+
+criterion_variable_map = {
+    "BRANCH": "BranchCoverageBitString",
+    "CBRANCH": "CBranchCoverageBitString",
+    "WEAKMUTATION": "WeakMutationCoverageBitString",
+    "LINE": "LineCoverageBitString",
+    "EXCEPTION": "ExceptionCoverageBitString",
+    "OUTPUT": "OutputCoverageBitString",
+    "METHOD": "MethodCoverageBitString",
+    "METHODNOEXCEPTION": "MethodNoExceptionCoverageBitString"
+}
+
+default_split_num = 200
+split_num = args.split
+if split_num is None or split_num == "" or not split_num.isnumeric():
+    split_num = default_split_num
+else:
+    split_num = int(split_num)
+if split_num <= 0:
+    split_num = default_split_num
+
+
+def parse_name(iargs):
+    oc = iargs.name
+    return oc
+
+
+def parse_append(iargs):
+    oc = iargs.append
+    return oc
+
+
+def parse_criterion(c, ac):
+    oc = c.split(":")
+    oc = list(map(lambda x: x.upper(), oc))
+    for o in oc:
+        if o not in support_criteria:
+            return False, o, None
+    if ac is None or str(ac) == "" or str(ac) is None or str(ac) == 'nan':
+        return True, oc, []
+    aoc = str(ac).split(":")
+    aoc = list(map(lambda x: x.upper(), aoc))
+    for o in aoc:
+        if o not in support_criteria:
+            return False, None, o
+    return True, oc, aoc
+
+
+def get_all_variables(current_criteria):
+    vas = default_variables.copy()
+    for c in current_criteria:
+        vas = add_one_criterion_variable(c, vas)
+    return vas
+
+
+def add_one_criterion_variable(c, vas):
+    sub_vs = criterion_variable_map[c].split(",")
+    for v in sub_vs:
+        vas.append(v)
+    return vas
+
+
+def read_csv(file, format_list, name):
+    data = pd.read_csv(file)
+    cs = data.columns.values
+    lcs = list(map(lambda x: x.lower(), cs))
+    change_map = {}
+    for i in range(len(format_list)):
+        if lcs[i] != format_list[i]:
+            return False, "%s format wrong" % name
+        change_map[cs[i]] = lcs[i]
+    data.rename(columns=change_map)
+    return True, data
+
+
+def read_projects(file):
+    return read_csv(file, ['project', 'class'], 'project')
+
+
+def read_config(file):
+    return read_csv(file, ['runner', 'algorithm', 'name', 'round', 'config'], 'config')
+
+
+def get_algorithm_config(algorithm):
+    if algorithm not in ['suite', 'mosa', 'dynamosa']:
+        return False, "algorithm %s not support" % algorithm
+    config = ""
+    if algorithm == 'suite':
+        config = "-generateSuite -Dalgorithm=MONOTONIC_GA"
+    elif algorithm == 'mosa':
+        config = "-Dalgorithm=MOSA"
+    else:
+        config = "-Dalgorithm=DYNAMOSA"
+    return True, config
+
+
+def add_criterion_by_algorithm(algorithm, origin_criteria, av):
+    if algorithm == 'suite':
+        return origin_criteria, av
+    if algorithm == 'mosa':
+        if len(origin_criteria) == 1 and origin_criteria[0] == 'EXCEPTION':
+            origin_criteria.append("BRANCH")
+            av = add_one_criterion_variable("BRANCH", av)
+    if algorithm == 'dynamosa' and 'BRANCH' not in origin_criteria:
+        origin_criteria.append("BRANCH")
+        av = add_one_criterion_variable("BRANCH", av)
+    return origin_criteria, av
+
+
+def get_tasks(po_data, co_data):
+    all_tasks = []
+    for pi, p in po_data.iterrows():
+        for ci, config in co_data.iterrows():
+            legal, selected_criteria, analysis_criteria = parse_criterion(config["criteria"],
+                                                                          config['analysis_criteria'])
+            if not legal:
+                print("%s or %s not in support criteria" % (selected_criteria, analysis_criteria))
+                exit(1)
+            variables = get_all_variables(selected_criteria)
+            av = variables
+            ac = selected_criteria
+            algorithm = config['algorithm'].lower()
+            runner = config['runner']
+            is_legal, algorithm_config = get_algorithm_config(algorithm)
+            if not is_legal:
+                return False, algorithm_config
+            ac, av = add_criterion_by_algorithm(algorithm, ac, av)
+
+            aav = get_all_variables(analysis_criteria)
+            for single_av in aav:
+                if single_av not in av:
+                    av.append(single_av)
+
+            name = config['name']
+            run_round = int(config['round'])
+            if run_round <= 0:
+                return False, "round exists illegal: %s" % (config['round'])
+            config_line = config['config']
+            name = "%s-%s-%s" % (name, algorithm, runner)
+            criterion_config = "-criterion " + (':'.join(ac))
+            variable_config = "-Doutput_variables=" + (','.join(av))
+            analysis_criteria_config = ""
+            if len(analysis_criteria) != 0:
+                analysis_criteria_config = "-Danalysis_criteria=" + (",".join(analysis_criteria))
+            all_config = ' '.join(
+                [config_line, algorithm_config, criterion_config, variable_config, analysis_criteria_config])
+            task = {
+                "runner": runner.strip(),
+                "subject_group": p['project'].strip(),
+                "subject_name": p['class'].strip(),
+                "name": name.strip(),
+                "config": all_config,
+                "round": int(run_round / 0.8),
+                "min_success_round": run_round
+            }
+            all_tasks.append(task)
+    return True, all_tasks
+
+
+server = os.getenv("SERVER")
+if server is None or server == "":
+    server = "http://localhost:8081"
+
+
+def call_create_experiment(experiment_name, all_tasks):
+    url = "%s/v1/experiment" % server
+    rest_tasks = []
+    if len(all_tasks) > split_num:
+        rest_tasks = all_tasks[split_num:]
+        all_tasks = all_tasks[0:split_num]
+    payload = json.dumps({
+        "type": 1,  # fixed: 1 means evosuite tasks
+        "tasks": all_tasks,
+        "name": experiment_name,
+    })
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    call_success = response.status_code == 200
+    if call_success and len(rest_tasks) > 0:
+        print("init success")
+        response_data = response.json()
+        exp_id = response_data['ID']
+        call_append_experiment(exp_id, rest_tasks)
+
+    return call_success, response.text
+
+
+def call_append_experiment(exp_id, rest_tasks):
+    url = "%s/v1/experiment/append/%d" % (server, exp_id)
+    while len(rest_tasks) > 0:
+        ct = rest_tasks[0:split_num]
+        rest_tasks = rest_tasks[split_num:]
+        payload = json.dumps({"tasks": ct})
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+        call_success = response.status_code == 200
+        resp_text = ""
+        if not call_success:
+            resp_text = response.text
+            print("below classes not success:")
+            for t in ct:
+                print("%s,%s,%s,%s" % (t['runner'], t['subject_group'], t['subject_name'], t['name']))
+        else:
+            print("part success")
+        if not call_success:
+            return call_success, resp_text
+    return True, ""
+
+
+exp_name = parse_name(args)
+project_file = args.project
+config_file = args.config
+# read csv
+success, project_data = read_projects(project_file)
+if not success:
+    print(project_data)
+    exit(1)
+# for index, row in project_data.iterrows():
+#     print(row['project'], row['class'])
+success, config_data = read_config(config_file)
+if not success:
+    print(config_data)
+    exit(1)
+# generate tasks
+success, tasks = get_tasks(project_data, config_data)
+if not success:
+    print(tasks)
+    exit(1)
+append_mode = parse_append(args)
+if append_mode:
+    oe = exp_name
+    exp_name = int(exp_name)
+    if exp_name <= 0:
+        print("invalid exp id %s" % oe)
+        exit(1)
+    tip = "Do you want append %d tasks to this exp %s(y/n)" % (len(tasks), oe)
+else:
+    tip = "Do you want create %s exp with  %d tasks(y/n)" % (exp_name, len(tasks))
+answer = input(tip)
+answer = answer.strip()
+if answer != 'y' and answer != 'Y':
+    print("cancelled")
+    exit(0)
+if append_mode:
+    success, msg = call_append_experiment(exp_name, tasks)
+else:
+    success, msg = call_create_experiment(exp_name, tasks)
+if not success:
+    print(msg)
+    exit(1)
+print("success!")

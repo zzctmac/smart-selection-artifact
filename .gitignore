@@ -1,1 +1,5 @@
 .idea
+/scripts/bin/tests/
+/scripts/build
+/scripts/dist
+/scripts/UNKNOWN.egg-info

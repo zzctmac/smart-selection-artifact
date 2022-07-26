@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+import argparse
+import pandas as pd
+import json
+import os
+from jinja2.nativetypes import NativeEnvironment
+
+
+parser = argparse.ArgumentParser(description="smart combine overview", prog="sc_overview")
+parser.add_argument("-i", "--input", help="input", required=True)
+args = parser.parse_args()
+input_name = args.input
+content = '''
+{% for item in data %}\\begin{tabular}{l| l| l  }
+\hline
+{% for d in item %}{{d[0]}} & {{d[1]}} & {{d[2]}} \\\\ \hline
+{% endfor %}
+\end{tabular}
+{% endfor %}
+'''
+
+env = NativeEnvironment()
+t = env.from_string(content)
+
+sm = pd.read_csv(input_name)
+a = sm.to_dict()
+ck = [["Branch", "Mutation", "Line", "Top Method"], ["TM. No Exc.", "D. Branch", "Exceptions", "Output"]]
+data = []
+am = {}
+aom = {"smart selection": "ss", "representative criteria": "rc"}
+for k, v in a["approach"].items():
+    am[aom[v]] = k
+
+for ks in ck:
+    item = [["approach", "ss", "rc"]]
+    for k in ks:
+        d = [k]
+        ad = []
+        for ap in ["ss", "rc"]:
+            ad.append(a[k][am[ap]])
+        max_indexes = []
+        current_max = -1
+        for adk, v in enumerate(ad):
+            if v > current_max:
+                max_indexes = [adk]
+                current_max = v
+            elif v == current_max:
+                max_indexes.append(adk)
+        if len(max_indexes) == len(ad):
+            max_indexes = []
+        for adk, v in enumerate(ad):
+            if k != "Exceptions":
+                v = str(int(round(v * 100))) + "\\%"
+            else:
+                v = str(v)
+            if adk in max_indexes:
+                v = "\\textcolor[RGB]{0,128,28}{%s}" % v
+            d.append(v)
+        item.append(d)
+    data.append(item)
+
+result = t.render(data=data)
+print(result)

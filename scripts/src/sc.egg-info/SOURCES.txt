@@ -1,0 +1,17 @@
+setup.py
+bin/ec
+bin/sc_overview
+bin/smart_selection_analysis
+bin/smart_size_show
+bin/sr_overview
+bin/ss_analysis
+src/sc/__init__.py
+src/sc/lib.py
+src/sc.egg-info/PKG-INFO
+src/sc.egg-info/SOURCES.txt
+src/sc.egg-info/dependency_links.txt
+src/sc.egg-info/top_level.txt
+src/sc/share/data/artifacts/analysis_classes.csv
+src/sc/share/data/artifacts/rca.csv
+src/sc/share/data/artifacts/source_classes.csv
+src/sc/share/data/artifacts/sub_info.csv
