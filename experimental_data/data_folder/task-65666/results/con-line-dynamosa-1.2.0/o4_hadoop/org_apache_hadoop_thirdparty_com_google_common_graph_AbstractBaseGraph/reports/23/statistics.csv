@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,LineCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.graph.AbstractBaseGraph,120,12,53,122,111100000000111111011111110111110000001010000000000000,111110110000000000000000000000010001100000011111010000010101000001111

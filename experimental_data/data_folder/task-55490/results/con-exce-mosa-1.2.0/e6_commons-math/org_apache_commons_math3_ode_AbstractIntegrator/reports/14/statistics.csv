@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.commons.math3.ode.AbstractIntegrator,120,22,119,75,111111110111111111111111111111111111111111111111111110111111011010111111111011101111,11111111

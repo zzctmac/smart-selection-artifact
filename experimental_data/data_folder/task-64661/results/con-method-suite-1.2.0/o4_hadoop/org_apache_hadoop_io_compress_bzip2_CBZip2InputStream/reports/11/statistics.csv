@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.io.compress.bzip2.CBZip2InputStream,120,8,40,3102,111111111110

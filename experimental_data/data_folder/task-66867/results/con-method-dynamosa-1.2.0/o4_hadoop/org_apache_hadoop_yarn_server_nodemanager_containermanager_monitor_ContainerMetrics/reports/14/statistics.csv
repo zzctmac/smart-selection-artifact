@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.server.nodemanager.containermanager.monitor.ContainerMetrics,120,22,95,2461,111111111111111111111,1110111111111110001011001110111010000011111110000011

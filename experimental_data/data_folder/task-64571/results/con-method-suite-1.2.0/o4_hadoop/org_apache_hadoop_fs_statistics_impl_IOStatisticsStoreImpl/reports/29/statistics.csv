@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.fs.statistics.impl.IOStatisticsStoreImpl,120,22,100,1,11111111111111111111111

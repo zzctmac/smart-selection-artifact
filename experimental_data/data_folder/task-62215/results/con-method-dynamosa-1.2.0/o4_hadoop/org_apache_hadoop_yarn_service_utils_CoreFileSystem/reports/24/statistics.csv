@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.service.utils.CoreFileSystem,120,38,192,920,1111111111111111111111111111111,111111111111111111111111111111111111100100111111111111

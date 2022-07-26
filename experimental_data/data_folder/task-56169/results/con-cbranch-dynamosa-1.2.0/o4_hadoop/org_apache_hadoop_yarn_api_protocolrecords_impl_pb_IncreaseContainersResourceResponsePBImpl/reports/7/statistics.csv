@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.api.protocolrecords.impl.pb.IncreaseContainersResourceResponsePBImpl,120,14,44,347,111111100110101101111111111111111111111010111111010110,111001101111101101111111111111111111111010111111101010

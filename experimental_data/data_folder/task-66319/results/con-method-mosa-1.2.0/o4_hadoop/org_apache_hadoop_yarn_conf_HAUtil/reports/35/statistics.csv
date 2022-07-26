@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.yarn.conf.HAUtil,120,18,29,2,111111111111111111

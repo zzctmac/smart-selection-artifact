@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.mapreduce.jobhistory.TaskStarted,120,30,72,3,1111111111111111111111111111111111

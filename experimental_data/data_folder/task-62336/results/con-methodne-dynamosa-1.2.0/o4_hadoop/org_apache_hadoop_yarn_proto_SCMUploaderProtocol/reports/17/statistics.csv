@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.proto.SCMUploaderProtocol,120,18,71,223,11100111111110,1011111110010000111111000000000000000000000000111111111111111111111111

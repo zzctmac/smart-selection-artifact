@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
-org.apache.hadoop.mapreduce.v2.app.launcher.ContainerLauncherImpl,120,6,35,1229,110101110000011

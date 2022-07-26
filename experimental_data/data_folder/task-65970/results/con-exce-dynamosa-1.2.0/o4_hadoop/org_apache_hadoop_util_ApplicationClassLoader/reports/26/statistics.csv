@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.util.ApplicationClassLoader,120,20,59,954,11111111111111000000111101111001100010011100001001100010001111111111111111011111,1111111111111

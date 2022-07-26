@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.http.HtmlQuoting,120,18,40,6639,1111010111111111111111111111111111111111111111111111111111111,1111111

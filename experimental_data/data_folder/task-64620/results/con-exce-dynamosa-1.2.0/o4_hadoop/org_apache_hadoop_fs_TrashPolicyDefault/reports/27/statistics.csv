@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.fs.TrashPolicyDefault,120,20,71,152,111101111110110111110000000000000101011111100000000000000000000,111111111111

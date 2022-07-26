@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.api.records.impl.pb.LocalResourcePBImpl,120,27,96,21,11111111111111111111,1111111111111111111111111111111111111111111111111111111111111111

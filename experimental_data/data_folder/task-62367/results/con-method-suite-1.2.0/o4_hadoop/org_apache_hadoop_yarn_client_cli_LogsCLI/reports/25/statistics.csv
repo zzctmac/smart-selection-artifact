@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.yarn.client.cli.LogsCLI,120,13,35,3692,111111111111111000

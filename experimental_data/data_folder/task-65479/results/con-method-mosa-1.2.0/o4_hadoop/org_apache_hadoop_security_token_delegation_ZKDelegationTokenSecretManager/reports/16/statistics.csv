@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.security.token.delegation.ZKDelegationTokenSecretManager,120,3,3,1142,000001000000100000001000

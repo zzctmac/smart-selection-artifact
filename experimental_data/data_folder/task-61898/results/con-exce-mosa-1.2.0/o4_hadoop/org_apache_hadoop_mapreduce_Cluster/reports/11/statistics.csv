@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.mapreduce.Cluster,120,2,4,150,0000000000000001100000000000000000000000000000000000000,11

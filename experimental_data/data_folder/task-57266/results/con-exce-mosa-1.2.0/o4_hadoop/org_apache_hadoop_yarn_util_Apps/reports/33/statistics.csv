@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.util.Apps,120,46,82,321,1111111111111111010111111111111111111111111111111111111111111111111111,1111111111111111111

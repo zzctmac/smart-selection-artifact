@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.util.concurrent.CycleDetectingLockFactory,120,20,79,2236,1111111001110111110111000010010000000000111110100000011110110010011111111100111101110111111110110,111111

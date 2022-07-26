@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.fs.shell.CommandFormat,120,20,68,401,111111111111111111111111111110101010000000000011111111111110,1111111111

@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.base.Verify,120,49,72,1,11111111111111111111111111,111111111111111111111111111111111111111111111111111

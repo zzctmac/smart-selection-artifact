@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.proto.ResourceTracker,120,21,84,134,111011111111000,1111111010010111001111000000000000000000000000000000000111111011111111101111111111111

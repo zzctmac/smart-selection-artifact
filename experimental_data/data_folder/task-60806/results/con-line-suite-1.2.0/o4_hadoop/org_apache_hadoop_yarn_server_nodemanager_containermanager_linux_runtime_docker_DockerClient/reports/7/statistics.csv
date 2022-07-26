@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,LineCoverageBitString
-org.apache.hadoop.yarn.server.nodemanager.containermanager.linux.runtime.docker.DockerClient,120,2,19,1724,111111110000000000000000000000000000000000000000

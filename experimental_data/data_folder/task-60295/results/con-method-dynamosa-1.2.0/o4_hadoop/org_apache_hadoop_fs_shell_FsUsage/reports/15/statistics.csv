@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.fs.shell.FsUsage,120,12,33,659,1111111011001111000000,111111011101111111100000001110101100001111000000000000001101

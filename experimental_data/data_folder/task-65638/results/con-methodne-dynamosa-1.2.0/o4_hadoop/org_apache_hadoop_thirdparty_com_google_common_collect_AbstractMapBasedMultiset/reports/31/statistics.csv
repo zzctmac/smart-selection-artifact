@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.collect.AbstractMapBasedMultiset,120,22,84,26,1111111111111000,11111111111011111101011111111100111111110000111111110111111111111111

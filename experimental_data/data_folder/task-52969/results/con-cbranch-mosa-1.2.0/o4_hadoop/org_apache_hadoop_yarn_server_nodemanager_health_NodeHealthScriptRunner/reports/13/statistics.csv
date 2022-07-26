@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
-org.apache.hadoop.yarn.server.nodemanager.health.NodeHealthScriptRunner,120,5,11,855,01000000000000000000000000000000000000000000000000000011111111

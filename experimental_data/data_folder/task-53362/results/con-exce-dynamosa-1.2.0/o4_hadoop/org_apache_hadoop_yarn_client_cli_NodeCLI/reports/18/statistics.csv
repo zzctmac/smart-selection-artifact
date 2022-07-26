@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.client.cli.NodeCLI,120,6,18,1163,110111111110000000000000000000000000000000000000000000000000011,1101111

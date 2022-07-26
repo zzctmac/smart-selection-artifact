@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.hash.BloomFilter,120,45,143,48,111110111111111000111111111011111011111110111110111111111111111111100,1111111111111111111111111

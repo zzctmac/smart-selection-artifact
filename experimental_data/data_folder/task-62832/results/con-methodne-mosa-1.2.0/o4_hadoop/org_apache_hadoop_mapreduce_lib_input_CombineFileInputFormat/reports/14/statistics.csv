@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
-org.apache.hadoop.mapreduce.lib.input.CombineFileInputFormat,120,9,32,254,111010011100010001

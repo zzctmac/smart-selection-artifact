@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString
-org.apache.hadoop.metrics2.sink.RollingFileSystemSink,120,4,14,1489,111100011

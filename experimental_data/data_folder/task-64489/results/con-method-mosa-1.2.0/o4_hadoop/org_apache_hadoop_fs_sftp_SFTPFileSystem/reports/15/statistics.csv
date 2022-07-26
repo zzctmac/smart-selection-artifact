@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.fs.sftp.SFTPFileSystem,120,15,46,4,1111111111111111

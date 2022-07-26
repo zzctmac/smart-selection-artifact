@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
-org.apache.hadoop.metrics2.source.JvmMetrics,120,7,49,1185,11111111111101111111111110110111001110111110101111001100101010101,0010

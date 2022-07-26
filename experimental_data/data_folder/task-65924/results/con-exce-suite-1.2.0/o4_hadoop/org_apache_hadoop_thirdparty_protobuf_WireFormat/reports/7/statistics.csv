@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.thirdparty.protobuf.WireFormat,120,30,105,1442,11100101010101010111111111111111111111111111111111111111101,1111111

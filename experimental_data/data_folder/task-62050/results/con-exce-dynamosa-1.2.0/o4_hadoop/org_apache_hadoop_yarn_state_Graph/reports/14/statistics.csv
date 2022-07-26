@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.state.Graph,120,28,101,289,111111111111111111111111111111111110110010111111111,111111111111111

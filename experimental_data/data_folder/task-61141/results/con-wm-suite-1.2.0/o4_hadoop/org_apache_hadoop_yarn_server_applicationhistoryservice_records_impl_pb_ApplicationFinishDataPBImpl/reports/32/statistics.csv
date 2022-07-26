@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,WeakMutationCoverageBitString
-org.apache.hadoop.yarn.server.applicationhistoryservice.records.impl.pb.ApplicationFinishDataPBImpl,120,10,24,70,1111111111111111111111111111111111111111

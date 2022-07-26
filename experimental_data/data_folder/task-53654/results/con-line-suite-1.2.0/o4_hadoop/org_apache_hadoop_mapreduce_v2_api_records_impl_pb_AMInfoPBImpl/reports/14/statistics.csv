@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,LineCoverageBitString
-org.apache.hadoop.mapreduce.v2.api.records.impl.pb.AMInfoPBImpl,120,15,53,45,11111111111110001111110011111001111111111111111111000111111111111111111111111111111111111

@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.util.concurrent.Striped,120,13,36,7,111111111111111110011101011000111111000100000011111101111101011010000010110110,10101111101010101010010

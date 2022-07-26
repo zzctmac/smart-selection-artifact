@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-com.puppycrawl.tools.checkstyle.api.FileContents,120,26,135,1720,1111111111111111111111111111100000110111000,1111110111111111

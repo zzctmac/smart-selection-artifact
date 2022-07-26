@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.proto.ClientSCMProtocol,120,17,80,184,1111111101000011111100000000000000000000000000111111111111111111111111,

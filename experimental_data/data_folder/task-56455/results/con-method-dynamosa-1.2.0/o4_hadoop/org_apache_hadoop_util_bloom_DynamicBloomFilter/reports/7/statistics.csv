@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.util.bloom.DynamicBloomFilter,120,26,78,271,11111110111,111111111111110111111111111111111111011111111111110111111111001111

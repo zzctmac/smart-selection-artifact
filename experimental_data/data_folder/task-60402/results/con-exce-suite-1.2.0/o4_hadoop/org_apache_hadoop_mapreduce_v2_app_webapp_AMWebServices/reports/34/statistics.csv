@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.mapreduce.v2.app.webapp.AMWebServices,120,24,104,584,11111111111100000000000000000000000000000000000000000000000000000000,00111111111111111111111111

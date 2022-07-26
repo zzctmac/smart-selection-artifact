@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.security.http.CrossOriginFilter,120,14,67,841,1111110110000000000000001111111111111111111111111111111111111100000000,11111

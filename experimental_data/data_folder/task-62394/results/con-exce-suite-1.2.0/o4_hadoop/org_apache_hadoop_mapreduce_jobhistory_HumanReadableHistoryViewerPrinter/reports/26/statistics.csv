@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.mapreduce.jobhistory.HumanReadableHistoryViewerPrinter,120,11,98,1234,1110000000100111111100011100000000010001011111110101111100000000000100000,111111

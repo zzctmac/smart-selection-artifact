@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.security.SaslRpcServer,120,19,49,702,1011100110111111,111111010011111111111100001101110010000001111011111011001000000000111010000000

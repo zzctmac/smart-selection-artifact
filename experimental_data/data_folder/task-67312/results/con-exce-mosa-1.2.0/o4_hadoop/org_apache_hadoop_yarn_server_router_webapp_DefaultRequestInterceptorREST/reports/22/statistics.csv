@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.server.router.webapp.DefaultRequestInterceptorREST,120,56,244,15,11111111111111111111111111111111111111111111111111111111111111,011

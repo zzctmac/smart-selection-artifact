@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.commons.math3.optim.univariate.BrentOptimizer,120,4,5,1863,110,111111010000000000000000000000000000000000000000000000000000000000000000000

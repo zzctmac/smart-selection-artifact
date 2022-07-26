@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString
-org.apache.hadoop.mapred.LocalDistributedCacheManager,120,5,17,1088,11111100010000000000000000000000000000000000001000011101110000000

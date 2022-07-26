@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString
-org.apache.hadoop.registry.server.services.RegistryAdminService,120,10,30,200,111111111111100110101000001000000000000000000000000000000010

@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.fs.GlobExpander,120,6,6,6782,111,1111111111111110001111110111110111111000111111111101111111

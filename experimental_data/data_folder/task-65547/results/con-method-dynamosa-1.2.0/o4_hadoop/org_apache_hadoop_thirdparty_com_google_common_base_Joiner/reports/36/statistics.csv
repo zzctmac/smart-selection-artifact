@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.base.Joiner,120,26,115,530,11111111111111111110110111111,1111111111111111111111111111111111111111111111111111111111111

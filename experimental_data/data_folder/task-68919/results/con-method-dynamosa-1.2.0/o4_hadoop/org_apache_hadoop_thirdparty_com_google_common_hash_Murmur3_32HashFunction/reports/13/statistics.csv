@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.hash.Murmur3_32HashFunction,120,21,75,293,1111111111100000000,110101111111110111111111111111111111111111111111101111111110000111100000000000000000000000001

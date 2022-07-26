@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-gnu.trove.impl.hash.TCharHash,120,17,68,192,111110101011111111111111111111110110111111110111111101111000,111111

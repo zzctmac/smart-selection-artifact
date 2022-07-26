@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.security.authentication.util.ZKSignerSecretProvider,120,11,196,4,111111011000,1111110000000000001000111100000010000000000000000000

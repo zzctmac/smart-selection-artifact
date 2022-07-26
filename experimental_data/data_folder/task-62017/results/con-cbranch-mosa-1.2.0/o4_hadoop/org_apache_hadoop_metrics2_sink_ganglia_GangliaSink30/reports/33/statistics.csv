@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,CBranchCoverageBitString
-org.apache.hadoop.metrics2.sink.ganglia.GangliaSink30,120,7,27,27,11110000000100100000000000000011100100000000011111101

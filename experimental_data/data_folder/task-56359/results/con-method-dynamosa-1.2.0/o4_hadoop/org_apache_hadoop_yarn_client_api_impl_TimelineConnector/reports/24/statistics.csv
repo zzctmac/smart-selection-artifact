@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.client.api.impl.TimelineConnector,120,13,49,168,1111111111111110000,1110110011101000001101101011001010010111100000000000000110

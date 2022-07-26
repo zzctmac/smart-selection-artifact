@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.api.records.impl.pb.LogAggregationContextPBImpl,120,37,88,351,1111011111111111111111111111111111111111111111111111,11111111111111111

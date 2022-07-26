@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.server.resourcemanager.placement.QueueMapping,120,29,118,4026,1111111111111111111,111111111111111111111111111111111111111111111111111111111

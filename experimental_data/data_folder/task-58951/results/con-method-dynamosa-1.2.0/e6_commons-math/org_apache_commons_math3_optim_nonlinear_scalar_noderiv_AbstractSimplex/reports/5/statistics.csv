@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.commons.math3.optim.nonlinear.scalar.noderiv.AbstractSimplex,120,22,133,447,1111111111,11011111111111111111111111111111111111111111111111111111111

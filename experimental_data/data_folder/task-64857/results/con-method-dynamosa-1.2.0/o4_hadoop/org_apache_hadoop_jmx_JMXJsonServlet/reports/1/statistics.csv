@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.jmx.JMXJsonServlet,120,4,15,658,11111,1011000000000000000000000000000000000000000000000000000000000000000000000

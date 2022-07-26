@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.base.Splitter,120,28,70,1519,111111111111111111111111111101111111111111111111111111111111111111111000111111111111111111,111111111111111111

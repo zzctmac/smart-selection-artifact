@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.api.protocolrecords.impl.pb.StartContainersResponsePBImpl,120,22,67,180,010111110111111011101111101111111111111111111111110101010101111101111111011,11111111111

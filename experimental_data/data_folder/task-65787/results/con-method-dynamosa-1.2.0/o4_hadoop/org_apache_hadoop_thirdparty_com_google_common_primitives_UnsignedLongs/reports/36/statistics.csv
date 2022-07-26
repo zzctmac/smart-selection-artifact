@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.primitives.UnsignedLongs,120,37,56,2929,1111111111111111110,1111111111111111111111111111111111111111111111111111111111111111110101111111111111111111111111

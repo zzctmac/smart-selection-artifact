@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,OutputCoverageBitString
-org.apache.hadoop.log.LogLevel,120,8,38,525,0111011011110000001111111101100111101011111001000000000000000000000000,11

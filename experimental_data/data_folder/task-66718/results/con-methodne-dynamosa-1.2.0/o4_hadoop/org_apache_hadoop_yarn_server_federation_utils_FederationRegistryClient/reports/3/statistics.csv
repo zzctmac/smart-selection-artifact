@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.yarn.server.federation.utils.FederationRegistryClient,120,4,20,195,100010,110111000101100000001000111100000000000000000000000000

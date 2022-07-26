@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.yarn.logaggregation.filecontroller.LogAggregationFileController,120,18,46,624,111111000010010001000100000000000000000000010000000000000000000000000,11111111111111111

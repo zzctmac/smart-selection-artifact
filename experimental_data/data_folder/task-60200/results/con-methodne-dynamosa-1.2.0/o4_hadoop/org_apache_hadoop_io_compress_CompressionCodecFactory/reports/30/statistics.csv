@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodNoExceptionCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.io.compress.CompressionCodecFactory,120,12,34,1570,1111110101,0101111111111101000001101011011111101001011100000000000000000000000000

@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,BranchCoverageBitString,ExceptionCoverageBitString
-org.apache.hadoop.thirdparty.com.google.common.io.CharSource,120,47,213,652,11010111111101111111111111101011111010111101011000111100111101111111111111111111,1111111111111110101111111111

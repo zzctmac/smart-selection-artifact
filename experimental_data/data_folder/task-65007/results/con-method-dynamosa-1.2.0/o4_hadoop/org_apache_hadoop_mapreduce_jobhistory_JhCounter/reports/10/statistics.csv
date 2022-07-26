@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString,BranchCoverageBitString
-org.apache.hadoop.mapreduce.jobhistory.JhCounter,120,32,84,1628,1111111111111111111111111111,11111111111111111111111111111111111111111111101111101111111

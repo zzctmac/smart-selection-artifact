@@ -1,2 +1,0 @@
-TARGET_CLASS,search_budget,Size,Length,Generations,MethodCoverageBitString
-org.apache.hadoop.yarn.logaggregation.AggregatedLogDeletionService,120,8,15,378,11111111100
