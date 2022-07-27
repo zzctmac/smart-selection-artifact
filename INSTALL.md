@@ -87,7 +87,7 @@ To run the script to do the analysis work, firstly, you need to unzip six zip fi
 unzip 'experimental_data/data_fo*zip' -d ./experimental_data
 ```
 
-After they are unzipped, there will be a `data_folder` directory in `./experimental_data`. Then, you only need to use the following command to begin the analysis work:
+After they are unzipped (needs 5-10 minutes), there will be a `data_folder` directory in `./experimental_data`. Then, you only need to use the following command to begin the analysis work:
 ```shell
 docker-compose up -d
 ```
