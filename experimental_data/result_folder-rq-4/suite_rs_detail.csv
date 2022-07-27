@@ -1,9 +1,9 @@
 key,smart selection without the subsumption strategy,smart selection,non-significant
-DBC,53.0,18.0,102.0
-NTMC,23.0,8.0,142.0
-EC,44.0,29.0,100.0
-OC,39.0,11.0,123.0
 BC,70.0,37.0,66.0
 WM,49.0,56.0,68.0
 LC,83.0,25.0,65.0
 TMC,15.0,14.0,144.0
+NTMC,23.0,8.0,142.0
+DBC,53.0,18.0,102.0
+EC,44.0,29.0,100.0
+OC,39.0,11.0,123.0
