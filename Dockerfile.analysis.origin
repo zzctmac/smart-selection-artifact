@@ -1,0 +1,8 @@
+FROM python:3.7.6-slim
+WORKDIR /analysis
+COPY ./scripts ./
+
+RUN pip install -r requirements.txt
+RUN python setup.py install
+
+ENTRYPOINT ["smart_selection_analysis"]

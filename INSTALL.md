@@ -54,7 +54,9 @@ java -jar ./evosuite-ss.jar -class com.lts.io.DirectoryScanner -Dsearch_budget=6
 The commands to experience the original combination with MOSA and DynaMOSA are:
 ```shell
 java -jar ./evosuite-ss.jar -class com.lts.io.DirectoryScanner -Dsearch_budget=60  -Dalgorithm=MOSA
+```
 
+```shell
 java -jar ./evosuite-ss.jar -class com.lts.io.DirectoryScanner -Dsearch_budget=60  -Dalgorithm=DynaMOSA
 ```
 
