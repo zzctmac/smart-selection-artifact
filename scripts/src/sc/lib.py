@@ -262,6 +262,21 @@ def draw_time_plot(group, newKeys, sg=None, sl=10):
         i = i + 1
 
 
+def load_order(reports_dir):
+    order_file = os.path.join(reports_dir, "order.csv")
+    if not os.path.isfile(order_file):
+        return None
+    single_data = pd.read_csv(order_file)
+    r = single_data["order"].to_list()
+    r = list(map(lambda x: str(x), r))
+    return r
+
+
+def store_order(reports_dir, order_list):
+    sr = pd.DataFrame({"order": order_list})
+    sr.to_csv(os.path.join(reports_dir, "order.csv"), index=False)
+
+
 def read_exp_data(exp_dir):
     fs = os.listdir(exp_dir)
     ds = {}
@@ -301,10 +316,15 @@ def read_exp_data(exp_dir):
                     continue
                 tasks[task_id]['classes'].append([project, single_class])
                 reports = os.listdir(reports_dir)
+                order_list = load_order(reports_dir)
+                if order_list is not None:
+                    reports = order_list
                 task_data = None
+                new_order_list = []
                 for single_report in reports:
                     if not single_report.isnumeric():
                         continue
+                    new_order_list.append(single_report)
                     statistics_file = os.path.join(reports_dir, single_report, "statistics.csv")
                     if not os.path.isfile(statistics_file):
                         print("no statistics.csv:", statistics_file)
@@ -314,6 +334,8 @@ def read_exp_data(exp_dir):
                         task_data = single_data
                     else:
                         task_data = pd.concat([task_data, single_data], axis=0, ignore_index=True)
+                if order_list is None:
+                    store_order(reports_dir, new_order_list)
                 tasks[task_id]['data'][single_class] = task_data
     return tasks
 
