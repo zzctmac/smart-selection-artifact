@@ -107,7 +107,7 @@ Section 4.2:
 - The data of Table 2 (a) comes from [suite_mean_overview.csv](./experimental_data/result_folder-rq-1/suite_mean_overview.csv). 
 - The data of Table 2 (b) comes from [suite_mean_overview_small.csv](./experimental_data/result_folder-rq-1/suite_mean_overview_small.csv). 
 - The data of Table 2 (c) comes from [suite_mean_overview_big.csv](./experimental_data/result_folder-rq-1/suite_mean_overview_big.csv).
-- The first row of Table 3 (a) comes from [suite_mean_size_overview.csv](./experimental_data/result_folder-rq-1/suite_mean_size_overview.csv). The `CC(Average)` in the table is the average number of the latter eight number in the csv.
+- The first row of Table 3 (a) comes from [suite_mean_size_overview.csv](./experimental_data/result_folder-rq-1/suite_mean_size_overview.csv). The `CC(Average)` in the table is the average number of the latter eight numbers in the csv.
 - The second row of Table 3 (b) comes from [suite_mean_size_overview_small.csv](./experimental_data/result_folder-rq-1/suite_mean_size_overview_small.csv).
 - The third row of Table 3 (c) comes from [suite_mean_size_overview_big.csv](./experimental_data/result_folder-rq-1/suite_mean_size_overview_big.csv).
 
