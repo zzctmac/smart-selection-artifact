@@ -74,7 +74,9 @@ docker build  -f Dockerfile.analysis -t smart_selection_analysis ./
 
 The folder [experimental_data](./experimental_data) contains two types of data:
 1. data_fo*zip (e.g., [data_fo1.zip](./experimental_data/data_fo1.zip)) : The zipped original data of our experimental results (We split the whole data into six zip files owing to the single-file capacity limit of GitHub).
-2. result folders (e.g., [result-folder-rq-1](./experimental_data/result_folder-rq-1)) : The data used in tables and figures in the paper. We have already run our script to analyze and transform the original data to the result data. You can go to [Run Script](#Run Script) to do the analysis again or directly go to [Result Details](#Result Details) to get more details.
+2. result folders (e.g., [result-folder-rq-1](./experimental_data/result_folder-rq-1)) : The data used in tables and figures in the paper. We have already run our script to analyze and transform the original data to the result data. You can go to [Run Script](#ChapterRunScript) to do the analysis again or directly go to [Result Details](#ChapterDetails) to get more details.
+
+<div id="ChapterRunScript"></div>
 
 ### Run Script
 
@@ -92,6 +94,8 @@ This command deletes the existing result folders' content and runs four Docker s
 You can use `docker-compose logs` to view these services' logs and use `docker-compose ps` to check their states (`Up` means working and `Exit` means done).
 
 After it is done, the content of result folders will be shown again.
+
+<div id="ChapterDetails"></div>
 
 ### Result Details
 We illustrate how the tables and figures in [the paper](./paper.pdf) come from:
