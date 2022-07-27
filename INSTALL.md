@@ -94,7 +94,7 @@ You can use `docker-compose logs` to view these services' logs and use `docker-c
 After it is done, the content of result folders will be shown again.
 
 ### Result Details
-We illustrate how the tables and figures in [the paper](./paper.pdf) comes from:
+We illustrate how the tables and figures in [the paper](./paper.pdf) come from:
 
 Section 1:
 
