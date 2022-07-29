@@ -97,6 +97,15 @@ You can use `docker-compose logs` to view these services' logs and use `docker-c
 
 After it is done, the content of result folders will be shown again.
 
+In case of Docker crashes (it happened once on a Mac when we tested), you can restart docker-desktop (or Docker if you directly use it). Then you can use the following two commands to re-run the analysis work:
+```shell
+docker-compose rm -f
+```
+```shell
+docker-compose up -d
+```
+By the way, if Docker crashes, you will get messages such as `502 Server Error for URL: http+docker...` when you type any docker/docker-compose commands.
+
 <div id="ChapterDetails"></div>
 
 ### Result Details
