@@ -87,7 +87,20 @@ To run the script to do the analysis work, firstly, you need to unzip six zip fi
 unzip 'experimental_data/data_fo*zip' -d ./experimental_data
 ```
 
-After they are unzipped (needs 5-10 minutes), there will be a `data_folder` directory in `./experimental_data`. Then, you only need to use the following command to begin the analysis work:
+After they are unzipped (needs 5-10 minutes), there will be a `data_folder` directory in `./experimental_data`. The *./experimental_data/data_folder* contains the results of all experiments. Each sub-folder (e.g., *task-49224*) is the result of a single experiment. A single experiment means that run a specific strategy (e.g., smart selection and other baselines) on a specific Java class. We leverage *task-49224* as an example to illustrate the result of a single experiment. The *results/sc-suite-sc-release1/o4_hadoop/org_apache_hadoop_thirdparty_com_google_common_collect_Cut/reports* stores the coverage statistical data. *sc-suite-sc-release1* represents the strategy (sc, i.e., smart selection), the algorithm (suite, i.e., Whole Suite Generation), and the jar release version (sc-release1). It includes:
+
+1. Folder 1 to folder 37: Each folder contains *statistics.csv* that stores each time's coverage data. Since SBST is a nondeterministic technique, we repeat $30+7$ times. We only choose the first 30 times' data to be in the experimental analysis. But when we ran experiments, we repeated $37$ times to avoid potential manual involvements due to a few EvoSuite crashes. If there are one or two EvoSuite crashes in $30+7$ repeats, we still can get $30$ success results.
+2. *order.csv*: This file is used to cope with one mistake when we wrote the analysis code. When we wrote code to iterate to read each coverage data, we used the `os.listdir` Python API. We assumed that this API returns a sorted file list, which is not true (see https://stackoverflow.com/questions/44532641/order-in-which-files-are-read-using-os-listdir). When we tested the analysis work in several machines, we found this mistake. To let different machines can recurrent the analysis result (used in the paper) of the original machine we used, we record the original file order in this file and added the related adaptations in the analysis code. In the meantime, we found that all *reports* folders share the same content in this file.
+
+
+General Speaking, our analysis work can be divided into the following steps:
+1. Read all the statistical coverage data and cluster it into several groups using algorithms and strategies. Due to the research question design, the groups in different algorithms would not be involved in the following comparison.
+2. Use Vargha-Delaney $A_{ab}$ to compare different groups (e.g., smart selection and the original combination) in each algorithm.
+3. Calculate each group's average coverage values.
+4. Write the comparison results and average coverage values into the CSV files. Furthermore, draw the bar graph for the comparison results.
+
+
+You only need to use the following command to begin the analysis work:
 ```shell
 docker-compose up -d
 ```
