@@ -1,1 +1,8 @@
-FROM zzctmac/smart_selection_analysis:v1
+FROM python:3.7.6-slim
+WORKDIR /analysis
+COPY ./scripts ./
+
+RUN pip install -r requirements.txt
+RUN python setup.py install
+
+ENTRYPOINT ["python"]

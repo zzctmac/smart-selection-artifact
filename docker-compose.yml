@@ -4,19 +4,19 @@ services:
     image: smart_selection_analysis
     volumes:
      - "./experimental_data:/exp"
-    command: "-f /exp/data_folder -q 1"
+    command: "-m cProfile -o /exp/1.prof /analysis/scripts/smart_selection_analysis -f /exp/data_folder -q 1"
   rq2:
     image: smart_selection_analysis
     volumes:
       - "./experimental_data:/exp"
-    command: "-f /exp/data_folder -q 2"
+    command: "-m cProfile -o /exp/2.prof /analysis/scripts/smart_selection_analysis -f /exp/data_folder -q 2"
   rq3:
     image: smart_selection_analysis
     volumes:
       - "./experimental_data:/exp"
-    command: "-f /exp/data_folder -q 3"
+    command: "-m cProfile -o /exp/3.prof /analysis/scripts/smart_selection_analysis -f /exp/data_folder -q 3"
   rq4:
     image: smart_selection_analysis
     volumes:
       - "./experimental_data:/exp"
-    command: "-f /exp/data_folder -q 4"
+    command: "-m cProfile -o /exp/4.prof /analysis/scripts/smart_selection_analysis  -f /exp/data_folder -q 4"
