@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import math
 import os
 import warnings
+import threading
 
 import pkg_resources
 
@@ -176,15 +177,46 @@ def calcResult(normal, deep, newKeys, nn='normal', dn='deep'):
     dn = str(dn)
     result = pd.DataFrame(columns=('type', dn + '_avg', nn + '_avg', 'a12', 'increase', 'p_value<=0.05'))
     i = 0
+    ts = []
+    threadLock = threading.Lock()
     for newKey in newKeys:
-        deep_avg, deep_std, deep_max, deep_min = ana(deep, newKey)
-        normal_avg, normal_std, normal_max, normal_min = ana(normal, newKey)
-        a12 = cal_a12(deep, normal, newKey)
-        sa, sb = get_a_b(deep, normal, newKey)
-        result.loc[i] = [newKey, deep_avg, normal_avg, a12, (deep_avg - normal_avg) / normal_avg,
-                         calc_t(sa, sb) > 1.8409]
+        thread = OneKeyThread(i, "Thread-%d" % i, threadLock, deep, i, newKey, normal, result)
+        thread.start()
+        ts.append(thread)
         i = i + 1
+    for t in ts:
+        t.join()
     return result
+
+
+class OneKeyThread(threading.Thread):
+    def __init__(self, threadID, name, threadLock, deep, i, newKey, normal, result):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.threadLock = threadLock
+        self.deep = deep
+        self.i = i
+        self.newKey = newKey
+        self.normal = normal
+        self.result = result
+
+    def run(self):
+        calc_result_one_key(self.deep, self.i, self.newKey, self.normal, self.result, self.threadLock)
+
+
+def calc_result_one_key(deep, i, newKey, normal, result, threadLock=None):
+    deep_avg, deep_std, deep_max, deep_min = ana(deep, newKey)
+    normal_avg, normal_std, normal_max, normal_min = ana(normal, newKey)
+    a12 = cal_a12(deep, normal, newKey)
+    sa, sb = get_a_b(deep, normal, newKey)
+    if threadLock is not None:
+        threadLock.acquire()
+    current_logger.info("key calc success: %s" % newKey)
+    result.loc[i] = [newKey, deep_avg, normal_avg, a12, (deep_avg - normal_avg) / normal_avg,
+                     calc_t(sa, sb) > 1.8409]
+    if threadLock is not None:
+        threadLock.release()
 
 
 def get_part(mne_all, number=30, delete_number=30):
