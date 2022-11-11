@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import math
 import os
 import warnings
+from multiprocessing import Queue
+from multiprocessing import Process
 
 import pkg_resources
 
@@ -422,11 +424,19 @@ def get_better_multi(show_df, nk, a, b):
     return result, df
 
 
+def get_data_matrix_entry(class_data_map, class_name, nk, queue):
+    a, dft = get_data_matrix(class_data_map, nk)
+    queue.put([class_data_map, class_name, a, dft])
+
+
 def get_compare_data(data_group_by_class, groups):
-    if (len(groups) != 2):
+    if len(groups) != 2:
         return False, False, False, False
     stat_map = {}
     nk = None
+    p_queue = Queue()
+    ps = []
+
     for class_name in data_group_by_class.keys():
         class_data_map = {}
         all_config_keys = list(data_group_by_class[class_name].keys())
@@ -441,8 +451,14 @@ def get_compare_data(data_group_by_class, groups):
             if ok in groups:
                 group = groups[ok]
                 class_data_map[group], nk = calcTotal(single_data['data'][class_name])
-        a, dft = get_data_matrix(class_data_map, nk)
-        stat_map[class_name] = [a, dft, class_data_map]
+        p = Process(target=get_data_matrix_entry, args=(class_data_map, class_name, nk, p_queue))
+        p.start()
+        ps.append(p)
+    for p in ps:
+        pqr = p_queue.get()
+        stat_map[pqr[1]] = [pqr[2], pqr[3], pqr[0]]
+        p.join()
+
     base_columns = {"class_name": []}
     for k in nk:
         for _, v in groups.items():
