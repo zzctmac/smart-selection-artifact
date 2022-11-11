@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import math
 import os
 import warnings
-import threading
 
 import pkg_resources
 
@@ -177,46 +176,15 @@ def calcResult(normal, deep, newKeys, nn='normal', dn='deep'):
     dn = str(dn)
     result = pd.DataFrame(columns=('type', dn + '_avg', nn + '_avg', 'a12', 'increase', 'p_value<=0.05'))
     i = 0
-    ts = []
-    threadLock = threading.Lock()
     for newKey in newKeys:
-        thread = OneKeyThread(i, "Thread-%d" % i, threadLock, deep, i, newKey, normal, result)
-        thread.start()
-        ts.append(thread)
+        deep_avg, deep_std, deep_max, deep_min = ana(deep, newKey)
+        normal_avg, normal_std, normal_max, normal_min = ana(normal, newKey)
+        a12 = cal_a12(deep, normal, newKey)
+        sa, sb = get_a_b(deep, normal, newKey)
+        result.loc[i] = [newKey, deep_avg, normal_avg, a12, (deep_avg - normal_avg) / normal_avg,
+                         calc_t(sa, sb) > 1.8409]
         i = i + 1
-    for t in ts:
-        t.join()
     return result
-
-
-class OneKeyThread(threading.Thread):
-    def __init__(self, threadID, name, threadLock, deep, i, newKey, normal, result):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.threadLock = threadLock
-        self.deep = deep
-        self.i = i
-        self.newKey = newKey
-        self.normal = normal
-        self.result = result
-
-    def run(self):
-        calc_result_one_key(self.deep, self.i, self.newKey, self.normal, self.result, self.threadLock)
-
-
-def calc_result_one_key(deep, i, newKey, normal, result, threadLock=None):
-    deep_avg, deep_std, deep_max, deep_min = ana(deep, newKey)
-    normal_avg, normal_std, normal_max, normal_min = ana(normal, newKey)
-    a12 = cal_a12(deep, normal, newKey)
-    sa, sb = get_a_b(deep, normal, newKey)
-    if threadLock is not None:
-        threadLock.acquire()
-    current_logger.info("key calc success: %s" % newKey)
-    result.loc[i] = [newKey, deep_avg, normal_avg, a12, (deep_avg - normal_avg) / normal_avg,
-                     calc_t(sa, sb) > 1.8409]
-    if threadLock is not None:
-        threadLock.release()
 
 
 def get_part(mne_all, number=30, delete_number=30):
@@ -294,21 +262,6 @@ def draw_time_plot(group, newKeys, sg=None, sl=10):
         i = i + 1
 
 
-def load_order(reports_dir):
-    order_file = os.path.join(reports_dir, "order.csv")
-    if not os.path.isfile(order_file):
-        return None
-    single_data = pd.read_csv(order_file)
-    r = single_data["order"].to_list()
-    r = list(map(lambda x: str(x), r))
-    return r
-
-
-def store_order(reports_dir, order_list):
-    sr = pd.DataFrame({"order": order_list})
-    sr.to_csv(os.path.join(reports_dir, "order.csv"), index=False)
-
-
 def read_exp_data(exp_dir):
     fs = os.listdir(exp_dir)
     ds = {}
@@ -348,15 +301,10 @@ def read_exp_data(exp_dir):
                     continue
                 tasks[task_id]['classes'].append([project, single_class])
                 reports = os.listdir(reports_dir)
-                order_list = load_order(reports_dir)
-                if order_list is not None:
-                    reports = order_list
                 task_data = None
-                new_order_list = []
                 for single_report in reports:
                     if not single_report.isnumeric():
                         continue
-                    new_order_list.append(single_report)
                     statistics_file = os.path.join(reports_dir, single_report, "statistics.csv")
                     if not os.path.isfile(statistics_file):
                         print("no statistics.csv:", statistics_file)
@@ -366,8 +314,6 @@ def read_exp_data(exp_dir):
                         task_data = single_data
                     else:
                         task_data = pd.concat([task_data, single_data], axis=0, ignore_index=True)
-                if order_list is None:
-                    store_order(reports_dir, new_order_list)
                 tasks[task_id]['data'][single_class] = task_data
     return tasks
 
