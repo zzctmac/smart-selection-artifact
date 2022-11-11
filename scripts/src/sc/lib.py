@@ -434,30 +434,35 @@ def get_compare_data(data_group_by_class, groups):
         return False, False, False, False
     stat_map = {}
     nk = None
-    p_queue = Queue()
-    ps = []
 
-    for class_name in data_group_by_class.keys():
-        class_data_map = {}
-        all_config_keys = list(data_group_by_class[class_name].keys())
-        class_sat = True
-        for ck in groups:
-            if not ck in all_config_keys:
-                class_sat = False
-                break
-        if not class_sat:
-            continue
-        for ok, single_data in data_group_by_class[class_name].items():
-            if ok in groups:
-                group = groups[ok]
-                class_data_map[group], nk = calcTotal(single_data['data'][class_name])
-        p = Process(target=get_data_matrix_entry, args=(class_data_map, class_name, nk, p_queue))
-        p.start()
-        ps.append(p)
-    for p in ps:
-        pqr = p_queue.get()
-        stat_map[pqr[1]] = [pqr[2], pqr[3], pqr[0]]
-        p.join()
+    class_names = data_group_by_class.keys()
+    chunk_number = 4
+    class_chunks = [class_names[i:i + chunk_number] for i in range(0, len(class_names), chunk_number)]
+
+    for ccs in class_chunks:
+        p_queue = Queue()
+        ps = []
+        for class_name in ccs:
+            class_data_map = {}
+            all_config_keys = list(data_group_by_class[class_name].keys())
+            class_sat = True
+            for ck in groups:
+                if not ck in all_config_keys:
+                    class_sat = False
+                    break
+            if not class_sat:
+                continue
+            for ok, single_data in data_group_by_class[class_name].items():
+                if ok in groups:
+                    group = groups[ok]
+                    class_data_map[group], nk = calcTotal(single_data['data'][class_name])
+            p = Process(target=get_data_matrix_entry, args=(class_data_map, class_name, nk, p_queue))
+            p.start()
+            ps.append(p)
+        for p in ps:
+            pqr = p_queue.get()
+            stat_map[pqr[1]] = [pqr[2], pqr[3], pqr[0]]
+            p.join()
 
     base_columns = {"class_name": []}
     for k in nk:
