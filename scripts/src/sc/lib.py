@@ -436,7 +436,7 @@ def get_compare_data(data_group_by_class, groups):
     nk = None
 
     class_names = list(data_group_by_class.keys())
-    chunk_number = 4
+    chunk_number = 1
     class_chunks = [class_names[i:i + chunk_number] for i in range(0, len(class_names), chunk_number)]
 
     for ccs in class_chunks:
