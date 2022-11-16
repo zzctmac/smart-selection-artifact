@@ -319,12 +319,12 @@ def read_exp_data(exp_dir):
                 order_list = load_order(reports_dir)
                 if order_list is not None:
                     reports = order_list
+                else:
+                    reports.sort()
                 task_data = None
-                new_order_list = []
                 for single_report in reports:
                     if not single_report.isnumeric():
                         continue
-                    new_order_list.append(single_report)
                     statistics_file = os.path.join(reports_dir, single_report, "statistics.csv")
                     if not os.path.isfile(statistics_file):
                         print("no statistics.csv:", statistics_file)
@@ -334,8 +334,6 @@ def read_exp_data(exp_dir):
                         task_data = single_data
                     else:
                         task_data = pd.concat([task_data, single_data], axis=0, ignore_index=True)
-                if order_list is None:
-                    store_order(reports_dir, new_order_list)
                 tasks[task_id]['data'][single_class] = task_data
     return tasks
 
@@ -679,11 +677,12 @@ def get_constituent_mean(dgc, algorithm, class_list=None):
     return total_mean_dict
 
 
-def get_data_group(path):
+def get_data_group(path, data_group_by_class = None):
     data = read_exp_data(path)
     remain_total = 30
     data = remain_part(data, remain_total)
-    data_group_by_class = {}
+    if data_group_by_class is None:
+        data_group_by_class = {}
     for task_id, single in data.items():
         if not single['classes'][0][1] in data_group_by_class:
             data_group_by_class[single['classes'][0][1]] = {}
