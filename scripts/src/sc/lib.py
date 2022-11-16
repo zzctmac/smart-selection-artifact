@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 import math
 import os
 import warnings
-from multiprocessing import Queue
-from multiprocessing import Process
 
 import pkg_resources
 
@@ -264,6 +262,21 @@ def draw_time_plot(group, newKeys, sg=None, sl=10):
         i = i + 1
 
 
+def load_order(reports_dir):
+    order_file = os.path.join(reports_dir, "order.csv")
+    if not os.path.isfile(order_file):
+        return None
+    single_data = pd.read_csv(order_file)
+    r = single_data["order"].to_list()
+    r = list(map(lambda x: str(x), r))
+    return r
+
+
+def store_order(reports_dir, order_list):
+    sr = pd.DataFrame({"order": order_list})
+    sr.to_csv(os.path.join(reports_dir, "order.csv"), index=False)
+
+
 def read_exp_data(exp_dir):
     fs = os.listdir(exp_dir)
     ds = {}
@@ -303,10 +316,15 @@ def read_exp_data(exp_dir):
                     continue
                 tasks[task_id]['classes'].append([project, single_class])
                 reports = os.listdir(reports_dir)
+                order_list = load_order(reports_dir)
+                if order_list is not None:
+                    reports = order_list
                 task_data = None
+                new_order_list = []
                 for single_report in reports:
                     if not single_report.isnumeric():
                         continue
+                    new_order_list.append(single_report)
                     statistics_file = os.path.join(reports_dir, single_report, "statistics.csv")
                     if not os.path.isfile(statistics_file):
                         print("no statistics.csv:", statistics_file)
@@ -316,6 +334,8 @@ def read_exp_data(exp_dir):
                         task_data = single_data
                     else:
                         task_data = pd.concat([task_data, single_data], axis=0, ignore_index=True)
+                if order_list is None:
+                    store_order(reports_dir, new_order_list)
                 tasks[task_id]['data'][single_class] = task_data
     return tasks
 
@@ -424,46 +444,27 @@ def get_better_multi(show_df, nk, a, b):
     return result, df
 
 
-def get_data_matrix_entry(class_data_map, class_name, nk, queue):
-    a, dft = get_data_matrix(class_data_map, nk)
-    queue.put([class_data_map, class_name, a, dft])
-
-
 def get_compare_data(data_group_by_class, groups):
-    if len(groups) != 2:
+    if (len(groups) != 2):
         return False, False, False, False
     stat_map = {}
     nk = None
-
-    class_names = list(data_group_by_class.keys())
-    chunk_number = 1
-    class_chunks = [class_names[i:i + chunk_number] for i in range(0, len(class_names), chunk_number)]
-
-    for ccs in class_chunks:
-        p_queue = Queue()
-        ps = []
-        for class_name in ccs:
-            class_data_map = {}
-            all_config_keys = list(data_group_by_class[class_name].keys())
-            class_sat = True
-            for ck in groups:
-                if not ck in all_config_keys:
-                    class_sat = False
-                    break
-            if not class_sat:
-                continue
-            for ok, single_data in data_group_by_class[class_name].items():
-                if ok in groups:
-                    group = groups[ok]
-                    class_data_map[group], nk = calcTotal(single_data['data'][class_name])
-            p = Process(target=get_data_matrix_entry, args=(class_data_map, class_name, nk, p_queue))
-            p.start()
-            ps.append(p)
-        for p in ps:
-            pqr = p_queue.get()
-            stat_map[pqr[1]] = [pqr[2], pqr[3], pqr[0]]
-            p.join()
-
+    for class_name in data_group_by_class.keys():
+        class_data_map = {}
+        all_config_keys = list(data_group_by_class[class_name].keys())
+        class_sat = True
+        for ck in groups:
+            if not ck in all_config_keys:
+                class_sat = False
+                break
+        if not class_sat:
+            continue
+        for ok, single_data in data_group_by_class[class_name].items():
+            if ok in groups:
+                group = groups[ok]
+                class_data_map[group], nk = calcTotal(single_data['data'][class_name])
+        a, dft = get_data_matrix(class_data_map, nk)
+        stat_map[class_name] = [a, dft, class_data_map]
     base_columns = {"class_name": []}
     for k in nk:
         for _, v in groups.items():
