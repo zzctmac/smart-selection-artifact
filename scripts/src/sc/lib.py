@@ -1112,6 +1112,8 @@ def get_mean_4_budget_basic(cname, dgc, name, class_list=None):
     for ck in criterion_map.keys():
         total_sum_dict[ck] = 0
     for class_name, data in dgc.items():
+        if name not in data:
+            continue
         real_class_name = data[name]['data'][class_name]['TARGET_CLASS'][0]
         if class_list is not None and real_class_name not in class_list:
             continue
@@ -1121,8 +1123,9 @@ def get_mean_4_budget_basic(cname, dgc, name, class_list=None):
         for ck in criterion_map.keys():
             total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[criterion_map[ck]]
     total_mean_dict = {"approach": cname}
-    for ck, cv in total_sum_dict.items():
-        total_mean_dict[ck] = cv / total_count
+    if total_count != 0:
+        for ck, cv in total_sum_dict.items():
+            total_mean_dict[ck] = cv / total_count
     return total_mean_dict
 
 
@@ -1157,6 +1160,8 @@ def get_mean_size_4_budget(dgc, algorithm, budget, class_list=None):
     for class_name, data in dgc.items():
         r = None
         for ck, cv in criterion_map.items():
+            if cv[0] not in data:
+                continue
             real_class_name = data[cv[0]]['data'][class_name]['TARGET_CLASS'][0]
             if class_list is not None and real_class_name not in class_list:
                 continue
@@ -1165,8 +1170,10 @@ def get_mean_size_4_budget(dgc, algorithm, budget, class_list=None):
             if r is None:
                 r = len(cd)
             total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[cv[1]]
-        total_count = total_count + r
+        if r is not None:
+            total_count = total_count + r
     total_mean_dict = {}
-    for ck, cv in total_sum_dict.items():
-        total_mean_dict[ck] = cv / total_count
+    if total_count != 0:
+        for ck, cv in total_sum_dict.items():
+            total_mean_dict[ck] = cv / total_count
     return total_mean_dict
