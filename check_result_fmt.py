@@ -15,5 +15,5 @@ for d in os.listdir(dir_name):
     if not os.path.isdir(fd):
         continue
     if len(list(os.listdir(fd))) != 1:
-        print("Dir may have problem: %s", fd)
+        print("Dir may have problem: %s" % fd)
         exit(1)
