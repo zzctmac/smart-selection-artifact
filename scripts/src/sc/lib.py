@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import math
 import os
 import warnings
+import re
 
 import pkg_resources
 
@@ -677,7 +678,7 @@ def get_constituent_mean(dgc, algorithm, class_list=None):
     return total_mean_dict
 
 
-def get_data_group(path, data_group_by_class = None):
+def get_data_group(path, data_group_by_class=None):
     data = read_exp_data(path)
     remain_total = 30
     data = remain_part(data, remain_total)
@@ -848,12 +849,39 @@ def write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, alg, result_fo
     plot_bar_4_compare(suite_oc["overview"], "%s_oc" % alg, result_folder)
 
 
+def ana_budget_one(data_group_by_class, alg, budget, result_folder):
+    data_group_by_class = concat_constituent_all_4_budget(alg, data_group_by_class, budget)
+    mean_con = get_mean_4_budget_constituent(data_group_by_class, alg, budget)
+    mean_ss = get_mean_4_budget_ss(data_group_by_class, alg, budget)
+    mean_origin = get_mean_4_budget_origin(data_group_by_class, alg, budget)
+
+    df = pd.DataFrame([mean_ss, mean_origin, mean_con])
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_%d.csv" % (alg, budget)), index=False)
+
+    ad = get_mean_size_4_budget(data_group_by_class, alg, budget)
+    aks = list(ad.keys())
+    avs = []
+    for ak in aks:
+        avs.append(ad[ak])
+
+    df = pd.DataFrame(data={"approach": aks, "Size": avs})
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_size_%d.csv" % (alg, budget)), index=False)
+
+
+def ana_budget(data_group_by_class, alg, result_folder):
+    budgets = [5, 8, 10]
+    data_group_by_class = calc_coverage_4_budget(data_group_by_class, alg)
+    for budget in budgets:
+        ana_budget_one(data_group_by_class, alg, budget, result_folder)
+
+
 def ana_rq123(data_group_by_class, result_folder, ags=None):
     if ags is None:
         ags = ["suite", "mosa", "dynamosa"]
     for ag in ags:
         suite_os, suite_sc, suite_oc, suite_mean_overview = analysis_data_4_alg(data_group_by_class, ag)
         write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, ag, result_folder)
+        ana_budget(data_group_by_class, ag, result_folder)
 
 
 def ana_select(data_group_by_class, result_folder):
@@ -995,3 +1023,150 @@ def get_result_sub_classes():
     for record in c:
         sub_information[record["ca"]] = record['ca']
     return sub_information
+
+
+def constituent_map_4_budget(algorithm, budget):
+    return {
+        ("con-branch-%d-%s-1.2.0" % (budget, algorithm)): "BranchCoverageBitString",
+        ("con-wm-%d-%s-1.2.0" % (budget, algorithm)): "WeakMutationCoverageBitString",
+        ("con-line-%d-%s-1.2.0" % (budget, algorithm)): "LineCoverageBitString",
+        ("con-method-%d-%s-1.2.0" % (budget, algorithm)): "MethodCoverageBitString",
+        ("con-methodne-%d-%s-1.2.0" % (budget, algorithm)): "MethodNoExceptionCoverageBitString",
+        ("con-cbranch-%d-%s-1.2.0" % (budget, algorithm)): "CBranchCoverageBitString",
+        ("con-exce-%d-%s-1.2.0" % (budget, algorithm)): "ExceptionCoverageBitString",
+        ("con-output-%d-%s-1.2.0" % (budget, algorithm)): "OutputCoverageBitString"
+    }
+
+
+def concat_constituent_one_class_4_budget(algorithm, data_group_by_class, a_class, budget):
+    m = constituent_map_4_budget(algorithm, budget)
+    g = []
+    i = 0
+    for k, v in m.items():
+        new_value = v.replace('BitString', '')
+        if i == 0:
+            g.append(data_group_by_class[a_class][k]["data"][a_class])
+        else:
+            g.append(data_group_by_class[a_class][k]["data"][a_class][v])
+            g.append(data_group_by_class[a_class][k]["data"][a_class][new_value])
+        if v == 'ExceptionCoverageBitString':
+            g.append(data_group_by_class[a_class][k]["data"][a_class]["ExceptionCoverageGoals"])
+        size_slice = data_group_by_class[a_class][k]["data"][a_class]["Size"].copy()
+        size_slice = size_slice.rename("Constituent" + new_value + "Size")
+        g.append(size_slice)
+        i = i + 1
+    return pd.concat(g, axis=1)
+
+
+def concat_constituent_all_4_budget(algorithm, data_group_by_class, budget=5):
+    for ac in list(data_group_by_class.keys()):
+        is_full = True
+        ks = constituent_map_4_budget(algorithm, budget)
+        for k, _ in ks.items():
+            if not k in data_group_by_class[ac]:
+                is_full = False
+                break
+        if not is_full:
+            continue
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)] = {}
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["classes"] = \
+            data_group_by_class[ac]["origin-%s-1.2.0" % (algorithm)]["classes"]
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["data"] = {}
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["data"][ac] = \
+            concat_constituent_one_class_4_budget(algorithm, data_group_by_class, ac, budget)
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["name"] = "constituent-%d-%s" % (
+            budget, algorithm)
+    return data_group_by_class
+
+
+def calc_coverage_4_budget(data_group_by_class, algorithm):
+    groups = [re.compile('^sc-(\d+)-%s-sc-release1$' % algorithm), re.compile('^con-(.+)-(\d+)-%s-1.2.0$' % algorithm),
+              re.compile('^origin-(\d+)-%s-1.2.0$' % algorithm)]
+    for class_name in data_group_by_class.keys():
+        for ok, single_data in data_group_by_class[class_name].items():
+            match = False
+            for rm in groups:
+                if rm.match(ok) is not None:
+                    match = True
+                    break
+            if match:
+                calcTotal(single_data['data'][class_name])
+    return data_group_by_class
+
+
+def get_mean_4_budget_basic(cname, dgc, name, class_list=None):
+    # criterion_map = {
+    #    "BC": "ConstituentBranchCoverageSize", "WM": "ConstituentWeakMutationCoverageSize",
+    #    "LC": "ConstituentLineCoverageSize", "TMC": "ConstituentMethodCoverageSize",
+    #    "NTMC": "ConstituentMethodNoExceptionCoverageSize", "DBC": "ConstituentCBranchCoverageSize",
+    #    "EC": "ConstituentExceptionCoverageSize", "OC": "ConstituentOutputCoverageSize"
+    # }
+    criterion_map = {
+        "BC": "BranchCoverage", "WM": "WeakMutationCoverage",
+        "LC": "LineCoverage", "TMC": "MethodCoverage",
+        "NTMC": "MethodNoExceptionCoverage", "DBC": "CBranchCoverage",
+        "EC": "ExceptionCoverageGoals", "OC": "OutputCoverage"
+    }
+    total_count = 0
+    total_sum_dict = {}
+    for ck in criterion_map.keys():
+        total_sum_dict[ck] = 0
+    for class_name, data in dgc.items():
+        real_class_name = data[name]['data'][class_name]['TARGET_CLASS'][0]
+        if class_list is not None and real_class_name not in class_list:
+            continue
+        cd = data[name]['data'][class_name]
+        sum_dict = cd.sum().to_dict()
+        total_count = total_count + len(cd)
+        for ck in criterion_map.keys():
+            total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[criterion_map[ck]]
+    total_mean_dict = {"approach": cname}
+    for ck, cv in total_sum_dict.items():
+        total_mean_dict[ck] = cv / total_count
+    return total_mean_dict
+
+
+def get_mean_4_budget_constituent(dgc, algorithm, budget, class_list=None):
+    return get_mean_4_budget_basic("constituent criterion", dgc, "constituent-%d-%s" % (budget, algorithm), class_list)
+
+
+def get_mean_4_budget_ss(dgc, algorithm, budget, class_list=None):
+    return get_mean_4_budget_basic("smart selection", dgc, "sc-%d-%s-sc-release1" % (budget, algorithm), class_list)
+
+
+def get_mean_4_budget_origin(dgc, algorithm, budget, class_list=None):
+    return get_mean_4_budget_basic("original combination", dgc, "origin-%d-%s-1.2.0" % (budget, algorithm), class_list)
+
+
+def get_mean_size_4_budget(dgc, algorithm, budget, class_list=None):
+    criterion_map = {
+        "smart selection": ["sc-%d-%s-sc-release1" % (budget, algorithm), "Size"],
+        "original combination": ["origin-%d-%s-1.2.0" % (budget, algorithm), "Size"],
+        "BC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentBranchCoverageSize"],
+        "WM": ["constituent-%d-%s" % (budget, algorithm), "ConstituentWeakMutationCoverageSize"],
+        "LC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentLineCoverageSize"],
+        "TMC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentMethodCoverageSize"],
+        "NTMC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentMethodNoExceptionCoverageSize"],
+        "DBC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentCBranchCoverageSize"],
+        "EC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentExceptionCoverageSize"],
+        "OC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentOutputCoverageSize"]}
+    total_count = 0
+    total_sum_dict = {}
+    for ck in criterion_map.keys():
+        total_sum_dict[ck] = 0
+    for class_name, data in dgc.items():
+        r = None
+        for ck, cv in criterion_map.items():
+            real_class_name = data[cv[0]]['data'][class_name]['TARGET_CLASS'][0]
+            if class_list is not None and real_class_name not in class_list:
+                continue
+            cd = data[cv[0]]['data'][class_name]
+            sum_dict = cd.sum().to_dict()
+            if r is None:
+                r = len(cd)
+            total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[cv[1]]
+        total_count = total_count + r
+    total_mean_dict = {}
+    for ck, cv in total_sum_dict.items():
+        total_mean_dict[ck] = cv / total_count
+    return total_mean_dict
