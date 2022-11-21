@@ -851,21 +851,26 @@ def write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, alg, result_fo
 
 def ana_budget_one(data_group_by_class, alg, budget, result_folder):
     data_group_by_class = concat_constituent_all_4_budget(alg, data_group_by_class, budget)
-    mean_con = get_mean_4_budget_constituent(data_group_by_class, alg, budget)
-    mean_ss = get_mean_4_budget_ss(data_group_by_class, alg, budget)
-    mean_origin = get_mean_4_budget_origin(data_group_by_class, alg, budget)
+    ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder)
+    ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, get_big_class(), 'big')
+    ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, get_smaller_class(), 'small')
 
+
+def ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, class_list=None, suffix=''):
+    mean_con = get_mean_4_budget_constituent(data_group_by_class, alg, budget, class_list)
+    mean_ss = get_mean_4_budget_ss(data_group_by_class, alg, budget, class_list)
+    mean_origin = get_mean_4_budget_origin(data_group_by_class, alg, budget, class_list)
     df = pd.DataFrame([mean_ss, mean_origin, mean_con])
-    df.to_csv(os.path.join(result_folder, "%s_budget_mean_%d.csv" % (alg, budget)), index=False)
-
-    ad = get_mean_size_4_budget(data_group_by_class, alg, budget)
+    if suffix != '':
+        suffix = '_' + suffix
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_%d%s.csv" % (alg, budget, suffix)), index=False)
+    ad = get_mean_size_4_budget(data_group_by_class, alg, budget, class_list)
     aks = list(ad.keys())
     avs = []
     for ak in aks:
         avs.append(ad[ak])
-
     df = pd.DataFrame(data={"approach": aks, "Size": avs})
-    df.to_csv(os.path.join(result_folder, "%s_budget_mean_size_%d.csv" % (alg, budget)), index=False)
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_size_%d%s.csv" % (alg, budget, suffix)), index=False)
 
 
 def ana_budget(data_group_by_class, alg, result_folder):
