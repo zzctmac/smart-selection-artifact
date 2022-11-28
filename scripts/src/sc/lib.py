@@ -857,20 +857,32 @@ def ana_budget_one(data_group_by_class, alg, budget, result_folder):
 
 
 def ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, class_list=None, suffix=''):
-    mean_con = get_mean_4_budget_constituent(data_group_by_class, alg, budget, class_list)
-    mean_ss = get_mean_4_budget_ss(data_group_by_class, alg, budget, class_list)
-    mean_origin = get_mean_4_budget_origin(data_group_by_class, alg, budget, class_list)
-    df = pd.DataFrame([mean_ss, mean_origin, mean_con])
+    mean_con, con_total_summary = get_mean_4_budget_constituent(data_group_by_class, alg, budget, class_list)
+    mean_ss, ss_total_summary = get_mean_4_budget_ss(data_group_by_class, alg, budget, class_list)
+    mean_origin, origin_total_summary = get_mean_4_budget_origin(data_group_by_class, alg, budget, class_list)
+    total_summary = {
+        "constituent": con_total_summary,
+        "ss": ss_total_summary,
+        "origin": origin_total_summary
+    }
     if suffix != '':
         suffix = '_' + suffix
+    for k, v in total_summary.items():
+        df = pd.DataFrame([v])
+        df.to_csv(os.path.join(result_folder, "%s_budget_mean_total_%d_%s%s.csv" % (alg, budget, k, suffix)), index=False)
+
+    df = pd.DataFrame([mean_ss, mean_origin, mean_con])
     df.to_csv(os.path.join(result_folder, "%s_budget_mean_%d%s.csv" % (alg, budget, suffix)), index=False)
-    ad = get_mean_size_4_budget(data_group_by_class, alg, budget, class_list)
+    ad, mean_total = get_mean_size_4_budget(data_group_by_class, alg, budget, class_list)
     aks = list(ad.keys())
     avs = []
     for ak in aks:
         avs.append(ad[ak])
     df = pd.DataFrame(data={"approach": aks, "Size": avs})
     df.to_csv(os.path.join(result_folder, "%s_budget_mean_size_%d%s.csv" % (alg, budget, suffix)), index=False)
+
+    df = pd.DataFrame([mean_total])
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_size_total_%d%s.csv" % (alg, budget, suffix)), index=False)
 
 
 def ana_budget(data_group_by_class, alg, result_folder):
@@ -1049,6 +1061,9 @@ def concat_constituent_one_class_4_budget(algorithm, data_group_by_class, a_clas
     i = 0
     for k, v in m.items():
         new_value = v.replace('BitString', '')
+        if k not in data_group_by_class[a_class]:
+            current_logger.warning("%s not in %s %d %s", k, algorithm, budget, a_class)
+            continue
         if i == 0:
             g.append(data_group_by_class[a_class][k]["data"][a_class])
         else:
@@ -1065,13 +1080,13 @@ def concat_constituent_one_class_4_budget(algorithm, data_group_by_class, a_clas
 
 def concat_constituent_all_4_budget(algorithm, data_group_by_class, budget=5):
     for ac in list(data_group_by_class.keys()):
-        is_full = True
+        is_empty = True
         ks = constituent_map_4_budget(algorithm, budget)
         for k, _ in ks.items():
-            if not k in data_group_by_class[ac]:
-                is_full = False
+            if k in data_group_by_class[ac]:
+                is_empty = False
                 break
-        if not is_full:
+        if is_empty:
             continue
         data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)] = {}
         data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["classes"] = \
@@ -1112,7 +1127,9 @@ def get_mean_4_budget_basic(cname, dgc, name, class_list=None):
         "NTMC": "MethodNoExceptionCoverage", "DBC": "CBranchCoverage",
         "EC": "ExceptionCoverageGoals", "OC": "OutputCoverage"
     }
-    total_count = 0
+    total_count_map = {}
+    for k, _ in criterion_map.items():
+        total_count_map[k] = 0
     total_sum_dict = {}
     for ck in criterion_map.keys():
         total_sum_dict[ck] = 0
@@ -1124,14 +1141,18 @@ def get_mean_4_budget_basic(cname, dgc, name, class_list=None):
             continue
         cd = data[name]['data'][class_name]
         sum_dict = cd.sum().to_dict()
-        total_count = total_count + len(cd)
         for ck in criterion_map.keys():
+            if criterion_map[ck] not in sum_dict:
+                continue
+            total_count_map[ck] = total_count_map[ck] + len(cd)
             total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[criterion_map[ck]]
     total_mean_dict = {"approach": cname}
-    if total_count != 0:
-        for ck, cv in total_sum_dict.items():
+    for ck, cv in total_sum_dict.items():
+        total_count = total_count_map[ck]
+        if total_count != 0:
             total_mean_dict[ck] = cv / total_count
-    return total_mean_dict
+    total_count_map["approach"] = cname
+    return total_mean_dict, total_count_map
 
 
 def get_mean_4_budget_constituent(dgc, algorithm, budget, class_list=None):
@@ -1158,27 +1179,28 @@ def get_mean_size_4_budget(dgc, algorithm, budget, class_list=None):
         "DBC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentCBranchCoverageSize"],
         "EC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentExceptionCoverageSize"],
         "OC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentOutputCoverageSize"]}
-    total_count = 0
+    total_count_dict = {}
+    for k in criterion_map.keys():
+        total_count_dict[k] = 0
     total_sum_dict = {}
     for ck in criterion_map.keys():
         total_sum_dict[ck] = 0
     for class_name, data in dgc.items():
-        r = None
         for ck, cv in criterion_map.items():
             if cv[0] not in data:
                 continue
             real_class_name = data[cv[0]]['data'][class_name]['TARGET_CLASS'][0]
             if class_list is not None and real_class_name not in class_list:
                 continue
+            if cv[1] not in data[cv[0]]['data'][class_name]:
+                continue
             cd = data[cv[0]]['data'][class_name]
             sum_dict = cd.sum().to_dict()
-            if r is None:
-                r = len(cd)
+            total_count_dict[ck] = total_count_dict[ck] + len(cd)
             total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[cv[1]]
-        if r is not None:
-            total_count = total_count + r
     total_mean_dict = {}
-    if total_count != 0:
-        for ck, cv in total_sum_dict.items():
+    for ck, cv in total_sum_dict.items():
+        total_count = total_count_dict[ck]
+        if total_count != 0:
             total_mean_dict[ck] = cv / total_count
-    return total_mean_dict
+    return total_mean_dict, total_count_dict
