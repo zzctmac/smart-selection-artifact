@@ -678,6 +678,102 @@ def get_constituent_mean(dgc, algorithm, class_list=None):
     return total_mean_dict
 
 
+def get_remain_by_name(name):
+    d1 = {"con-branch-10-dynamosa-1.2.0": 5,
+          "con-branch-10-mosa-1.2.0": 5,
+          "con-branch-10-suite-1.2.0": 5,
+          "con-branch-5-dynamosa-1.2.0": 10,
+          "con-branch-5-mosa-1.2.0": 10,
+          "con-branch-5-suite-1.2.0": 10,
+          "con-branch-8-dynamosa-1.2.0": 10,
+          "con-branch-8-mosa-1.2.0": 10,
+          "con-branch-8-suite-1.2.0": 10,
+          "con-cbranch-10-dynamosa-1.2.0": 5,
+          "con-cbranch-10-mosa-1.2.0": 5,
+          "con-cbranch-10-suite-1.2.0": 5,
+          "con-cbranch-5-dynamosa-1.2.0": 10,
+          "con-cbranch-5-mosa-1.2.0": 10,
+          "con-cbranch-5-suite-1.2.0": 10,
+          "con-cbranch-8-dynamosa-1.2.0": 10,
+          "con-cbranch-8-mosa-1.2.0": 10,
+          "con-cbranch-8-suite-1.2.0": 10,
+          "con-exce-10-dynamosa-1.2.0": 5,
+          "con-exce-10-mosa-1.2.0": 5,
+          "con-exce-10-suite-1.2.0": 5,
+          "con-exce-5-dynamosa-1.2.0": 10,
+          "con-exce-5-mosa-1.2.0": 10,
+          "con-exce-5-suite-1.2.0": 10,
+          "con-exce-8-dynamosa-1.2.0": 10,
+          "con-exce-8-mosa-1.2.0": 10,
+          "con-exce-8-suite-1.2.0": 10,
+          "con-line-10-dynamosa-1.2.0": 5,
+          "con-line-10-mosa-1.2.0": 5,
+          "con-line-10-suite-1.2.0": 5,
+          "con-line-5-dynamosa-1.2.0": 10,
+          "con-line-5-mosa-1.2.0": 10,
+          "con-line-5-suite-1.2.0": 10,
+          "con-line-8-dynamosa-1.2.0": 10,
+          "con-line-8-mosa-1.2.0": 10,
+          "con-line-8-suite-1.2.0": 10,
+          "con-method-10-dynamosa-1.2.0": 5,
+          "con-method-10-mosa-1.2.0": 5,
+          "con-method-10-suite-1.2.0": 5,
+          "con-method-5-dynamosa-1.2.0": 10,
+          "con-method-5-mosa-1.2.0": 10,
+          "con-method-5-suite-1.2.0": 10,
+          "con-method-8-dynamosa-1.2.0": 10,
+          "con-method-8-mosa-1.2.0": 10,
+          "con-method-8-suite-1.2.0": 10,
+          "con-methodne-10-dynamosa-1.2.0": 5,
+          "con-methodne-10-mosa-1.2.0": 5,
+          "con-methodne-10-suite-1.2.0": 5,
+          "con-methodne-5-dynamosa-1.2.0": 10,
+          "con-methodne-5-mosa-1.2.0": 10,
+          "con-methodne-5-suite-1.2.0": 10,
+          "con-methodne-8-dynamosa-1.2.0": 10,
+          "con-methodne-8-mosa-1.2.0": 10,
+          "con-methodne-8-suite-1.2.0": 10,
+          "con-output-10-dynamosa-1.2.0": 5,
+          "con-output-10-mosa-1.2.0": 5,
+          "con-output-10-suite-1.2.0": 5,
+          "con-output-5-dynamosa-1.2.0": 10,
+          "con-output-5-mosa-1.2.0": 10,
+          "con-output-5-suite-1.2.0": 10,
+          "con-output-8-dynamosa-1.2.0": 10,
+          "con-output-8-mosa-1.2.0": 10,
+          "con-output-8-suite-1.2.0": 10,
+          "con-wm-10-dynamosa-1.2.0": 5,
+          "con-wm-10-mosa-1.2.0": 5,
+          "con-wm-10-suite-1.2.0": 5,
+          "con-wm-5-dynamosa-1.2.0": 10,
+          "con-wm-5-mosa-1.2.0": 10,
+          "con-wm-5-suite-1.2.0": 10,
+          "con-wm-8-dynamosa-1.2.0": 10,
+          "con-wm-8-mosa-1.2.0": 10,
+          "con-wm-8-suite-1.2.0": 10,
+          "origin-10-dynamosa-1.2.0": 5,
+          "origin-10-mosa-1.2.0": 5,
+          "origin-10-suite-1.2.0": 5,
+          "origin-5-dynamosa-1.2.0": 10,
+          "origin-5-mosa-1.2.0": 10,
+          "origin-5-suite-1.2.0": 10,
+          "origin-8-dynamosa-1.2.0": 10,
+          "origin-8-mosa-1.2.0": 10,
+          "origin-8-suite-1.2.0": 10,
+          "sc-10-dynamosa-sc-release1": 5,
+          "sc-10-mosa-sc-release1": 5,
+          "sc-10-suite-sc-release1": 5,
+          "sc-5-dynamosa-sc-release1": 10,
+          "sc-5-mosa-sc-release1": 10,
+          "sc-5-suite-sc-release1": 10,
+          "sc-8-dynamosa-sc-release1": 10,
+          "sc-8-mosa-sc-release1": 10,
+          "sc-8-suite-sc-release1": 10}
+    if name in d1:
+        return d1[name]
+    return None
+
+
 def get_data_group(path, data_group_by_class=None):
     data = read_exp_data(path)
     remain_total = 30
@@ -687,6 +783,11 @@ def get_data_group(path, data_group_by_class=None):
     for task_id, single in data.items():
         if not single['classes'][0][1] in data_group_by_class:
             data_group_by_class[single['classes'][0][1]] = {}
+        new_remain = get_remain_by_name(single['name'])
+        if new_remain is not None:
+            ds = {task_id: single}
+            ds = remain_part(ds, new_remain)
+            single = ds[task_id]
         data_group_by_class[single['classes'][0][1]][single['name']] = single
     return data_group_by_class
 
@@ -869,7 +970,8 @@ def ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, cla
         suffix = '_' + suffix
     for k, v in total_summary.items():
         df = pd.DataFrame([v])
-        df.to_csv(os.path.join(result_folder, "%s_budget_mean_total_%d_%s%s.csv" % (alg, budget, k, suffix)), index=False)
+        df.to_csv(os.path.join(result_folder, "%s_budget_mean_total_%d_%s%s.csv" % (alg, budget, k, suffix)),
+                  index=False)
 
     df = pd.DataFrame([mean_ss, mean_origin, mean_con])
     df.to_csv(os.path.join(result_folder, "%s_budget_mean_%d%s.csv" % (alg, budget, suffix)), index=False)
