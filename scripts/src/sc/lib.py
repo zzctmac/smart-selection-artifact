@@ -829,8 +829,13 @@ def get_group_name(algorithm):
 
 
 def add_2_mm(mm, key, data):
-    mm[key] = np.round(data, decimals=2)
+    mm[key] = np_round(data)
     return mm
+
+
+def np_round(data):
+    return data
+    # return np.round(data, decimals=2)
 
 
 def analysis_data_4_alg(data_group_by_class, algorithm):
@@ -853,9 +858,9 @@ def analysis_data_4_alg(data_group_by_class, algorithm):
     big_mean_overview = get_mean_table(aos["statistic_big_classes"], aos["statistic_big_classes"],
                                        oc["statistic_big_classes"])
     mm = {"all": mean_overview, "small": small_mean_overview, "big": big_mean_overview}
-    mm["all"] = np.round(mm["all"], decimals=2)
-    mm["small"] = np.round(mm["small"], decimals=2)
-    mm["big"] = np.round(mm["big"], decimals=2)
+    mm["all"] = np_round(mm["all"])
+    mm["small"] = np_round(mm["small"])
+    mm["big"] = np_round(mm["big"])
     mm = add_2_mm(mm, "all_size", get_mean_table_4_size(aos["statistic"], aos["statistic"], constituent_mean_all))
 
     mm = add_2_mm(mm, "small_size", get_mean_table_4_size(aos["statistic_small_classes"],
@@ -891,9 +896,9 @@ def analysis_data_4_representative(data_group_by_class, algorithm):
     small_mean_overview = get_mean_table_4_representative(aos["statistic_small_classes"])
     big_mean_overview = get_mean_table_4_representative(aos["statistic_big_classes"])
     mm = {"all": mean_overview, "small": small_mean_overview, "big": big_mean_overview}
-    mm["all"] = np.round(mm["all"], decimals=2)
-    mm["small"] = np.round(mm["small"], decimals=2)
-    mm["big"] = np.round(mm["big"], decimals=2)
+    mm["all"] = np_round(mm["all"])
+    mm["small"] = np_round(mm["small"])
+    mm["big"] = np_round(mm["big"])
 
     size_map = {"Size": "Size"}
     mm = add_2_mm(mm, "all_size", get_mean_table_4_representative(aos["statistic"], get_size_means, size_map))
