@@ -29,6 +29,7 @@ set_logger(logger)
 
 parser = argparse.ArgumentParser(description="smart selection analysis", prog="sa")
 parser.add_argument("-f", "--folder", help="data_folder", required=True)
+parser.add_argument("-b", "--bf", help="budget_folder")
 parser.add_argument("-r", "--result", help="result_folder")
 parser.add_argument("-s", "--suffix", help="suffix")
 parser.add_argument("-k", "--subkey")
@@ -99,7 +100,13 @@ if os.path.exists(result_folder):
 os.mkdir(result_folder)
 
 analysis_classes = get_all_analysis_classes()
-f1_data_group_by_class = choose_classes(analysis_classes, get_data_group(f1))
+o1 = get_data_group(f1)
+
+f_budget = args.bf
+if f_budget is not None and f_budget != "":
+    dir_check(f_budget)
+    o1 = get_data_group(f_budget, o1)
+f1_data_group_by_class = choose_classes(analysis_classes, o1)
 f3_data_group_by_class = f1_data_group_by_class
 
 if research_question is None or research_question == 1:

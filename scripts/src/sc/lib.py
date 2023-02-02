@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import math
 import os
 import warnings
+import re
 
 import pkg_resources
 
@@ -319,12 +320,12 @@ def read_exp_data(exp_dir):
                 order_list = load_order(reports_dir)
                 if order_list is not None:
                     reports = order_list
+                else:
+                    reports.sort()
                 task_data = None
-                new_order_list = []
                 for single_report in reports:
                     if not single_report.isnumeric():
                         continue
-                    new_order_list.append(single_report)
                     statistics_file = os.path.join(reports_dir, single_report, "statistics.csv")
                     if not os.path.isfile(statistics_file):
                         print("no statistics.csv:", statistics_file)
@@ -334,8 +335,6 @@ def read_exp_data(exp_dir):
                         task_data = single_data
                     else:
                         task_data = pd.concat([task_data, single_data], axis=0, ignore_index=True)
-                if order_list is None:
-                    store_order(reports_dir, new_order_list)
                 tasks[task_id]['data'][single_class] = task_data
     return tasks
 
@@ -679,14 +678,116 @@ def get_constituent_mean(dgc, algorithm, class_list=None):
     return total_mean_dict
 
 
-def get_data_group(path):
+def get_remain_by_name(name):
+    d1 = {"con-branch-10-dynamosa-1.2.0": 5,
+          "con-branch-10-mosa-1.2.0": 5,
+          "con-branch-10-suite-1.2.0": 5,
+          "con-branch-5-dynamosa-1.2.0": 10,
+          "con-branch-5-mosa-1.2.0": 10,
+          "con-branch-5-suite-1.2.0": 10,
+          "con-branch-8-dynamosa-1.2.0": 10,
+          "con-branch-8-mosa-1.2.0": 10,
+          "con-branch-8-suite-1.2.0": 10,
+          "con-cbranch-10-dynamosa-1.2.0": 5,
+          "con-cbranch-10-mosa-1.2.0": 5,
+          "con-cbranch-10-suite-1.2.0": 5,
+          "con-cbranch-5-dynamosa-1.2.0": 10,
+          "con-cbranch-5-mosa-1.2.0": 10,
+          "con-cbranch-5-suite-1.2.0": 10,
+          "con-cbranch-8-dynamosa-1.2.0": 10,
+          "con-cbranch-8-mosa-1.2.0": 10,
+          "con-cbranch-8-suite-1.2.0": 10,
+          "con-exce-10-dynamosa-1.2.0": 5,
+          "con-exce-10-mosa-1.2.0": 5,
+          "con-exce-10-suite-1.2.0": 5,
+          "con-exce-5-dynamosa-1.2.0": 10,
+          "con-exce-5-mosa-1.2.0": 10,
+          "con-exce-5-suite-1.2.0": 10,
+          "con-exce-8-dynamosa-1.2.0": 10,
+          "con-exce-8-mosa-1.2.0": 10,
+          "con-exce-8-suite-1.2.0": 10,
+          "con-line-10-dynamosa-1.2.0": 5,
+          "con-line-10-mosa-1.2.0": 5,
+          "con-line-10-suite-1.2.0": 5,
+          "con-line-5-dynamosa-1.2.0": 10,
+          "con-line-5-mosa-1.2.0": 10,
+          "con-line-5-suite-1.2.0": 10,
+          "con-line-8-dynamosa-1.2.0": 10,
+          "con-line-8-mosa-1.2.0": 10,
+          "con-line-8-suite-1.2.0": 10,
+          "con-method-10-dynamosa-1.2.0": 5,
+          "con-method-10-mosa-1.2.0": 5,
+          "con-method-10-suite-1.2.0": 5,
+          "con-method-5-dynamosa-1.2.0": 10,
+          "con-method-5-mosa-1.2.0": 10,
+          "con-method-5-suite-1.2.0": 10,
+          "con-method-8-dynamosa-1.2.0": 10,
+          "con-method-8-mosa-1.2.0": 10,
+          "con-method-8-suite-1.2.0": 10,
+          "con-methodne-10-dynamosa-1.2.0": 5,
+          "con-methodne-10-mosa-1.2.0": 5,
+          "con-methodne-10-suite-1.2.0": 5,
+          "con-methodne-5-dynamosa-1.2.0": 10,
+          "con-methodne-5-mosa-1.2.0": 10,
+          "con-methodne-5-suite-1.2.0": 10,
+          "con-methodne-8-dynamosa-1.2.0": 10,
+          "con-methodne-8-mosa-1.2.0": 10,
+          "con-methodne-8-suite-1.2.0": 10,
+          "con-output-10-dynamosa-1.2.0": 5,
+          "con-output-10-mosa-1.2.0": 5,
+          "con-output-10-suite-1.2.0": 5,
+          "con-output-5-dynamosa-1.2.0": 10,
+          "con-output-5-mosa-1.2.0": 10,
+          "con-output-5-suite-1.2.0": 10,
+          "con-output-8-dynamosa-1.2.0": 10,
+          "con-output-8-mosa-1.2.0": 10,
+          "con-output-8-suite-1.2.0": 10,
+          "con-wm-10-dynamosa-1.2.0": 5,
+          "con-wm-10-mosa-1.2.0": 5,
+          "con-wm-10-suite-1.2.0": 5,
+          "con-wm-5-dynamosa-1.2.0": 10,
+          "con-wm-5-mosa-1.2.0": 10,
+          "con-wm-5-suite-1.2.0": 10,
+          "con-wm-8-dynamosa-1.2.0": 10,
+          "con-wm-8-mosa-1.2.0": 10,
+          "con-wm-8-suite-1.2.0": 10,
+          "origin-10-dynamosa-1.2.0": 5,
+          "origin-10-mosa-1.2.0": 5,
+          "origin-10-suite-1.2.0": 5,
+          "origin-5-dynamosa-1.2.0": 10,
+          "origin-5-mosa-1.2.0": 10,
+          "origin-5-suite-1.2.0": 10,
+          "origin-8-dynamosa-1.2.0": 10,
+          "origin-8-mosa-1.2.0": 10,
+          "origin-8-suite-1.2.0": 10,
+          "sc-10-dynamosa-sc-release1": 5,
+          "sc-10-mosa-sc-release1": 5,
+          "sc-10-suite-sc-release1": 5,
+          "sc-5-dynamosa-sc-release1": 10,
+          "sc-5-mosa-sc-release1": 10,
+          "sc-5-suite-sc-release1": 10,
+          "sc-8-dynamosa-sc-release1": 10,
+          "sc-8-mosa-sc-release1": 10,
+          "sc-8-suite-sc-release1": 10}
+    if name in d1:
+        return d1[name]
+    return None
+
+
+def get_data_group(path, data_group_by_class=None):
     data = read_exp_data(path)
     remain_total = 30
     data = remain_part(data, remain_total)
-    data_group_by_class = {}
+    if data_group_by_class is None:
+        data_group_by_class = {}
     for task_id, single in data.items():
         if not single['classes'][0][1] in data_group_by_class:
             data_group_by_class[single['classes'][0][1]] = {}
+        new_remain = get_remain_by_name(single['name'])
+        if new_remain is not None:
+            ds = {task_id: single}
+            ds = remain_part(ds, new_remain)
+            single = ds[task_id]
         data_group_by_class[single['classes'][0][1]][single['name']] = single
     return data_group_by_class
 
@@ -728,8 +829,13 @@ def get_group_name(algorithm):
 
 
 def add_2_mm(mm, key, data):
-    mm[key] = np.round(data, decimals=2)
+    mm[key] = np_round(data)
     return mm
+
+
+def np_round(data):
+    return data
+    # return np.round(data, decimals=2)
 
 
 def analysis_data_4_alg(data_group_by_class, algorithm):
@@ -752,9 +858,9 @@ def analysis_data_4_alg(data_group_by_class, algorithm):
     big_mean_overview = get_mean_table(aos["statistic_big_classes"], aos["statistic_big_classes"],
                                        oc["statistic_big_classes"])
     mm = {"all": mean_overview, "small": small_mean_overview, "big": big_mean_overview}
-    mm["all"] = np.round(mm["all"], decimals=2)
-    mm["small"] = np.round(mm["small"], decimals=2)
-    mm["big"] = np.round(mm["big"], decimals=2)
+    mm["all"] = np_round(mm["all"])
+    mm["small"] = np_round(mm["small"])
+    mm["big"] = np_round(mm["big"])
     mm = add_2_mm(mm, "all_size", get_mean_table_4_size(aos["statistic"], aos["statistic"], constituent_mean_all))
 
     mm = add_2_mm(mm, "small_size", get_mean_table_4_size(aos["statistic_small_classes"],
@@ -790,9 +896,9 @@ def analysis_data_4_representative(data_group_by_class, algorithm):
     small_mean_overview = get_mean_table_4_representative(aos["statistic_small_classes"])
     big_mean_overview = get_mean_table_4_representative(aos["statistic_big_classes"])
     mm = {"all": mean_overview, "small": small_mean_overview, "big": big_mean_overview}
-    mm["all"] = np.round(mm["all"], decimals=2)
-    mm["small"] = np.round(mm["small"], decimals=2)
-    mm["big"] = np.round(mm["big"], decimals=2)
+    mm["all"] = np_round(mm["all"])
+    mm["small"] = np_round(mm["small"])
+    mm["big"] = np_round(mm["big"])
 
     size_map = {"Size": "Size"}
     mm = add_2_mm(mm, "all_size", get_mean_table_4_representative(aos["statistic"], get_size_means, size_map))
@@ -849,12 +955,57 @@ def write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, alg, result_fo
     plot_bar_4_compare(suite_oc["overview"], "%s_oc" % alg, result_folder)
 
 
+def ana_budget_one(data_group_by_class, alg, budget, result_folder):
+    data_group_by_class = concat_constituent_all_4_budget(alg, data_group_by_class, budget)
+    ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder)
+    ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, get_big_class(), 'big')
+    ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, get_smaller_class(), 'small')
+
+
+def ana_budget_mean_to_disk(alg, budget, data_group_by_class, result_folder, class_list=None, suffix=''):
+    mean_con, con_total_summary = get_mean_4_budget_constituent(data_group_by_class, alg, budget, class_list)
+    mean_ss, ss_total_summary = get_mean_4_budget_ss(data_group_by_class, alg, budget, class_list)
+    mean_origin, origin_total_summary = get_mean_4_budget_origin(data_group_by_class, alg, budget, class_list)
+    total_summary = {
+        "constituent": con_total_summary,
+        "ss": ss_total_summary,
+        "origin": origin_total_summary
+    }
+    if suffix != '':
+        suffix = '_' + suffix
+    for k, v in total_summary.items():
+        df = pd.DataFrame([v])
+        df.to_csv(os.path.join(result_folder, "%s_budget_mean_total_%d_%s%s.csv" % (alg, budget, k, suffix)),
+                  index=False)
+
+    df = pd.DataFrame([mean_ss, mean_origin, mean_con])
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_%d%s.csv" % (alg, budget, suffix)), index=False)
+    ad, mean_total = get_mean_size_4_budget(data_group_by_class, alg, budget, class_list)
+    aks = list(ad.keys())
+    avs = []
+    for ak in aks:
+        avs.append(ad[ak])
+    df = pd.DataFrame(data={"approach": aks, "Size": avs})
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_size_%d%s.csv" % (alg, budget, suffix)), index=False)
+
+    df = pd.DataFrame([mean_total])
+    df.to_csv(os.path.join(result_folder, "%s_budget_mean_size_total_%d%s.csv" % (alg, budget, suffix)), index=False)
+
+
+def ana_budget(data_group_by_class, alg, result_folder):
+    budgets = [5, 8, 10]
+    data_group_by_class = calc_coverage_4_budget(data_group_by_class, alg)
+    for budget in budgets:
+        ana_budget_one(data_group_by_class, alg, budget, result_folder)
+
+
 def ana_rq123(data_group_by_class, result_folder, ags=None):
     if ags is None:
         ags = ["suite", "mosa", "dynamosa"]
     for ag in ags:
         suite_os, suite_sc, suite_oc, suite_mean_overview = analysis_data_4_alg(data_group_by_class, ag)
         write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, ag, result_folder)
+        ana_budget(data_group_by_class, ag, result_folder)
 
 
 def ana_select(data_group_by_class, result_folder):
@@ -996,3 +1147,167 @@ def get_result_sub_classes():
     for record in c:
         sub_information[record["ca"]] = record['ca']
     return sub_information
+
+
+def constituent_map_4_budget(algorithm, budget):
+    return {
+        ("con-branch-%d-%s-1.2.0" % (budget, algorithm)): "BranchCoverageBitString",
+        ("con-wm-%d-%s-1.2.0" % (budget, algorithm)): "WeakMutationCoverageBitString",
+        ("con-line-%d-%s-1.2.0" % (budget, algorithm)): "LineCoverageBitString",
+        ("con-method-%d-%s-1.2.0" % (budget, algorithm)): "MethodCoverageBitString",
+        ("con-methodne-%d-%s-1.2.0" % (budget, algorithm)): "MethodNoExceptionCoverageBitString",
+        ("con-cbranch-%d-%s-1.2.0" % (budget, algorithm)): "CBranchCoverageBitString",
+        ("con-exce-%d-%s-1.2.0" % (budget, algorithm)): "ExceptionCoverageBitString",
+        ("con-output-%d-%s-1.2.0" % (budget, algorithm)): "OutputCoverageBitString"
+    }
+
+
+def concat_constituent_one_class_4_budget(algorithm, data_group_by_class, a_class, budget):
+    m = constituent_map_4_budget(algorithm, budget)
+    g = []
+    i = 0
+    for k, v in m.items():
+        new_value = v.replace('BitString', '')
+        if k not in data_group_by_class[a_class]:
+            current_logger.warning("%s not in %s %d %s", k, algorithm, budget, a_class)
+            continue
+        if i == 0:
+            g.append(data_group_by_class[a_class][k]["data"][a_class])
+        else:
+            g.append(data_group_by_class[a_class][k]["data"][a_class][v])
+            g.append(data_group_by_class[a_class][k]["data"][a_class][new_value])
+        if v == 'ExceptionCoverageBitString':
+            g.append(data_group_by_class[a_class][k]["data"][a_class]["ExceptionCoverageGoals"])
+        size_slice = data_group_by_class[a_class][k]["data"][a_class]["Size"].copy()
+        size_slice = size_slice.rename("Constituent" + new_value + "Size")
+        g.append(size_slice)
+        i = i + 1
+    return pd.concat(g, axis=1)
+
+
+def concat_constituent_all_4_budget(algorithm, data_group_by_class, budget=5):
+    for ac in list(data_group_by_class.keys()):
+        is_empty = True
+        ks = constituent_map_4_budget(algorithm, budget)
+        for k, _ in ks.items():
+            if k in data_group_by_class[ac]:
+                is_empty = False
+                break
+        if is_empty:
+            continue
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)] = {}
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["classes"] = \
+            data_group_by_class[ac]["origin-%s-1.2.0" % (algorithm)]["classes"]
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["data"] = {}
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["data"][ac] = \
+            concat_constituent_one_class_4_budget(algorithm, data_group_by_class, ac, budget)
+        data_group_by_class[ac]["constituent-%d-%s" % (budget, algorithm)]["name"] = "constituent-%d-%s" % (
+            budget, algorithm)
+    return data_group_by_class
+
+
+def calc_coverage_4_budget(data_group_by_class, algorithm):
+    groups = [re.compile('^sc-(\d+)-%s-sc-release1$' % algorithm), re.compile('^con-(.+)-(\d+)-%s-1.2.0$' % algorithm),
+              re.compile('^origin-(\d+)-%s-1.2.0$' % algorithm)]
+    for class_name in data_group_by_class.keys():
+        for ok, single_data in data_group_by_class[class_name].items():
+            match = False
+            for rm in groups:
+                if rm.match(ok) is not None:
+                    match = True
+                    break
+            if match:
+                calcTotal(single_data['data'][class_name])
+    return data_group_by_class
+
+
+def get_mean_4_budget_basic(cname, dgc, name, class_list=None):
+    # criterion_map = {
+    #    "BC": "ConstituentBranchCoverageSize", "WM": "ConstituentWeakMutationCoverageSize",
+    #    "LC": "ConstituentLineCoverageSize", "TMC": "ConstituentMethodCoverageSize",
+    #    "NTMC": "ConstituentMethodNoExceptionCoverageSize", "DBC": "ConstituentCBranchCoverageSize",
+    #    "EC": "ConstituentExceptionCoverageSize", "OC": "ConstituentOutputCoverageSize"
+    # }
+    criterion_map = {
+        "BC": "BranchCoverage", "WM": "WeakMutationCoverage",
+        "LC": "LineCoverage", "TMC": "MethodCoverage",
+        "NTMC": "MethodNoExceptionCoverage", "DBC": "CBranchCoverage",
+        "EC": "ExceptionCoverageGoals", "OC": "OutputCoverage"
+    }
+    total_count_map = {}
+    for k, _ in criterion_map.items():
+        total_count_map[k] = 0
+    total_sum_dict = {}
+    for ck in criterion_map.keys():
+        total_sum_dict[ck] = 0
+    for class_name, data in dgc.items():
+        if name not in data:
+            continue
+        real_class_name = data[name]['data'][class_name]['TARGET_CLASS'][0]
+        if class_list is not None and real_class_name not in class_list:
+            continue
+        cd = data[name]['data'][class_name]
+        sum_dict = cd.sum().to_dict()
+        for ck in criterion_map.keys():
+            if criterion_map[ck] not in sum_dict:
+                continue
+            total_count_map[ck] = total_count_map[ck] + len(cd)
+            total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[criterion_map[ck]]
+    total_mean_dict = {"approach": cname}
+    for ck, cv in total_sum_dict.items():
+        total_count = total_count_map[ck]
+        if total_count != 0:
+            total_mean_dict[ck] = cv / total_count
+    total_count_map["approach"] = cname
+    return total_mean_dict, total_count_map
+
+
+def get_mean_4_budget_constituent(dgc, algorithm, budget, class_list=None):
+    return get_mean_4_budget_basic("constituent criterion", dgc, "constituent-%d-%s" % (budget, algorithm), class_list)
+
+
+def get_mean_4_budget_ss(dgc, algorithm, budget, class_list=None):
+    return get_mean_4_budget_basic("smart selection", dgc, "sc-%d-%s-sc-release1" % (budget, algorithm), class_list)
+
+
+def get_mean_4_budget_origin(dgc, algorithm, budget, class_list=None):
+    return get_mean_4_budget_basic("original combination", dgc, "origin-%d-%s-1.2.0" % (budget, algorithm), class_list)
+
+
+def get_mean_size_4_budget(dgc, algorithm, budget, class_list=None):
+    criterion_map = {
+        "smart selection": ["sc-%d-%s-sc-release1" % (budget, algorithm), "Size"],
+        "original combination": ["origin-%d-%s-1.2.0" % (budget, algorithm), "Size"],
+        "BC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentBranchCoverageSize"],
+        "WM": ["constituent-%d-%s" % (budget, algorithm), "ConstituentWeakMutationCoverageSize"],
+        "LC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentLineCoverageSize"],
+        "TMC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentMethodCoverageSize"],
+        "NTMC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentMethodNoExceptionCoverageSize"],
+        "DBC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentCBranchCoverageSize"],
+        "EC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentExceptionCoverageSize"],
+        "OC": ["constituent-%d-%s" % (budget, algorithm), "ConstituentOutputCoverageSize"]}
+    total_count_dict = {}
+    for k in criterion_map.keys():
+        total_count_dict[k] = 0
+    total_sum_dict = {}
+    for ck in criterion_map.keys():
+        total_sum_dict[ck] = 0
+    for class_name, data in dgc.items():
+        for ck, cv in criterion_map.items():
+            if cv[0] not in data:
+                continue
+            real_class_name = data[cv[0]]['data'][class_name]['TARGET_CLASS'][0]
+            if class_list is not None and real_class_name not in class_list:
+                continue
+            if cv[1] not in data[cv[0]]['data'][class_name]:
+                continue
+            cd = data[cv[0]]['data'][class_name]
+            sum_dict = cd.sum().to_dict()
+            total_count_dict[ck] = total_count_dict[ck] + len(cd)
+            total_sum_dict[ck] = total_sum_dict[ck] + sum_dict[cv[1]]
+    total_mean_dict = {}
+    for ck, cv in total_sum_dict.items():
+        total_count = total_count_dict[ck]
+        if total_count != 0:
+            total_mean_dict[ck] = cv / total_count
+    return total_mean_dict, total_count_dict
