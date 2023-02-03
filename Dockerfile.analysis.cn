@@ -2,7 +2,7 @@ FROM python:3.7.6-slim
 WORKDIR /analysis
 COPY ./scripts ./
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN python setup.py install
 
 ENTRYPOINT ["python"]
