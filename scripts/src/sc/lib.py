@@ -1169,7 +1169,7 @@ def concat_constituent_one_class_4_budget(algorithm, data_group_by_class, a_clas
     for k, v in m.items():
         new_value = v.replace('BitString', '')
         if k not in data_group_by_class[a_class]:
-            current_logger.warning("%s not in %s %d %s", k, algorithm, budget, a_class)
+            #current_logger.warning("%s not in %s %d %s", k, algorithm, budget, a_class)
             continue
         if i == 0:
             g.append(data_group_by_class[a_class][k]["data"][a_class])

@@ -1,4 +1,4 @@
-# Artifact of Selectively Combining Multiple Coverage Goals in Search-Based Unit Test Generation
+# Artifact of Coverage Goal Selector for Combining Multiple Criteria in Search-Based Unit Test Generation
 
 ## 0. Prerequisite
 To use the following artifact, you need to prepare a Unix-like (e.g., Ubuntu and Mac OS) computer with [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). A fast way to install these two applications is to install [docker-desktop](https://www.docker.com/products/docker-desktop/), since `docker-desktop` contains both of them.
@@ -169,3 +169,8 @@ Section 4.5:
 - The data of Table 8 (a) comes from [sub_suite_mean_overview.csv](./experimental_data/result_folder-rq-4/sub_suite_mean_overview.csv). The `Suite Size` comes from [sub_suite_mean_size_overview.csv](./experimental_data/result_folder-rq-4/sub_suite_mean_size_overview.csv).
 - The data of Table 8 (b) comes from [sub_mosa_mean_overview.csv](./experimental_data/result_folder-rq-4/sub_mosa_mean_overview.csv). The `Suite Size` comes from [sub_mosa_mean_size_overview.csv](./experimental_data/result_folder-rq-4/sub_mosa_mean_size_overview.csv).
 - The data of Table 8 (c) comes from [sub_dynamosa_mean_overview.csv](./experimental_data/result_folder-rq-4/sub_dynamosa_mean_overview.csv). The `Suite Size` comes from [sub_dynamosa_mean_size_overview.csv](./experimental_data/result_folder-rq-4/sub_dynamosa_mean_size_overview.csv).
+
+Section 4.6:
+- Figure 8's data collects from [suite_mean_overview.csv (2 min)](./experimental_data/result_folder-rq-1/suite_mean_overview.csv), [suite_budget_mean_5.csv](./experimental_data/result_folder-rq-1/suite_budget_mean_5.csv), [suite_budget_mean_8.csv](./experimental_data/result_folder-rq-1/suite_budget_mean_8.csv), and [suite_budget_mean_10.csv](./experimental_data/result_folder-rq-1/suite_budget_mean_10.csv).
+- Figure 9's data collects from [mosa_mean_overview.csv (2 min)](./experimental_data/result_folder-rq-2/mosa_mean_overview.csv), [mosa_budget_mean_5.csv](./experimental_data/result_folder-rq-2/mosa_budget_mean_5.csv), [mosa_budget_mean_8.csv](./experimental_data/result_folder-rq-2/mosa_budget_mean_8.csv), and [mosa_budget_mean_10.csv](./experimental_data/result_folder-rq-2/mosa_budget_mean_10.csv).
+- Figure 10's data collects from [dynamosa_mean_overview.csv (2 min)](./experimental_data/result_folder-rq-3/dynamosa_mean_overview.csv), [dynamosa_budget_mean_5.csv](./experimental_data/result_folder-rq-3/dynamosa_budget_mean_5.csv), [dynamosa_budget_mean_8.csv](./experimental_data/result_folder-rq-3/dynamosa_budget_mean_8.csv), and [dynamosa_budget_mean_10.csv](./experimental_data/result_folder-rq-3/dynamosa_budget_mean_10.csv).

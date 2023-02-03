@@ -1,4 +1,4 @@
-# Artifact of Selectively Combining Multiple Coverage Goals in Search-Based Unit Test Generation
+# Artifact of Coverage Goal Selector for Combining Multiple Criteria in Search-Based Unit Test Generation
 
 This artifact mainly contains:
 1. The binary file (`evosuite-ss.jar`) that implements the methodology proposed in the paper.
