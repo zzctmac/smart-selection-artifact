@@ -1,0 +1,22 @@
+version: "3"
+services:
+  rq1:
+    image: smart_selection_analysis
+    volumes:
+     - "./test/experimental_data:/exp"
+    command: "/analysis/bin/smart_selection_analysis -f /exp/data_folder -b /exp/budget -q 1"
+  rq2:
+    image: smart_selection_analysis
+    volumes:
+      - "./test/experimental_data:/exp"
+    command: "/analysis/bin/smart_selection_analysis -f /exp/data_folder -b /exp/budget -q 2"
+  rq3:
+    image: smart_selection_analysis
+    volumes:
+      - "./test/experimental_data:/exp"
+    command: "/analysis/bin/smart_selection_analysis -f /exp/data_folder -b /exp/budget -q 3"
+  rq4:
+    image: smart_selection_analysis
+    volumes:
+      - "./test/experimental_data:/exp"
+    command: "/analysis/bin/smart_selection_analysis  -f /exp/data_folder -b /exp/budget -q 4"

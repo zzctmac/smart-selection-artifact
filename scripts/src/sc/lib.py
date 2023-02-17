@@ -948,6 +948,7 @@ def write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, alg, result_fo
         suite_mean_overview[ick].to_csv(result_folder + "/%s_mean_overview%s.csv" % (alg, ick_suffix), index=False)
         suite_mean_overview[ick + "_size"].to_csv(result_folder + "/%s_mean_size_overview%s.csv" % (alg, ick_suffix),
                                                   index=False)
+    suite_sc['statistic'].to_csv(os.path.join(result_folder, "%s_statistic.csv" % alg), index=False)
     plot_bar_4_compare(suite_os["overview"], "%s_os" % alg, result_folder)
     plot_bar_4_compare(suite_os["overview_small_classes"], "%s_os_small_classes" % alg, result_folder)
     plot_bar_4_compare(suite_os["overview_big_classes"], "%s_os_big_classes" % alg, result_folder)
