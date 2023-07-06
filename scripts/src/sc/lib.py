@@ -127,16 +127,23 @@ def real_sd_square(a, b):
 
 
 def calc_t(a, b):
-    res = wilcoxon(a, b)
-    if res.pvalue < 0.05:
-        return 2
-    else:
+    a_l = list(a)
+    b_l = list(b)
+    if a_l == b_l:
         return 1
-    #s_square = real_sd_square(a, b)
-    #sd = math.sqrt(s_square)
-    #if sd == 0:
-    #    return -1
-    # return (calc_d(a, b)) / sd
+    if len(a_l) == len(b_l):
+        res = wilcoxon(a_l, b_l)
+        if res.pvalue < 0.05:
+            return 2
+        else:
+            return 1
+    else:
+        current_logger.warning("len(a) %d != len(b) %d for wilcoxon" % (len(a_l), len(b_l)))
+        s_square = real_sd_square(a, b)
+        sd = math.sqrt(s_square)
+        if sd == 0:
+            return -1
+        return (calc_d(a, b)) / sd
 
 
 def calc_t_greater(a, b):
