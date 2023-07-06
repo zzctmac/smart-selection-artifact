@@ -6,6 +6,7 @@ from logging import NullHandler
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import wilcoxon
 import math
 import os
 import warnings
@@ -126,11 +127,16 @@ def real_sd_square(a, b):
 
 
 def calc_t(a, b):
-    s_square = real_sd_square(a, b)
-    sd = math.sqrt(s_square)
-    if sd == 0:
-        return -1
-    return (calc_d(a, b)) / sd
+    res = wilcoxon(a, b)
+    if res.pvalue < 0.05:
+        return 2
+    else:
+        return 1
+    #s_square = real_sd_square(a, b)
+    #sd = math.sqrt(s_square)
+    #if sd == 0:
+    #    return -1
+    # return (calc_d(a, b)) / sd
 
 
 def calc_t_greater(a, b):
