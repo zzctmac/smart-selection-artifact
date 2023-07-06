@@ -1,0 +1,7 @@
+version: "3"
+services:
+  all:
+    image: smart_selection_analysis
+    volumes:
+     - "./experimental_data:/exp"
+    command: "/analysis/bin/smart_selection_analysis -f /exp/data_folder -b /exp/b1"
