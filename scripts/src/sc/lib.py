@@ -828,7 +828,10 @@ def get_group_name(algorithm):
         "original combination": ('origin-%s-1.2.0' % algorithm),
         "smart selection": ('sc-%s-sc-release1' % algorithm),
         "constituent criterion": ('constituent-%s' % algorithm),
-        "smart selection without the subsumption strategy": ("sub-%s-1.2.0" % algorithm)
+        "smart selection without the subsumption strategy": ("sub-%s-1.2.0" % algorithm),
+        "LC-TMC-EC-OC": ('g-lm-%s-1.2.0' % algorithm),
+        "WM-TMC-EC-OC": ('g-wm-%s-1.2.0' % algorithm)
+
     }
     return m
 
@@ -893,6 +896,20 @@ def get_mean_table_4_representative(sc_df, mean_func=None, cm=None):
     return pd.DataFrame(all_data)
 
 
+def get_mean_table_4_group(sc_df, gk, mean_func=None, cm=None):
+    if mean_func is None:
+        mean_func = get_means
+    representative_means = mean_func(sc_df, gk, False)
+    sc_means = mean_func(sc_df, "smart selection", False)
+    if cm is None:
+        cm = get_criteria_map(False)
+    all_data = {"approach": ["smart selection", gk]}
+    for k, v in cm.items():
+        item = [sc_means[k + "-" + all_data["approach"][0]], representative_means[k + "-" + all_data["approach"][1]]]
+        all_data[v] = item
+    return pd.DataFrame(all_data)
+
+
 def analysis_data_4_representative(data_group_by_class, algorithm):
     aos = analysis_data_4_alg_2_compare(algorithm, data_group_by_class,
                                         "smart selection without the subsumption strategy", "smart selection",
@@ -917,6 +934,30 @@ def analysis_data_4_representative(data_group_by_class, algorithm):
     return aos, mm
 
 
+def analysis_data_4_group(data_group_by_class, algorithm, group_key):
+    aos = analysis_data_4_alg_2_compare(algorithm, data_group_by_class,
+                                        group_key, "smart selection",
+                                        False)
+    mean_overview = get_mean_table_4_group(aos["statistic"], group_key)
+    mm = {"all": mean_overview}
+    mm["all"] = np_round(mm["all"])
+
+    size_map = {"Size": "Size"}
+    mm = add_2_mm(mm, "all_size", get_mean_table_4_group(aos["statistic"], group_key, get_size_means, size_map))
+
+    return aos, mm
+
+
+def write_data_4_group(suite_os, suite_mean_overview, alg, group_key: str, result_folder):
+    group_key = group_key.replace('-', '_').lower()
+
+    suite_mean_overview['all'].to_csv(result_folder + "/group_%s_%s_mean_overview.csv" % (alg, group_key),
+                                      index=False)
+    suite_mean_overview["all_size"].to_csv(result_folder + "/group_%s_%s_mean_size_overview.csv" % (alg, group_key)
+                                           , index=False)
+    plot_bar_4_compare(suite_os["overview"], "%s_%s_group" % (alg, group_key), result_folder)
+
+
 def write_data_4_representative(suite_os, suite_mean_overview, alg, result_folder):
     ck = ["all", "small", "big"]
     for ick in ck:
@@ -931,17 +972,28 @@ def write_data_4_representative(suite_os, suite_mean_overview, alg, result_folde
     plot_bar_4_compare(suite_os["overview_big_classes"], "%s_rs_big_classes" % alg, result_folder)
 
 
-def plot_bar_4_compare(data, save_name="", result_folder=""):
-    color_map = {"original combination": '#7294cb', "smart selection": "green", "non-significant": "#F5F5F5",
-                 "constituent criterion": "#e1944c", "smart selection without the subsumption strategy": "#286795"}
-    data.plot.bar(x='key', stacked=True, color=color_map, edgecolor="black")
+def plot_bar_4_compare(data, save_name="", result_folder="", yks=None):
+    if yks is None:
+        yks = [
+            'BC', "WM", "LC", "TMC", "NTMC", 'DBC', "EC", "OC"
+        ]
+    data_show = data.sort_values(by='key', key=lambda x: x.apply(lambda u: yks.index(u)))
+    color_map = {"original combination": '#7294cb',
+                 "smart selection": "green",
+                 "non-significant": "#F5F5F5",
+                 "constituent criterion": "#e1944c",
+                 "smart selection without the subsumption strategy": "#286795",
+                 "LC-TMC-EC-OC": "#286795",
+                 "WM-TMC-EC-OC": "#286795"
+                 }
+    data_show.plot.bar(x='key', stacked=True, color=color_map, edgecolor="black")
     if save_name != "":
         if result_folder == "":
             plt.savefig(save_name + ".pdf", bbox_inches='tight')
-            data.to_csv(save_name + "_detail.csv", index=False)
+            data_show.to_csv(save_name + "_detail.csv", index=False)
         else:
             plt.savefig(result_folder + "/" + save_name + ".pdf", bbox_inches='tight')
-            data.to_csv(result_folder + "/" + save_name + "_detail.csv", index=False)
+            data_show.to_csv(result_folder + "/" + save_name + "_detail.csv", index=False)
 
 
 def write_data(suite_os, suite_sc, suite_oc, suite_mean_overview, alg, result_folder):
@@ -1134,6 +1186,16 @@ def ana_rq4(f3_data_group_by_class, sub_data_group_by_class, result_folder):
     return sub_data_group_by_class
 
 
+def ana_rq_group(sub_data_group_by_class, result_folder):
+    ags = ["suite", "mosa", "dynamosa"]
+    group_keys = ["LC-TMC-EC-OC", "WM-TMC-EC-OC"]
+    for gk in group_keys:
+        for ag in ags:
+            aos, mm = analysis_data_4_group(sub_data_group_by_class, ag, gk)
+            write_data_4_group(aos, mm, ag, gk, result_folder)
+    return sub_data_group_by_class
+
+
 def get_all_sub_classes_information():
     config_file = pkg_resources.resource_stream("sc", 'share/data/artifacts/sub_info.csv')
     utf8_reader = codecs.getreader("utf-8")
@@ -1175,7 +1237,7 @@ def concat_constituent_one_class_4_budget(algorithm, data_group_by_class, a_clas
     for k, v in m.items():
         new_value = v.replace('BitString', '')
         if k not in data_group_by_class[a_class]:
-            #current_logger.warning("%s not in %s %d %s", k, algorithm, budget, a_class)
+            # current_logger.warning("%s not in %s %d %s", k, algorithm, budget, a_class)
             continue
         if i == 0:
             g.append(data_group_by_class[a_class][k]["data"][a_class])

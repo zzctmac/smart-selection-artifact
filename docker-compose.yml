@@ -15,8 +15,13 @@ services:
     volumes:
       - "./experimental_data:/exp"
     command: "/analysis/bin/smart_selection_analysis -f /exp/data_folder -b /exp/b1 -q 3"
-  rq4:
+  rq5:
     image: smart_selection_analysis
     volumes:
       - "./experimental_data:/exp"
-    command: "/analysis/bin/smart_selection_analysis  -f /exp/data_folder -b /exp/b1 -q 4"
+    command: "/analysis/bin/smart_selection_analysis  -f /exp/data_folder -b /exp/b1 -q 5"
+  rq6:
+    image: smart_selection_analysis
+    volumes:
+      - "./experimental_data:/exp"
+    command: "/analysis/bin/smart_selection_analysis  -f /exp/data_folder -b /exp/b1 -q 6"

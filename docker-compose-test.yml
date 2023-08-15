@@ -19,4 +19,4 @@ services:
     image: smart_selection_analysis
     volumes:
       - "./test/experimental_data:/exp"
-    command: "/analysis/bin/smart_selection_analysis  -f /exp/data_folder -b /exp/budget -q 4"
+    command: "/analysis/bin/smart_selection_analysis  -f /exp/data_folder -b /exp/budget -q 6"
