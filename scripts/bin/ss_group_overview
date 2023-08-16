@@ -23,23 +23,23 @@ content = '''
 env = NativeEnvironment()
 t = env.from_string(content)
 
-LTEO_file = "group_" + input_name + "_lc_tmc_ec_oc_mean_overview.csv"
+LT_file = "group_" + input_name + "_lc_tmc_ec_oc_mean_overview.csv"
 
-WTEO_file = "group_" + input_name + "_wm_tmc_ec_oc_mean_overview.csv"
+WT_file = "group_" + input_name + "_wm_tmc_ec_oc_mean_overview.csv"
 
-sm1 = pd.read_csv(LTEO_file)
-sm2 = pd.read_csv(WTEO_file)
+sm1 = pd.read_csv(LT_file)
+sm2 = pd.read_csv(WT_file)
 sm = pd.concat([sm1, sm2[sm2['approach'] != 'smart selection']], ignore_index=True)
 a = sm.to_dict()
 ck = [["BC", "WM", "LC", "TMC"], ["NTMC", "DBC", "EC", "OC"]]
 data = []
 am = {}
-aom = {"smart selection": "SS", "LC-TMC-EC-OC": "LTEO", "WM-TMC-EC-OC": "WTEO"}
+aom = {"smart selection": "SS", "LC-TMC-EC-OC": "LT", "WM-TMC-EC-OC": "WT"}
 for k, v in a["approach"].items():
     am[aom[v]] = k
 
-oitem = [["approach", "SS", "LTEO", "WTEO"]]
-ap_list = ['SS', "LTEO", "WTEO"]
+oitem = [["approach", "SS", "LT", "WT"]]
+ap_list = ['SS', "LT", "WT"]
 for ks in ck:
     item = []
     item.extend(oitem)
@@ -51,10 +51,11 @@ for ks in ck:
         max_indexes = []
         current_max = -1
         for adk, v in enumerate(ad):
-            if v > current_max:
+            rv = int(round(v, 2) * 100)
+            if rv > current_max:
                 max_indexes = [adk]
-                current_max = v
-            elif v == current_max:
+                current_max = rv
+            elif rv == current_max:
                 max_indexes.append(adk)
         if len(max_indexes) == len(ad):
             max_indexes = []
