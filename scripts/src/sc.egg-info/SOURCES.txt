@@ -5,6 +5,7 @@ bin/smart_selection_analysis
 bin/smart_size_show
 bin/sr_overview
 bin/ss_analysis
+bin/ss_group_overview
 src/sc/__init__.py
 src/sc/lib.py
 src/sc.egg-info/PKG-INFO

@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+import argparse
+import pandas as pd
+import json
+import os
+from jinja2.nativetypes import NativeEnvironment
+
+
+parser = argparse.ArgumentParser(description="smart group overview", prog="sg_overview")
+parser.add_argument("-i", "--input", help="input", required=True)
+args = parser.parse_args()
+input_name = args.input
+content = '''
+{% for item in data %}\\begin{tabular}{l| l| l |l  }
+\hline
+{% for d in item %}{{d[0]}} & {{d[1]}} & {{d[2]}} & {{d[3]}} \\\\ \hline
+{% endfor %}
+\end{tabular}
+{% endfor %}
+'''
+
+env = NativeEnvironment()
+t = env.from_string(content)
+
+LTEO_file = "group_" + input_name + "_lc_tmc_ec_oc_mean_overview.csv"
+
+WTEO_file = "group_" + input_name + "_wm_tmc_ec_oc_mean_overview.csv"
+
+sm1 = pd.read_csv(LTEO_file)
+sm2 = pd.read_csv(WTEO_file)
+sm = pd.concat([sm1, sm2[sm2['approach'] != 'smart selection']], ignore_index=True)
+a = sm.to_dict()
+ck = [["BC", "WM", "LC", "TMC"], ["NTMC", "DBC", "EC", "OC"]]
+data = []
+am = {}
+aom = {"smart selection": "SS", "LC-TMC-EC-OC": "LTEO", "WM-TMC-EC-OC": "WTEO"}
+for k, v in a["approach"].items():
+    am[aom[v]] = k
+
+oitem = [["approach", "SS", "LTEO", "WTEO"]]
+ap_list = ['SS', "LTEO", "WTEO"]
+for ks in ck:
+    item = []
+    item.extend(oitem)
+    for k in ks:
+        d = [k]
+        ad = []
+        for ap in ap_list:
+            ad.append(a[k][am[ap]])
+        max_indexes = []
+        current_max = -1
+        for adk, v in enumerate(ad):
+            if v > current_max:
+                max_indexes = [adk]
+                current_max = v
+            elif v == current_max:
+                max_indexes.append(adk)
+        if len(max_indexes) == len(ad):
+            max_indexes = []
+        for adk, v in enumerate(ad):
+            if k != "EC":
+                v = str(int(round(v * 100))) + "\\%"
+            else:
+                v = str(round(v, 2))
+            if adk in max_indexes:
+                v = "\\textcolor[RGB]{0,128,28}{%s}" % v
+            d.append(v)
+        item.append(d)
+    data.append(item)
+
+result = t.render(data=data)
+print(result)
