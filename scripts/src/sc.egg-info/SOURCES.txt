@@ -13,6 +13,7 @@ src/sc.egg-info/SOURCES.txt
 src/sc.egg-info/dependency_links.txt
 src/sc.egg-info/top_level.txt
 src/sc/share/data/artifacts/analysis_classes.csv
+src/sc/share/data/artifacts/group_analysis_classes.csv
 src/sc/share/data/artifacts/rca.csv
 src/sc/share/data/artifacts/source_classes.csv
 src/sc/share/data/artifacts/sub_info.csv

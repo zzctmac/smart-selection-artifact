@@ -56,6 +56,16 @@ def get_all_analysis_classes():
     return l
 
 
+def get_group_analysis_classes():
+    config_file = pkg_resources.resource_stream("sc", 'share/data/artifacts/group_analysis_classes.csv')
+    utf8_reader = codecs.getreader("utf-8")
+    c = csv.DictReader(utf8_reader(config_file))
+    l = []
+    for record in c:
+        l.append(record['classes'])
+    return l
+
+
 def choose_classes(acs, data_group_by_class):
     acs = list(map(lambda x: x.replace(".", "_"), acs))
     rm_keys = []
@@ -131,6 +141,8 @@ if research_question is None or research_question == 3:
     logger.info("ana rq_3 success")
 
 if research_question is None or research_question == 5:
+    group_analysis_classes = get_group_analysis_classes()
+    f3_data_group_by_class = choose_classes(group_analysis_classes, f3_data_group_by_class)
     ana_rq_group(f3_data_group_by_class, result_folder)
     logger.info("ana rq_group success")
 
