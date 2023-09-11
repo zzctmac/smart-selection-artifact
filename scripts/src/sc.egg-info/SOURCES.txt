@@ -1,4 +1,5 @@
 setup.py
+bin/correlation_analysis
 bin/ec
 bin/sc_overview
 bin/smart_selection_analysis

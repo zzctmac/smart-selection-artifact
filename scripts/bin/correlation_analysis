@@ -1,0 +1,156 @@
+import pandas as pd
+import codecs
+import csv
+import sys
+from os.path import join as pj
+
+import sc
+from sc.lib import *
+import os
+import argparse
+import logging
+import os.path
+import time
+import shutil
+from scipy.stats import pearsonr
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+fh = logging.StreamHandler(sys.stdout)
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+
+
+def get_df_for_two_criteria(dm, alg, m, s):
+    return pd.DataFrame(dm[alg]['%s-%s' % (m, s)])
+
+
+def get_pearson(dm, alg, m, s):
+    df = get_df_for_two_criteria(dm, alg, m, s)
+    return pearsonr(df[m], df[s])
+
+
+def dir_check(f):
+    if not os.path.isdir(f):
+        logger.error("%s is not dir" % f)
+        exit(1)
+
+
+parser = argparse.ArgumentParser(description="correlation analysis", prog="ca")
+parser.add_argument("-f", "--folder", help="data_folder", required=True)
+parser.add_argument("-r", "--result", help="result_folder")
+
+args = parser.parse_args()
+
+data_dir = args.folder
+
+dir_check(data_dir)
+
+o1 = get_data_group(data_dir)
+
+for class_name in list(o1.keys()):
+    for ok, single_data in o1[class_name].items():
+        single_data['data'][class_name], nk = calcTotal(single_data['data'][class_name])
+        o1[class_name][ok] = single_data
+
+for class_name in list(o1.keys()):
+    max_exce = -1
+    for ok, singe_data in o1[class_name].items():
+        temp = singe_data['data'][class_name]['ExceptionCoverageGoals'][0]
+        if max_exce < temp:
+            max_exce = temp
+    max_exce = max_exce + 1
+    for ok, singe_data in o1[class_name].items():
+        temp = singe_data['data'][class_name]['ExceptionCoverage'][0]
+        covered = singe_data['data'][class_name]['ExceptionCoverageGoals'][0]
+        nt = covered / max_exce
+        singe_data['data'][class_name]['ExceptionCoverage'][0] = nt
+
+criterion_map = {
+    'line': 'LineCoverage',
+    'methodne': 'MethodNoExceptionCoverage',
+    'branch': 'BranchCoverage',
+    'output': 'OutputCoverage',
+    'method': 'MethodCoverage',
+    'wm': 'WeakMutationCoverage',
+    'exce': 'ExceptionCoverage',
+    'cbranch': 'CBranchCoverage'
+}
+
+inv_criterion_map = {v: k for k, v in criterion_map.items()}
+
+data_map = {'suite': {}, 'mosa': {}}
+for class_name in list(o1.keys()):
+    for ok, singe_data in o1[class_name].items():
+        oks = ok.split('-')
+        if len(oks) == 4:
+            alg, mc = oks[2], oks[1]
+        else:
+            alg, mc = oks[3], oks[2]
+        if alg == 'mosa' and mc == 'exce':
+            continue
+        sdm = singe_data['data'][class_name].to_dict()
+        temp_data = {}
+        for origin_cn, criterion_name in inv_criterion_map.items():
+            temp_data[criterion_name] = sdm[origin_cn][0]
+        main_cv = temp_data[mc]
+        for ccn, value in temp_data.items():
+            if ccn == mc:
+                continue
+            dmkey = '%s-%s' % (mc, ccn)
+            if dmkey not in data_map[alg]:
+                data_map[alg][dmkey] = {mc: [], ccn: [], 'class': [], 'origin': []}
+            data_map[alg][dmkey][mc].append(main_cv)
+            data_map[alg][dmkey][ccn].append(value)
+            data_map[alg][dmkey]['class'].append(sdm['TARGET_CLASS'][0])
+            data_map[alg][dmkey]['origin'].append(ok)
+
+result_folder = args.result
+if result_folder is None or result_folder == "":
+    result_folder = "result_folder-4"
+
+result_folder = os.path.dirname(data_dir) + "/" + result_folder
+if os.path.exists(result_folder):
+    shutil.rmtree(result_folder)
+
+os.mkdir(result_folder)
+
+index_list = ['branch', 'line', 'wm', 'cbranch', 'method', 'methodne', 'exce', 'output']
+
+tp_map = None
+for alg, ad in data_map.items():
+    if not os.path.exists(os.path.join(result_folder, alg)):
+        os.mkdir(os.path.join(result_folder, alg))
+    index = 1
+    for ii in index_list:
+        for ij in index_list:
+            if ii == ij:
+                continue
+            if "%s-%s" % (ii, ij) not in ad:
+                continue
+            cp = "%s-%s" % (ii, ij)
+            cp_data = ad[cp]
+            c1, c2 = cp.split('-')
+            fig = get_df_for_two_criteria(data_map, alg, c1, c2).sample(frac=0.20, replace=False,
+                                                                        random_state=1).plot.scatter(x=c1, y=c2,
+                                                                                                     c='DarkBlue')
+            ax1 = fig.axes
+            ax1.xaxis.label.set_visible(False)
+            ax1.yaxis.label.set_visible(False)
+            ax1.set_xlim(-0.05, 1.03)
+            ax1.set_ylim(-0.05, 1.03)
+            a = fig.get_figure()
+            a.savefig(os.path.join(result_folder, alg, '%d-%s.pdf' % (index, cp)), bbox_inches='tight',
+                      pad_inches=0.005)
+            pe, sp = get_pearson(data_map, alg, c1, c2)
+            pe_data = {'alg': [alg], 'main_criterion': [c1], 'measure_criterion': [c2], 'pearson': [pe],
+                       'p-value': [sp]}
+            tp = pd.DataFrame(pe_data)
+            tp.to_csv(os.path.join(result_folder, alg, '%d-%s-pearson.csv' % (index, cp)), index=False)
+            if tp_map is None:
+                tp_map = tp
+            else:
+                tp_map = pd.concat([tp_map, tp], axis=0, ignore_index=True)
+            index = index + 1

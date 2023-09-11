@@ -13,16 +13,13 @@ import os.path
 import time
 import shutil
 
-# 第一步，创建一个logger
+
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)  # Log等级总开关
-# 第二步，创建一个handler，用于写入日志文件
+logger.setLevel(logging.INFO)
 fh = logging.StreamHandler(sys.stdout)
-fh.setLevel(logging.DEBUG)  # 输出到file的log等级的开关
-# 第三步，定义handler的输出格式
+fh.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
 fh.setFormatter(formatter)
-# 第四步，将logger添加到handler里面
 logger.addHandler(fh)
 
 set_logger(logger)
