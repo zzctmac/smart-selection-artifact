@@ -7,5 +7,7 @@
 .DS_Store
 experimental_data/data_folder
 experimental_data/b1
+experimental_data/corr-data
+experimental_data/efficient-test-data
 /test/experimental_data/
 tests

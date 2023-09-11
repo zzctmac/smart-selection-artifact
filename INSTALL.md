@@ -86,6 +86,8 @@ To run the script to do the analysis work, firstly, you need to unzip six zip fi
 ```shell
 unzip 'experimental_data/data_fo*zip' -d ./experimental_data
 unzip 'experimental_data/b1*zip' -d ./experimental_data
+unzip 'experimental_data/corr-data.zip' -d ./experimental_data
+unzip 'experimental_data/efficient-test-data.zip' -d ./experimental_data
 ```
 
 After they are unzipped (needs 5-10 minutes), there will be a `data_folder` and `b1` directories in `./experimental_data`. The *./experimental_data/data_folder* contains the results of the experiments of RQ1-4, and the *./experimental_data/b1* contains the results of the experiments of RQ5, respectively. Each sub-folder (e.g., *task-49224*) is the result of a single experiment. A single experiment means that run a specific strategy (e.g., smart selection and other baselines) on a specific Java class. We leverage *task-49224* as an example to illustrate the result of a single experiment. The *results/sc-suite-sc-release1/o4_hadoop/org_apache_hadoop_thirdparty_com_google_common_collect_Cut/reports* stores the coverage statistical data. *sc-suite-sc-release1* represents the strategy (sc, i.e., smart selection), the algorithm (suite, i.e., Whole Suite Generation), and the jar release version (sc-release1). It includes:

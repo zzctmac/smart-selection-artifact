@@ -109,7 +109,7 @@ for class_name in list(o1.keys()):
 
 result_folder = args.result
 if result_folder is None or result_folder == "":
-    result_folder = "result_folder-4"
+    result_folder = "result_folder-rq-4"
 
 result_folder = os.path.dirname(data_dir) + "/" + result_folder
 if os.path.exists(result_folder):
