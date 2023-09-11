@@ -82,7 +82,7 @@ The folder [experimental_data](./experimental_data) contains two types of data:
 
 ### Run Script
 
-To run the script to do the analysis work, firstly, you need to unzip six zip files. For example, you can use the following command (or you can make it on your own):
+To run the script to do the analysis work, firstly, you need to unzip data zip files. For example, you can use the following command (or you can make it on your own):
 ```shell
 unzip 'experimental_data/data_fo*zip' -d ./experimental_data
 unzip 'experimental_data/b1*zip' -d ./experimental_data
@@ -90,7 +90,7 @@ unzip 'experimental_data/corr-data.zip' -d ./experimental_data
 unzip 'experimental_data/efficient-test-data.zip' -d ./experimental_data
 ```
 
-After they are unzipped (needs 5-10 minutes), there will be a `data_folder` and `b1` directories in `./experimental_data`. The *./experimental_data/data_folder* contains the results of the experiments of RQ1-4, and the *./experimental_data/b1* contains the results of the experiments of RQ5, respectively. Each sub-folder (e.g., *task-49224*) is the result of a single experiment. A single experiment means that run a specific strategy (e.g., smart selection and other baselines) on a specific Java class. We leverage *task-49224* as an example to illustrate the result of a single experiment. The *results/sc-suite-sc-release1/o4_hadoop/org_apache_hadoop_thirdparty_com_google_common_collect_Cut/reports* stores the coverage statistical data. *sc-suite-sc-release1* represents the strategy (sc, i.e., smart selection), the algorithm (suite, i.e., Whole Suite Generation), and the jar release version (sc-release1). It includes:
+After they are unzipped (needs 10-20 minutes), there will be a `data_folder`, `b1`, `corr-data`, and `efficient-test-data` directories in `./experimental_data`. The *./experimental_data/data_folder* contains the results of the experiments of RQ1-3 and RQ6, the *./experimental_data/corr-data* contains the results of the experiments of RQ4, the *./experimental_data/efficient-test-data* contains the results of the experiments of RQ5, and the *./experimental_data/b1* contains the results of the experiments of RQ7, respectively. Each sub-folder (e.g., *task-49224*) is the result of a single experiment. A single experiment means that run a specific strategy (e.g., smart selection and other baselines) on a specific Java class. We leverage *task-49224* as an example to illustrate the result of a single experiment. The *results/sc-suite-sc-release1/o4_hadoop/org_apache_hadoop_thirdparty_com_google_common_collect_Cut/reports* stores the coverage statistical data. *sc-suite-sc-release1* represents the strategy (sc, i.e., smart selection), the algorithm (suite, i.e., Whole Suite Generation), and the jar release version (sc-release1). It includes:
 
 1. Folder 1 to folder 37: Each folder contains *statistics.csv* that stores each time's coverage data. Since SBST is a nondeterministic technique, we repeat $30+7$ times. We only choose the first 30 times' data to be in the experimental analysis. But when we ran experiments, we repeated $37$ times to avoid potential manual involvements due to a few EvoSuite crashes. If there are one or two EvoSuite crashes in $30+7$ repeats, we still can get $30$ success results.
 2. *order.csv*: This file is used to cope with one mistake when we wrote the analysis code. When we wrote code to iterate to read each coverage data, we used the `os.listdir` Python API. We assumed that this API returns a sorted file list, which is not true (see https://stackoverflow.com/questions/44532641/order-in-which-files-are-read-using-os-listdir). When we tested the analysis work in several machines, we found this mistake. To let different machines can recurrent the analysis result (used in the paper) of the original machine we used, we record the original file order in this file and added the related adaptations in the analysis code. In the meantime, we found that all *reports* folders share the same content in this file.
@@ -164,7 +164,7 @@ Section 4.4:
 - The second row of Table 7 (b) comes from [dynamosa_mean_size_overview_small.csv](./experimental_data/result_folder-rq-3/dynamosa_mean_size_overview_small.csv).
 - The third row of Table 7 (c) comes from [dynamosa_mean_size_overview_big.csv](./experimental_data/result_folder-rq-3/dynamosa_mean_size_overview_big.csv).
 
-Section 4.5:
+Section 4.7:
 - Figure 7 (a) is [suite_rs.pdf](./experimental_data/result_folder-rq-4/suite_rs.pdf). Its data comes from [suite_rs_detail.csv](./experimental_data/result_folder-rq-4/suite_rs_detail.csv).
 - Figure 7 (b) is [mosa_rs.pdf](./experimental_data/result_folder-rq-4/mosa_rs.pdf). Its data comes from [mosa_rs_detail.csv](./experimental_data/result_folder-rq-4/mosa_rs_detail.csv).
 - Figure 7 (c) is [dynamosa_rs.pdf](./experimental_data/result_folder-rq-4/dynamosa_rs.pdf). Its data comes from [dynamosa_rs_detail.csv](./experimental_data/result_folder-rq-4/dynamosa_rs_detail.csv).
@@ -172,7 +172,7 @@ Section 4.5:
 - The data of Table 8 (b) comes from [sub_mosa_mean_overview.csv](./experimental_data/result_folder-rq-4/sub_mosa_mean_overview.csv). The `Suite Size` comes from [sub_mosa_mean_size_overview.csv](./experimental_data/result_folder-rq-4/sub_mosa_mean_size_overview.csv).
 - The data of Table 8 (c) comes from [sub_dynamosa_mean_overview.csv](./experimental_data/result_folder-rq-4/sub_dynamosa_mean_overview.csv). The `Suite Size` comes from [sub_dynamosa_mean_size_overview.csv](./experimental_data/result_folder-rq-4/sub_dynamosa_mean_size_overview.csv).
 
-Section 4.6:
+Section 4.8:
 - Figure 8's data collects from [suite_mean_overview.csv (2 min)](./experimental_data/result_folder-rq-1/suite_mean_overview.csv), [suite_budget_mean_5.csv](./experimental_data/result_folder-rq-1/suite_budget_mean_5.csv), [suite_budget_mean_8.csv](./experimental_data/result_folder-rq-1/suite_budget_mean_8.csv), and [suite_budget_mean_10.csv](./experimental_data/result_folder-rq-1/suite_budget_mean_10.csv).
 - Figure 9's data collects from [mosa_mean_overview.csv (2 min)](./experimental_data/result_folder-rq-2/mosa_mean_overview.csv), [mosa_budget_mean_5.csv](./experimental_data/result_folder-rq-2/mosa_budget_mean_5.csv), [mosa_budget_mean_8.csv](./experimental_data/result_folder-rq-2/mosa_budget_mean_8.csv), and [mosa_budget_mean_10.csv](./experimental_data/result_folder-rq-2/mosa_budget_mean_10.csv).
 - Figure 10's data collects from [dynamosa_mean_overview.csv (2 min)](./experimental_data/result_folder-rq-3/dynamosa_mean_overview.csv), [dynamosa_budget_mean_5.csv](./experimental_data/result_folder-rq-3/dynamosa_budget_mean_5.csv), [dynamosa_budget_mean_8.csv](./experimental_data/result_folder-rq-3/dynamosa_budget_mean_8.csv), and [dynamosa_budget_mean_10.csv](./experimental_data/result_folder-rq-3/dynamosa_budget_mean_10.csv).
