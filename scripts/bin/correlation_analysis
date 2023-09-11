@@ -50,6 +50,8 @@ dir_check(data_dir)
 
 o1 = get_data_group(data_dir)
 
+logger.info("begin analysis")
+
 for class_name in list(o1.keys()):
     for ok, single_data in o1[class_name].items():
         single_data['data'][class_name], nk = calcTotal(single_data['data'][class_name])
@@ -154,3 +156,5 @@ for alg, ad in data_map.items():
             else:
                 tp_map = pd.concat([tp_map, tp], axis=0, ignore_index=True)
             index = index + 1
+
+logger.info("ana rq_4 success")
