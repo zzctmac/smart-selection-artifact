@@ -48,9 +48,9 @@ data_dir = args.folder
 
 dir_check(data_dir)
 
-o1 = get_data_group(data_dir)
-
 logger.info("begin analysis")
+
+o1 = get_data_group(data_dir)
 
 for class_name in list(o1.keys()):
     for ok, single_data in o1[class_name].items():
