@@ -111,7 +111,7 @@ analysis_classes = get_all_analysis_classes()
 o1 = get_data_group(f1)
 
 f_budget = args.bf
-if research_question is None or research_question == 6:
+if research_question is None or research_question in [1, 2, 3, 6]:
     if f_budget is not None and f_budget != "":
         dir_check(f_budget)
         o1 = get_data_group(f_budget, o1)
