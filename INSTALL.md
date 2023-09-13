@@ -125,7 +125,7 @@ By the way, if Docker crashes, you will get messages such as `502 Server Error f
 <div id="ChapterDetails"></div>
 
 ### Result Details
-We illustrate how the tables and figures in [the paper](./paper.pdf) come from:
+We illustrate how the tables and figures in the manuscript come from:
 
 Section 1:
 
