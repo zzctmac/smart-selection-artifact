@@ -6,3 +6,5 @@ This artifact mainly contains:
 3. The experimental data ([experimental_data](./experimental_data)) and the corresponding Python script ([scripts](./scripts)) to analyze and transform the experimental data to the result data used in tables and figures of the paper.
 
 The introduction to use the artifact is in [INSTALL.md](./INSTALL.md).
+
+> The source code is in [https://github.com/zzctmac/evosuite-smart-selection](https://github.com/zzctmac/evosuite-smart-selection).

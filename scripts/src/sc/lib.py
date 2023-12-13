@@ -986,7 +986,7 @@ def plot_bar_4_compare(data, save_name="", result_folder="", yks=None):
                  "LC-TMC-EC-OC": "#286795",
                  "WM-TMC-EC-OC": "#286795"
                  }
-    data_show.plot.bar(x='key', stacked=True, color=color_map, edgecolor="black")
+    data_show.plot.bar(x='key', stacked=True, color=color_map, edgecolor="black", legend=False)
     if save_name != "":
         if result_folder == "":
             plt.savefig(save_name + ".pdf", bbox_inches='tight')
