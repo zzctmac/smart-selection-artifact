@@ -1,0 +1,15 @@
+approach,project,bugs,detected_bugs,detected_times,success_test_times,fail_test_times,detected_rate
+suite-smart,Chart,24,19,129,229,11,0.5685185185185184
+suite-smart,Cli,28,14,117,277,3,0.42142857142857143
+suite-smart,Closure,38,8,36,314,66,0.15551378446115288
+suite-smart,Compress,29,13,75,268,22,0.27021072796934864
+suite-smart,Csv,8,7,52,78,2,0.6708333333333334
+suite-smart,Gson,14,5,50,139,1,0.35714285714285715
+suite-smart,JacksonCore,22,13,88,211,9,0.4136363636363637
+suite-smart,JacksonDatabind,75,30,169,664,86,0.2685343915343915
+suite-smart,JacksonXml,6,2,14,54,6,0.2333333333333333
+suite-smart,Jsoup,58,21,146,547,33,0.2757183908045977
+suite-smart,JxPath,12,6,21,87,33,0.3833333333333333
+suite-smart,Lang,44,23,164,421,19,0.39709595959595956
+suite-smart,Math,2,1,9,20,0,0.45
+suite-smart,total,360,162,1070,3309,291,0.3310019841269842

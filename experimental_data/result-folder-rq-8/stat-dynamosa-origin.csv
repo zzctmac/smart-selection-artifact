@@ -1,0 +1,15 @@
+approach,project,bugs,detected_bugs,detected_times,success_test_times,fail_test_times,detected_rate
+dynamosa-origin,Chart,24,21,157,228,12,0.6811342592592592
+dynamosa-origin,Cli,28,15,122,277,3,0.4428571428571428
+dynamosa-origin,Closure,38,10,39,303,77,0.15994152046783627
+dynamosa-origin,Compress,29,15,102,268,22,0.3611111111111111
+dynamosa-origin,Csv,8,7,48,76,4,0.634375
+dynamosa-origin,Gson,14,5,50,138,2,0.35714285714285715
+dynamosa-origin,JacksonCore,22,13,110,210,10,0.5171717171717172
+dynamosa-origin,JacksonDatabind,75,33,195,650,100,0.3061904761904762
+dynamosa-origin,JacksonXml,6,2,18,59,1,0.31666666666666665
+dynamosa-origin,Jsoup,58,23,162,546,34,0.3033045977011495
+dynamosa-origin,JxPath,12,8,35,82,38,0.4644179894179894
+dynamosa-origin,Lang,44,28,232,431,9,0.5477272727272727
+dynamosa-origin,Math,2,1,10,20,0,0.5
+dynamosa-origin,total,360,181,1280,3288,312,0.38855268959435624

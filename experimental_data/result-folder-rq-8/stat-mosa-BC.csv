@@ -1,0 +1,15 @@
+approach,project,bugs,detected_bugs,detected_times,success_test_times,fail_test_times,detected_rate
+mosa-BC,Chart,24,14,116,236,4,0.49583333333333335
+mosa-BC,Cli,28,16,115,280,0,0.4107142857142857
+mosa-BC,Closure,38,6,22,356,24,0.07236842105263158
+mosa-BC,Compress,29,15,99,280,10,0.3498084291187739
+mosa-BC,Csv,8,6,49,80,0,0.6125
+mosa-BC,Gson,14,5,46,133,7,0.32857142857142857
+mosa-BC,JacksonCore,22,14,90,202,18,0.4268217893217894
+mosa-BC,JacksonDatabind,75,27,158,661,89,0.2503333333333333
+mosa-BC,JacksonXml,6,2,18,56,4,0.3333333333333333
+mosa-BC,Jsoup,58,24,171,567,13,0.29827586206896545
+mosa-BC,JxPath,12,10,58,104,16,0.568452380952381
+mosa-BC,Lang,44,27,231,432,8,0.525
+mosa-BC,Math,2,1,10,20,0,0.5
+mosa-BC,total,360,167,1183,3407,193,0.34494708994709

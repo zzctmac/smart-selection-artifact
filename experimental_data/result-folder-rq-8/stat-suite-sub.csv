@@ -1,0 +1,15 @@
+approach,project,bugs,detected_bugs,detected_times,success_test_times,fail_test_times,detected_rate
+suite-sub,Chart,24,16,116,217,23,0.5498842592592592
+suite-sub,Cli,28,15,107,279,1,0.3821428571428571
+suite-sub,Closure,38,7,42,321,59,0.1195175438596491
+suite-sub,Compress,29,9,72,275,15,0.25057471264367814
+suite-sub,Csv,8,6,51,73,7,0.6875
+suite-sub,Gson,14,5,45,134,6,0.32142857142857145
+suite-sub,JacksonCore,22,13,100,218,2,0.45909090909090905
+suite-sub,JacksonDatabind,75,31,164,649,101,0.2652804232804233
+suite-sub,JacksonXml,6,2,17,56,4,0.2833333333333333
+suite-sub,Jsoup,58,22,154,547,33,0.2879310344827586
+suite-sub,JxPath,12,5,21,99,21,0.2222222222222222
+suite-sub,Lang,44,29,208,427,13,0.48308080808080817
+suite-sub,Math,2,1,10,20,0,0.5
+suite-sub,total,360,161,1107,3315,285,0.33062169312169304

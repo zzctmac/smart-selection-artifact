@@ -1,0 +1,15 @@
+approach,project,bugs,detected_bugs,detected_times,success_test_times,fail_test_times,detected_rate
+dynamosa-BC-EC-MC,Chart,24,20,145,220,20,0.6662037037037037
+dynamosa-BC-EC-MC,Cli,28,15,112,280,0,0.39999999999999997
+dynamosa-BC-EC-MC,Closure,38,10,37,313,67,0.11428571428571428
+dynamosa-BC-EC-MC,Compress,29,15,107,277,13,0.3781609195402299
+dynamosa-BC-EC-MC,Csv,8,5,49,73,7,0.625
+dynamosa-BC-EC-MC,Gson,14,5,50,131,9,0.35714285714285715
+dynamosa-BC-EC-MC,JacksonCore,22,14,101,205,15,0.4803030303030303
+dynamosa-BC-EC-MC,JacksonDatabind,75,32,167,640,110,0.2906878306878307
+dynamosa-BC-EC-MC,JacksonXml,6,2,20,58,2,0.3333333333333333
+dynamosa-BC-EC-MC,Jsoup,58,27,163,537,43,0.33333333333333337
+dynamosa-BC-EC-MC,JxPath,12,6,42,85,35,0.3833333333333333
+dynamosa-BC-EC-MC,Lang,44,22,198,435,5,0.45909090909090905
+dynamosa-BC-EC-MC,Math,2,1,10,20,0,0.5
+dynamosa-BC-EC-MC,total,360,174,1201,3274,326,0.36666666666666653

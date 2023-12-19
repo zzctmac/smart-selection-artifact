@@ -1,0 +1,15 @@
+approach,project,bugs,detected_bugs,detected_times,success_test_times,fail_test_times,detected_rate
+mosa-smart,Chart,24,18,151,229,11,0.6645833333333333
+mosa-smart,Cli,28,17,107,265,15,0.39999999999999997
+mosa-smart,Closure,38,10,39,315,65,0.1358500417710944
+mosa-smart,Compress,29,16,94,269,21,0.33620689655172414
+mosa-smart,Csv,8,5,46,73,7,0.575
+mosa-smart,Gson,14,6,45,137,3,0.34285714285714286
+mosa-smart,JacksonCore,22,14,113,209,11,0.533080808080808
+mosa-smart,JacksonDatabind,75,35,159,632,118,0.26535978835978835
+mosa-smart,JacksonXml,6,2,20,59,1,0.3333333333333333
+mosa-smart,Jsoup,58,26,178,551,29,0.3218390804597701
+mosa-smart,JxPath,12,8,39,96,24,0.41111111111111115
+mosa-smart,Lang,44,29,199,418,22,0.47518939393939397
+mosa-smart,Math,2,1,10,20,0,0.5
+mosa-smart,total,360,187,1200,3273,327,0.3627788800705467

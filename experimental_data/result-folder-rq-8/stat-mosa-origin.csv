@@ -1,0 +1,15 @@
+approach,project,bugs,detected_bugs,detected_times,success_test_times,fail_test_times,detected_rate
+mosa-origin,Chart,24,16,128,227,13,0.5555555555555555
+mosa-origin,Cli,28,16,108,278,2,0.38571428571428573
+mosa-origin,Closure,38,6,42,318,62,0.13157894736842105
+mosa-origin,Compress,29,14,104,268,22,0.35900383141762454
+mosa-origin,Csv,8,6,47,78,2,0.590625
+mosa-origin,Gson,14,5,48,135,5,0.35714285714285715
+mosa-origin,JacksonCore,22,15,126,210,10,0.5818181818181819
+mosa-origin,JacksonDatabind,75,30,185,667,83,0.28228571428571436
+mosa-origin,JacksonXml,6,2,17,58,2,0.2962962962962963
+mosa-origin,Jsoup,58,23,157,551,29,0.2827586206896551
+mosa-origin,JxPath,12,8,25,100,20,0.2752314814814815
+mosa-origin,Lang,44,22,188,421,19,0.4477272727272727
+mosa-origin,Math,2,1,10,20,0,0.5
+mosa-origin,total,360,164,1185,3331,269,0.34839285714285706
