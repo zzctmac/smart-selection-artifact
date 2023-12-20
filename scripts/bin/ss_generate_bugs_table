@@ -6,6 +6,109 @@ import json
 import os
 from jinja2.nativetypes import NativeEnvironment
 
+# generate bug summary table for rq 8
 
-# TODO genereate bug summary table for rq 8
-# three algorithm in one table
+parser = argparse.ArgumentParser(description="smart bugs table", prog="smart_bugs")
+parser.add_argument("-a", "--algorithm", help="algorithm", required=True)
+parser.add_argument("-d", "--data", help="data", required=True)
+args = parser.parse_args()
+algorithm = args.algorithm
+data_dir = args.data
+
+algorithm = algorithm.lower()
+
+valid_algorithms = ["ws", "mosa", "dynamosa"]
+
+if algorithm not in valid_algorithms:
+    print("not valid algorithm: %s" % algorithm)
+    exit(1)
+
+template = '''
+\\begin{table*}[tbp]
+    \centering
+    \\tiny
+
+    \caption{\mynewcontent{6}{Bug detection summary for each approach with {{#data.alg_name#}}}}\label{tab:{{#data.alg#}}_bugs}
+       \\begin{tabular}{llccc|ccc|ccc|ccc|ccc}
+\\toprule
+Project & Bugs & \\nrcols{3}{Smart Selection} & \\nrcols{3}{Original Combination}  & \\nrcols{3}{Branch Coverage} & \\nrcols{3}{BC-EC-MC} & \\nrcols{3}{SSWS} \\\\
+\cmidrule(l{1pt}r{1pt}){3-5}
+\cmidrule(l{1pt}r{1pt}){6-8}
+\cmidrule(l{1pt}r{1pt}){9-11}
+\cmidrule(l{1pt}r{1pt}){12-14}
+\cmidrule(l{1pt}r{1pt}){15-17}
+ & & Detected & Detect$\%$ & Fail$\%$ & Detected & Detect$\%$ & Fail$\%$ & Detected & Detect$\%$ & Fail$\%$ & Detected & Detect$\%$ & Fail$\%$ & Detected & Detect$\%$ & Fail$\%$  \\\\
+\midrule
+{% for item in data.data %}
+{% if not loop.first %}
+{% if not loop.last %}
+\\tabprojectlinespace 
+{% else %}
+\midrule
+{% endif %}
+{% endif %}
+ {{#item[0]#}}  & \significant{\\num{{{#item[1]#}}}} & \significant{\\num{{{#item[2]#}}}} & \significant{\\num{{{#item[3]#}}}} & \significant{\\num{{{#item[4]#}}}}  & \significant{\\num{{{#item[5]#}}}} & \significant{\\num{{{#item[6]#}}}} & \significant{\\num{{{#item[7]#}}}} & \significant{\\num{{{#item[8]#}}}} & \significant{\\num{{{#item[9]#}}}} & \significant{\\num{{{#item[10]#}}}} & \significant{\\num{{{#item[11]#}}}} & \significant{\\num{{{#item[12]#}}}} & \significant{\\num{{{#item[13]#}}}} & \significant{\\num{{{#item[14]#}}}} & \significant{\\num{{{#item[15]#}}}} & \significant{\\num{{{#item[16]#}}}}  \\\\
+{% endfor %}
+\\bottomrule
+\end{tabular}
+\end{table*}
+'''
+
+env = NativeEnvironment(variable_start_string='{{#', variable_end_string='#}}')
+
+et = env.from_string(template)
+
+show_name_map = {
+    "ws": "WS",
+    "mosa": "MOSA",
+    "dynamosa": "DynaMOSA"
+}
+file_name_map = {
+    "ws": "suite",
+    "mosa": "mosa",
+    "dynamosa": "dynamosa"
+}
+
+approaches = [
+    'smart', 'origin', 'BC', 'BC-EC-MC', 'sub'
+]
+
+approach_data = {}
+
+line_keys = None
+
+project_sum = {}
+
+for app in approaches:
+    tmp = pd.read_csv(os.path.join(data_dir, 'stat-' + file_name_map[algorithm] + "-" + app + ".csv"))
+    approach_data[app] = tmp
+    if line_keys is None:
+        line_keys = list(tmp['project'])
+
+data = []
+for lk in line_keys:
+    t = [lk]
+    not_add_bugs = True
+    for app in approaches:
+        tmp_data = approach_data[app]
+        tmp_lk_data = tmp_data[tmp_data['project'] == lk].iloc[0, :]
+        tmp_lk_data = tmp_lk_data.to_dict()
+        if not_add_bugs:
+            t.append(tmp_lk_data['bugs'])
+            not_add_bugs = False
+        t.append(tmp_lk_data['detected_bugs'])
+        d_rate = tmp_lk_data['detected_rate']
+        f_rate = tmp_lk_data['fail_test_times'] / (tmp_lk_data['fail_test_times'] + tmp_lk_data['success_test_times'])
+        t.append(format(d_rate, '.2f'))
+        t.append(format(f_rate, '.2f'))
+    data.append(t)
+
+data[-1][0] = 'Overall'
+
+render_data = {
+    "alg": algorithm,
+    'alg_name': show_name_map[algorithm],
+    "data": data,
+}
+result = et.render(data=render_data)
+print(result)
