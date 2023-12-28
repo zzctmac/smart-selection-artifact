@@ -30,3 +30,8 @@ services:
     volumes:
       - "./experimental_data:/exp"
     command: "/analysis/bin/smart_selection_analysis  -f /exp/data_folder -b /exp/b1 -q 6"
+  rq8:
+    image: smart_selection_analysis
+    volumes:
+      - "./experimental_data:/exp"
+    command: "/analysis/bin/bug_analysis -f /exp/bugs-data -r /exp/result_folder-rq-8 -v /pyvenn"

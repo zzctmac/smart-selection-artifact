@@ -1,4 +1,6 @@
 FROM python:3.7.6-slim
+WORKDIR /pyvenn
+COPY ./pyvenn ./
 WORKDIR /analysis
 COPY ./scripts ./
 
