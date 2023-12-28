@@ -1,0 +1,216 @@
+import sys
+
+from sc.lib import *
+import os
+import argparse
+import logging
+import os.path
+from scipy.stats import pearsonr
+import matplotlib.pyplot as plt
+import sys
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+fh = logging.StreamHandler(sys.stdout)
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+
+
+def get_df_for_two_criteria(dm, alg, m, s):
+    return pd.DataFrame(dm[alg]['%s-%s' % (m, s)])
+
+
+def get_pearson(dm, alg, m, s):
+    df = get_df_for_two_criteria(dm, alg, m, s)
+    return pearsonr(df[m], df[s])
+
+
+def dir_check(f):
+    if not os.path.isdir(f):
+        logger.error("%s is not dir" % f)
+        exit(1)
+
+
+parser = argparse.ArgumentParser(description="correlation analysis", prog="ca")
+parser.add_argument("-f", "--folder", help="data_folder", required=True)
+parser.add_argument("-r", "--result", help="result_folder", required=True)
+parser.add_argument("-v", "--venn", help="venn_libr", required=True)
+
+args = parser.parse_args()
+
+data_dir = args.folder
+result_dir = args.result
+venn_dir = args.venn
+
+sys.path.append(venn_dir)
+import venn
+
+dir_check(data_dir)
+
+if not os.path.isdir(result_dir):
+    code = os.system("mkdir -p %s" % result_dir)
+    if code != 0:
+        logger.error("create dir %s fail" % result_dir)
+        exit(1)
+
+
+def generate_pd_for_approach(base_dir, single_approach):
+    data = {
+        'project': [],
+        'bug': [],
+        'detected': [],
+        "not_detected": [],
+        "fail": [],
+    }
+    app_dir = os.path.join(base_dir, single_approach)
+    projects = list(os.listdir(app_dir))
+    projects.sort()
+    for project in projects:
+        project_dir = os.path.join(app_dir, project)
+        bugs = list(os.listdir(project_dir))
+        bugs.sort()
+        for bug in bugs:
+            bug_dir = os.path.join(project_dir, bug)
+            times = list(os.listdir(bug_dir))
+            times.sort()
+            data['project'].append(project)
+            data['bug'].append(bug)
+            detected = 0
+            not_detected = 0
+            for time in times:
+                bug_detection_path = os.path.join(bug_dir, time, "output/bug_detection")
+                if not os.path.isfile(bug_detection_path):
+                    continue
+                tmp_record = pd.read_csv(bug_detection_path)
+                tmp_result = tmp_record.loc[0, :]['test_classification']
+                if tmp_result == 'Pass':
+                    not_detected = not_detected + 1
+                else:
+                    assert tmp_result == "Fail"
+                    detected = detected + 1
+            data['detected'].append(detected)
+            data['not_detected'].append(not_detected)
+            data['fail'].append(10 - detected - not_detected)
+    return pd.DataFrame(data)
+
+
+def calu_stat(df: pd.DataFrame):
+    data_dict = df.to_dict()
+    result = {}
+    for k in data_dict['project'].keys():
+        project = data_dict['project'][k]
+        bug_id = data_dict['bug'][k]
+        detected = data_dict['detected'][k]
+        not_detected = data_dict['not_detected'][k]
+        fail = data_dict['fail'][k]
+        if project not in result:
+            result[project] = {
+                'bugs': 0,
+                'detected_bugs': 0,
+                'detected_times': 0,
+                'success_test_times': 0,
+                'fail_test_times': 0,
+                'detected_rate': [],
+            }
+        result[project]['bugs'] += 1
+        result[project]['detected_times'] += detected
+        result[project]['success_test_times'] += detected + not_detected
+        result[project]['detected_rate'].append(detected / (detected + not_detected))
+        result[project]['fail_test_times'] += fail
+        if detected > 0:
+            result[project]['detected_bugs'] += 1
+    total = {
+        'bugs': 0,
+        'detected_bugs': 0,
+        'detected_times': 0,
+        'success_test_times': 0,
+        'fail_test_times': 0,
+        'detected_rate': [],
+    }
+    for k, v in result.items():
+        for tk in total.keys():
+            if tk != 'detected_rate':
+                total[tk] += v[tk]
+        total['detected_rate'].extend(v['detected_rate'])
+    result['total'] = total
+    for k in result.keys():
+        result[k]['detected_rate'] = sum(result[k]['detected_rate']) / len(result[k]['detected_rate'])
+    return result
+
+
+def transform_stat_to_df(result, name):
+    data = {'approach': [], 'project': [], 'bugs': [], 'detected_bugs': [], 'detected_times': [],
+            'success_test_times': [],
+            'fail_test_times': [], 'detected_rate': []}
+    for k, v in result.items():
+        data['approach'].append(name)
+        data['project'].append(k)
+        for kk, vv in v.items():
+            data[kk].append(vv)
+    return pd.DataFrame(data)
+
+def calu_venn(re_pds, alg):
+    result = {}
+    values = [[],[],[],[],[]]
+    names = ['','','','','']
+    index_map = {
+        'smart':0,
+        'origin':1,
+        'BC':2,
+        'BC-EC-MC':3,
+        'sub':4
+    }
+    for k, df in re_pds.items():
+        if not k.startswith(alg):
+            continue
+        origin_sub_key = k.split('-', 1)[1]
+        key_map = {
+            'sub': 'SSWS',
+            'origin': 'OC',
+            'BC': 'BC',
+            'smart':'SS',
+            'BC-EC-MC':'BC-EC-MC'
+        }
+        sub_key = key_map[origin_sub_key]
+        result[sub_key] = []
+        data_dict = df.to_dict()
+        for k in data_dict['project'].keys():
+            project = data_dict['project'][k]
+            bug_id = data_dict['bug'][k]
+            detected = data_dict['detected'][k]
+            not_detected = data_dict['not_detected'][k]
+            fail = data_dict['fail'][k]
+            if detected > 0:
+                result[sub_key].append('%s-%s' % (project, bug_id))
+        values[index_map[origin_sub_key]] = result[sub_key]
+        names[index_map[origin_sub_key]] = sub_key
+    return result, values, names
+
+
+logger.info("begin analysis")
+
+origin_approaches = list(os.listdir(data_dir))
+approaches = []
+for app in origin_approaches:
+    if app.startswith("dynamosa") or app.startswith("mosa") or app.startswith("suite"):
+        approaches.append(app)
+
+result_pds = {}
+for approach in approaches:
+    result_pds[approach] = generate_pd_for_approach(data_dir, approach)
+
+stat_pds = {}
+for k, v in result_pds.items():
+    stat_pds[k] = transform_stat_to_df(calu_stat(v), k)
+
+for k,v in stat_pds.items():
+    v.to_csv(os.path.join(result_dir, "stat-" + k + ".csv"), index=False)
+
+for alg in ['suite', 'mosa', 'dynamosa']:
+    venn_data, venn_values, venn_names = calu_venn(result_pds, alg)
+    labels = venn.get_labels(venn_values, fill=['number'])
+    fig, ax = venn.venn5(labels, names=venn_names, fontsize=25, figsize=(11, 11), weight='bold', legend=False)
+    plt.savefig(os.path.join(result_dir, ("venn-%s" % alg) + ".pdf"), bbox_inches='tight')
+    plt.close()

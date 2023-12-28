@@ -1,4 +1,5 @@
 setup.py
+bin/bug_analysis
 bin/correlation_analysis
 bin/ec
 bin/sc_overview
