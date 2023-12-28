@@ -88,6 +88,7 @@ unzip 'experimental_data/data_fo*zip' -d ./experimental_data
 unzip 'experimental_data/b1*zip' -d ./experimental_data
 unzip 'experimental_data/corr-data.zip' -d ./experimental_data
 unzip 'experimental_data/efficient-test-data.zip' -d ./experimental_data
+unzip 'experimental_data/bugs*zip' -d ./experimental_data
 ```
 
 After they are unzipped (needs 10-20 minutes), there will be a `data_folder`, `b1`, `corr-data`, and `efficient-test-data` directories in `./experimental_data`. The *./experimental_data/data_folder* contains the results of the experiments of RQ1-3 and RQ6, the *./experimental_data/corr-data* contains the results of the experiments of RQ4, the *./experimental_data/efficient-test-data* contains the results of the experiments of RQ5, and the *./experimental_data/b1* contains the results of the experiments of RQ7, respectively. Each sub-folder (e.g., [*./experimental_data/data_folder/task-49224*](./experimental_data/data_folder/task-49224)) is the result of a single experiment. A single experiment means that run a specific strategy (e.g., smart selection and other baselines) on a specific Java class. We leverage it as an example to illustrate the result of a single experiment. The *results/sc-suite-sc-release1/o4_hadoop/org_apache_hadoop_thirdparty_com_google_common_collect_Cut/reports* stores the coverage statistical data. *sc-suite-sc-release1* represents the strategy (sc, i.e., smart selection), the algorithm (suite, i.e., Whole Suite Generation), and the jar release version (sc-release1). It includes:
