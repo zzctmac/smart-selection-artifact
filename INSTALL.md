@@ -4,7 +4,7 @@
 To use the following artifact, you need to prepare a Unix-like (e.g., Ubuntu and Mac OS) computer with [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). A fast way to install these two applications is to install [docker-desktop](https://www.docker.com/products/docker-desktop/), since `docker-desktop` contains both of them.
 
 Note that 
-1. Our Python script to analyze the experimental results require many computation costs. If it is feasible, please increase the cpu and memory limit to at least 6 core and 16 GB (more is better) in the Resources Tab of `docker-desktop` Preferences. Also, it requires 8+ GB storage space to store the original experimental data.
+1. Our Python script to analyze the experimental results require many computation costs. If it is feasible, please increase the cpu and memory limit to at least 6 core and 16 GB (more is better) in the Resources Tab of `docker-desktop` Preferences. Also, it requires 20+ GB storage space to store the original experimental data.
 2. If you meet errors like `Got permission denied while trying to connect to the Docker daemon...` when running `docker` command, you need to run the command with `sudo`.
 3. All the following commands (except for those commands run in the Docker images) need to be run in the base directory of the artifact (i.e., the directory contains this `INSTALL.md`).
 
