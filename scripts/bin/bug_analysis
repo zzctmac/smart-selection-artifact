@@ -214,3 +214,5 @@ for alg in ['suite', 'mosa', 'dynamosa']:
     fig, ax = venn.venn5(labels, names=venn_names, fontsize=25, figsize=(11, 11), weight='bold', legend=False)
     plt.savefig(os.path.join(result_dir, ("venn-%s" % alg) + ".pdf"), bbox_inches='tight')
     plt.close()
+
+logger.info("ana rq_8 success")
